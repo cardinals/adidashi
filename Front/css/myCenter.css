@@ -1,0 +1,239 @@
+/*
+ 此css样式文件用于控制个人中心界面，
+ 为简化代码，全部采用查找子类语法，例如：
+ #contactUs>div:nth-child(2)>div:first-child>div
+ 表示查找id为contactUs下的第二个div下的第一个div
+ 
+ * */
+* {
+	font-family: "微软雅黑";
+}
+
+.mui-content {
+	background: #FFFFFF;
+	height: auto;
+}
+
+.mui-bar a {
+	color: #E73828;
+}
+
+.mui-bar h1 {
+	color: #E73828;
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+.userImage {
+	background: #FFFFFF;
+}
+
+.userImage img {
+	border-radius: 50%;
+	width: 75px;
+	height: 75px;
+	margin-top: 2%;
+}
+
+.nick {
+	margin: 0px;
+	padding: 0px;
+	background: #FFFFFF;
+}
+
+.renzheng {
+	margin: 0px;
+	padding: 0px;
+	height: 20px;
+	width: 13%;
+	background: #FFB927;
+	color: #FFFFFF;
+}
+
+.renzheng>i:first-child {
+	margin: 0px;
+	padding: 0px;
+	font-size: 0.678rem;
+}
+
+.renzheng>i:last-child {
+	margin: 0px;
+	padding: 0px;
+	font-size: 0.567rem;
+	font-style: normal;
+}
+
+#nrz {
+
+	border: 1px solid red;
+	background-color: white;
+	color: #FF0000;
+	box-shadow: none;
+	border-radius: 1px;
+	
+}
+
+.nick div:last-child {
+	margin: 0px;
+	padding: 0px;
+	background: #E83928;
+	width: 25%;
+	color: #FFFFFF;
+	border-radius: 30px;
+	height: 20px;
+	border: none;
+	box-shadow: 0px 5px 5px #E83828;
+	margin-bottom: 3%;
+	text-align: center;
+	margin-top: 2%;
+}
+.nick div:last-child>i{
+	position: relative;
+	top: 5%;
+	float: left;
+	left: 5%;
+}
+.nick div:last-child>span{
+	font-size: 0.789rem;
+	position: absolute;
+	left: 45%;
+}
+.nick div>span {
+	margin: 0px;
+	padding: 0px;
+	font-size: 0.899rem;
+}
+
+.nick div>i {
+	font-size: 0.999rem;
+	margin-top: 4%;
+}
+
+.money {
+	background: #FFFFFF;
+}
+
+.money h3 {
+	font-weight: 100;
+	margin-left: 5%;
+	font-size: 0.987rem;
+	height: 20px;
+}
+
+.money h3>i {
+	font-size: 1.234rem;
+	margin-right: 4%;
+	margin-bottom: 1%;
+	color: #E83928;
+}
+
+.money span {
+	margin-right: 5%;
+}
+
+.moneyDetail {
+	margin: 0px;
+	padding: 0px;
+	width: 30%;
+	float: left;
+	height: 45px;
+	background: #FFFFFF;
+	border-right: 1px solid #DDDDDD;
+	border-bottom: 5%;
+}
+
+.moneyDetail:last-child {
+	border: none;
+}
+
+.moneyDetail span:first-child {
+	font-size: 1.234rem;
+}
+
+.moneyDetail span:last-child {
+	font-size: 0.912rem;
+	color: #929292;
+}
+
+.moneys {
+	margin-top: 2%;
+	height: 45px;
+	background: #FFFFFF;
+}
+
+.mui-btn-danger {
+	margin-top: 1%;
+	width: 60%;
+	height: 40px;
+	font-size: 0.999rem;
+	background: #E83828;
+	box-shadow: 0px 5px 30px #E83828;
+}
+
+#contactUs>div:nth-child(1)>div>h3 {
+	font-size: 1.123rem;
+	font-family: "仿宋";
+	font-weight: 700;
+	margin-top: 3%;
+}
+
+#contactUs>div:nth-child(1)>div>h3:before,
+#contactUs>div:nth-child(1)>div>h3:after {
+	content: "";
+	width: 10%;
+	height: 3px;
+	position: absolute;
+	top: 7%;
+}
+
+#contactUs>div:nth-child(1)>div>h3:before {
+	background: -webkit-linear-gradient(right, #E73828, #eee);
+	background: linear-gradient(to left, #E73828, #eee);
+	left: 30%;
+}
+
+#contactUs>div:nth-child(1)>div>h3:after {
+	background: -webkit-linear-gradient(left, #E73828, #eee);
+	background: linear-gradient(to right, #E73828, #eee);
+	right: 25%;
+}
+
+#contactUs>div:nth-child(2)>div:first-child>div {
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	margin-top: 5%;
+	margin-left: 12%;
+}
+
+#contactUs>div:nth-child(2)>div:first-child>div:nth-child(1)>i {
+	color: #50B674;
+}
+
+#contactUs>div:nth-child(2)>div:first-child>div:nth-child(2)>i {
+	color: #2DA5DB;
+}
+
+#contactUs>div:nth-child(2)>div:first-child>div:nth-child(3)>i {
+	color: #DE462F;
+}
+
+#contactUs>div:nth-child(2)>div:first-child>div>i {
+	font-size: 3.789rem;
+}
+
+#contactUs>div:nth-child(2)>div:first-child>div>span {
+	font-size: 0.612rem;
+}
+
+#contactUs>div:nth-child(3)>div>button {
+	margin: 0px;
+	padding: 0px;
+	width: 98%;
+	height: auto;
+	background: #E83928;
+	font-size: 1.888rem;
+	margin-bottom: 3%;
+	color: #FFFFFF;
+	margin-top: 5%;
+}

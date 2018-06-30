@@ -1,0 +1,272 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<script src="js/mui.min.js"></script>
+		<style type="text/css">
+			span{
+				font-size: 0.678rem;
+				color: #6D6D72;
+			}
+			.dd{
+				font-weight: bold;
+				color: #000000;
+			}
+			.mui-row{
+				height: auto;
+			}
+			.mui-row>div{
+				height: auto;
+				overflow: scroll;
+				padding: 3%;
+				margin-top: 1%;
+				margin-right: 0px;
+			}
+			h4{
+				font-size: 0.856rem;
+				text-align: center;
+				border-bottom: 1px dashed #E7CE96;
+			}
+			.db{
+				border: 1px solid #E7CE96;
+				margin-top: 2%;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">设备信息</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-row">
+				<div class="mui-col-sm-12 mui-col-xs-12">
+					<div class="db">
+					<h4>基本信息</h4>
+					<span>设备名称:</span>&nbsp;<span id="dname" class="dd"></span><br />
+					<span>设备型号:</span>&nbsp;<span id="dmodel" class="dd"></span><br />
+					<span>设备产商:</span>&nbsp;<span id="dvendor" class="dd"></span><br />
+					<span>设备imei:</span>&nbsp;<span id="dimei" class="dd"></span><br />
+					<span>设备imsi:</span>&nbsp;<span id="dimsi" class="dd"></span><br />
+					<span>设备uuid:</span>&nbsp;<span id="duuid" class="dd"></span><br />
+					</div>
+					<div class="db">
+					<h4>系统信息</h4>
+					<span>系统语言:</span>&nbsp;<span id="dsystemlan" class="dd"></span><br />
+					<span>系统供应商:</span>&nbsp;<span id="dsystem" class="dd"></span><br />
+					<span>系统名称:</span>&nbsp;<span id="dsystemname" class="dd"></span><br />
+					<span>系统版本:</span>&nbsp;<span id="dsystemv" class="dd"></span><br />
+					<span>分辨率:</span>&nbsp;<span id="dscale" class="dd"></span><br />
+					<span>设备DPI:</span>&nbsp;<span id="ddpi" class="dd"></span><br />
+					</div>
+					<div class="db">
+					<h4>网络信息</h4>
+					<span>网络类型:</span>&nbsp;<span id="dnetwork" class="dd"></span><br />
+					<span>网络名称:</span>&nbsp;<span id="dnetworkname" class="dd"></span><br />
+					<span>设备MAC:</span>&nbsp;<span id="dmac" class="dd"></span><br />
+					</div>
+					<div class="db">
+					<h4>电池信息</h4>
+					<span>电池电量:</span>&nbsp;<span id="dbatterylevel" class="dd"></span><br />
+					<span>电池电压:</span>&nbsp;<span id="dvoltage" class="dd"></span><br />
+					<span>电池温度:</span>&nbsp;<span id="dtemperature" class="dd"></span><br />
+					</div>
+					<div class="db">
+					<h4>CPU信息</h4>
+					<span>CPU型号:</span>&nbsp;<span id="dcpuvendor" class="dd"></span><br />
+					<span>CPU核数:</span>&nbsp;<span id="dcpuaccount" class="dd"></span><br />
+					</div>
+					<div class="db">
+					<h4>内存信息</h4>
+					<span>手机内存:</span>&nbsp;<span id="dphonememory" class="dd"></span><br />
+					<span>总内存:</span>&nbsp;<span id="dphonesummemory" class="dd"></span><br />
+					<span>运行内存:</span>&nbsp;<span id="dphonesummemorys" class="dd"></span><br />
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+<script type="text/javascript">
+	mui.init();
+	mui.plusReady(function(){
+		getBase();
+		getNetwork();
+        getMemorySize();
+        getTotalInternalMemorySize();
+        getTotalRamSize();
+        getCpuInfo();
+        getMac();
+        getBattery();
+	});
+	function getBase(){
+		document.getElementById("dname").textContent = plus.device.vendor;
+		document.getElementById("dimei").textContent = plus.device.imei;
+		document.getElementById("dimsi").textContent = plus.device.imsi;
+		document.getElementById("duuid").textContent = plus.device.uuid;
+		document.getElementById("dmodel").textContent = plus.device.model;
+		document.getElementById("dvendor").textContent = plus.device.vendor;
+		document.getElementById("dsystem").textContent = plus.os.vendor;
+		document.getElementById("dsystemv").textContent = plus.os.version;
+		document.getElementById("dscale").textContent = plus.screen.resolutionWidth*plus.screen.scale + " x " + plus.screen.resolutionHeight*plus.screen.scale;
+		document.getElementById("ddpi").textContent =  plus.screen.dpiX+"dpi";
+		document.getElementById("dsystemlan").textContent = plus.os.language;
+		document.getElementById("dsystemname").textContent = plus.os.name;
+	}
+	function getBattery(){
+		if (plus.os.name == "Android") {
+			var main = plus.android.runtimeMainActivity(); 
+			var Intent = plus.android.importClass('android.content.Intent'); 
+			var recevier = plus.android.implements('io.dcloud.feature.internal.reflect.BroadcastReceiver', { 
+			          onReceive: function(context, intent) { 
+			        var action = intent.getAction(); 
+			        if (action == Intent.ACTION_BATTERY_CHANGED) { 
+			            var level   = intent.getIntExtra("level", 0); //电量 
+			            var voltage = intent.getIntExtra("voltage", 0); //电池电压 
+			            var temperature = intent.getIntExtra("temperature",0); //电池温度 
+			                document.getElementById("dbatterylevel").textContent = level;
+			                document.getElementById("dvoltage").textContent = voltage+"v";
+			                document.getElementById("dtemperature").textContent = temperature/10+"°C";
+			        } 
+			     } 
+			 }); 
+			var IntentFilter = plus.android.importClass('android.content.IntentFilter'); 
+			var filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED); 
+			main.registerReceiver(recevier, filter); 
+		} else{
+	        var UIDevice = plus.ios.import("UIDevice"); 
+	        var dev = UIDevice.currentDevice(); 
+	        if (!dev.isBatteryMonitoringEnabled()) { 
+	            dev.setBatteryMonitoringEnabled(true); 
+	        } 
+	        var level = dev.batteryLevel(); 
+	        var voltage = dev.batteryVoltage();
+	        var temperature = dev.batteryTemperature();
+	        document.getElementById("dbatterylevel").textContent = level;
+			document.getElementById("dvoltage").textContent = voltage+"v";
+		    document.getElementById("dtemperature").textContent = temperature/10+"°C";
+		}
+	}
+	/*获取手机网络*/
+	function getNetwork(){
+		var types = {};
+			types[plus.networkinfo.CONNECTION_UNKNOW] = "未知网络";  
+			types[plus.networkinfo.CONNECTION_NONE] = "无网络";  
+			types[plus.networkinfo.CONNECTION_ETHERNET] = "有线网络";  
+			types[plus.networkinfo.CONNECTION_WIFI] = "WiFi";  
+			types[plus.networkinfo.CONNECTION_CELL2G] = "2G";  
+			types[plus.networkinfo.CONNECTION_CELL3G] = "3G";  
+			types[plus.networkinfo.CONNECTION_CELL4G] = "4G";  
+        if(mui.os.android) {
+            var wifiManager, wifiInfo;
+            var Context = plus.android.importClass("android.content.Context");
+            var WifiManager = plus.android.importClass("android.net.wifi.WifiManager");
+            var WifiInfo = plus.android.importClass("android.net.wifi.WifiInfo");
+            wifiManager = plus.android.runtimeMainActivity().getSystemService(Context.WIFI_SERVICE);
+            wifiInfo = wifiManager.getConnectionInfo();
+            document.getElementById("dnetwork").textContent = types[plus.networkinfo.getCurrentType()];
+            document.getElementById("dnetworkname").textContent = wifiInfo;
+            var ssid = wifiInfo.getSSID() || '';
+            if(ssid.length == 0) {
+                return null;
+            }
+            //一些手机上获取SSID是有值的，但是实际IP为空，真实为未连接
+            var i = parseInt(wifiInfo.getIpAddress());
+            var ipStr = (i & 0xFF) + "." +
+                ((i >> 8) & 0xFF) + "." +
+                ((i >> 16) & 0xFF) + "." +
+                (i >> 24 & 0xFF);
+            if(ipStr == "0.0.0.0") {
+                return null;
+            }
+
+            if(ssid != "<unknown ssid>" && ssid.toUpperCase() != "0X") {
+                return ssid.replace(/\"/g, "");
+            }
+            return null;
+        }
+        return null;
+	}
+	/*获取手机内存信息*/
+	function getMemorySize() {
+	    var memoryInfo = '';
+	    if (plus.os.name == "Android") {
+	        var Context = plus.android.importClass("android.content.Context");
+	        var ActivityManager = plus.android.importClass("android.app.ActivityManager");
+	    var mi = new ActivityManager.MemoryInfo();
+	        var activityService = plus.android.runtimeMainActivity().getSystemService(Context.ACTIVITY_SERVICE);
+	        activityService.getMemoryInfo(mi);
+	        memoryInfo = mi.plusGetAttribute("availMem");
+	    }
+	    document.getElementById("dphonememory").textContent = memoryInfo;
+	}
+	/*获取手机内部总的存储空间*/
+	function getTotalInternalMemorySize() {
+	    var internalMemSize = 0;
+	    if (plus.os.name == "Android") {
+	        var environment = plus.android.importClass("android.os.Environment");
+	        var statFs = plus.android.importClass("android.os.StatFs");
+	        var files = plus.android.importClass("java.io.File");
+	        var Files = environment.getDataDirectory();
+	        var StatFs = new statFs(Files.getPath());
+	        var blockSize = parseFloat(StatFs.getBlockSize());
+	        var blockCount = parseFloat(StatFs.getBlockCount());
+	        internalMemSize = blockSize * blockCount;
+	    }
+		document.getElementById("dphonesummemory").textContent = internalMemSize;
+	}
+	/*获取总内存*/
+	function getTotalRamSize() {
+	    var memInfo = '/proc/meminfo';
+	    var temp = '',
+	        ramSize = '',
+	        arrays, initMemory;
+	    var fileReader = plus.android.importClass("java.io.FileReader");
+	    var bufferedReader = plus.android.importClass("java.io.BufferedReader");
+	    var FileReader = new fileReader(memInfo);
+	    var BufferedReader = new bufferedReader(FileReader, 8192);
+	    while ((temp = BufferedReader.readLine()) != null) {
+	        if (-1 != temp.indexOf('MemTotal:')) {
+	            var value = temp.replace(/[^0-9]/ig, "");
+	            ramSize = Math.floor(parseInt(value) / (1024));
+	        }
+	    }
+	    document.getElementById("dphonesummemorys").textContent =  ramSize/1000+" GB";
+	}
+	/*获取手机CPU信息*/
+	function getCpuInfo() {
+	    var cpuInfo = '/proc/cpuinfo';
+	    var temp = '',
+	        cpuHardware;
+	    var fileReader = plus.android.importClass("java.io.FileReader");
+	    var bufferedReader = plus.android.importClass("java.io.BufferedReader");
+	    var FileReader = new fileReader(cpuInfo);
+	    var BufferedReader = new bufferedReader(FileReader, 8192);
+	    while ((temp = BufferedReader.readLine()) != null) {
+	        if (-1 != temp.indexOf('Hardware')) {
+	            cpuHardware = temp.substr(parseInt(temp.indexOf(":")) + 1);
+	        }
+	    }
+	    var Runtime = plus.android.importClass("java.lang.Runtime"); 
+    	var cpuCount = Runtime.getRuntime().availableProcessors(); 
+    	document.getElementById("dcpuaccount").textContent = cpuCount;
+	    document.getElementById("dcpuvendor").textContent = cpuHardware;
+	}
+	/*得到手机MAC地址*/
+	function getMac() {
+	    var mac = "xxx-xxx-xxx-xxx";
+	    if (plus.os.name == "Android") {
+	        //WifiManager
+	        var Context = plus.android.importClass("android.content.Context");
+	        var WifiManager = plus.android.importClass("android.net.wifi.WifiManager");
+	        var wifiManager = plus.android.runtimeMainActivity().getSystemService(Context.WIFI_SERVICE);
+	        var WifiInfo = plus.android.importClass("android.net.wifi.WifiInfo");
+	        var wifiInfo = wifiManager.getConnectionInfo();
+	        mac = wifiInfo.getMacAddress();
+	    }
+	    document.getElementById("dmac").textContent =  mac;
+	}
+</script>
+</html>

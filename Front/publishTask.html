@@ -1,0 +1,1021 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/mui.picker.min.css" />
+		<link rel="stylesheet" href="css/publishTask.css" />
+		<script src="js/mui.min.js"></script>
+
+		<script type="text/javascript" src="js/mui.picker.min.js"></script>
+		<script type="text/javascript" src="js/wang_payment.min.js"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=nSxiPohfziUaCuONe4ViUP2N"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-left"></a>
+			<h1 class="mui-title">发布任务</h1>
+		</header <div class="mui-content">
+		<div class="mui-col-sm-12 mui-col-xs-12 tab">
+			<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				<a class="mui-control-item mui-active" href="#taskOverView" id="taskDes">任务概况</a>
+				<a class="mui-control-item" href="#taskDetails" id="taskDet">任务详情</a>
+			</div>
+		</div>
+		<!--<div id="allmap" style="display: none;"></div>-->
+		<div class="mui-col-sm-12 mui-col-xs-12">
+			<div class="mui-slider-group">
+				<div id="taskOverView" style="width: 95%; margin-left: 2.5%;" class="mui-slider-item mui-control-content mui-active mui-col-sm-12 mui-col-xs-12">
+					<form class="mui-input-group">
+						<div class="mui-input-row" style="width: 100%; height: auto;">
+							<label>任务类型</label><br />
+						</div>
+						<div class="mui-input-row mui-select">
+							<select id="taskType">
+								<option value="1">请选择任务类型</option>
+
+							</select>
+						</div>
+						<div class="mui-input-row">
+							<label>任务金额</label><br />
+							<span style="display: none;" id="idstate"></span>
+						</div>
+						<div class="mui-input-row" style="width: 90%; margin-left: 5%;">
+							<input type="number" class="mui-input-clear" id="taskMoney" placeholder="请输入悬赏金额" style="border: 2px solid #EEEEEE; font-size: 0.789rem;" />
+						</div>
+						<div class="mui-input-row">
+							<label>任务时限</label><br />
+						</div>
+						<div class="mui-input-row" style="width: 90%; margin-left: 5%;">
+						<!--<input type="text" data-options='{}' id="taskStartTime" class="mui-input-clear" placeholder="任务开始时间" style="border: 2px solid #EEEEEE; width: 43%; font-size: 0.789rem;" /><span style="color: #C8C7CC;">——</span>-->
+							<input type="text" data-options='{}' id="taskEndTime" class="mui-input-clear" placeholder="任务截止时间" style="border: 2px solid #EEEEEE; width: 100%; font-size: 0.789rem;" />
+						</div>
+						<div class="mui-input-row">
+							<label>发布有效期</label><br />
+						</div>
+						<div class="mui-input-row" style="width: 90%; margin-left: 5%;">
+							<input type="number" id="validPeriod" class="mui-input-clear" placeholder="任务发布后失效时间-单位：分钟" style="border: 2px solid #EEEEEE; font-size: 0.789rem;" />
+						</div>
+					</form>
+				</div>
+				<div id="taskDetails" style="width: 95%; margin-left: 2.5%; height: auto;" class="mui-slider-item mui-control-content mui-col-sm-12 mui-col-xs-12">
+					<!--任务详情-->
+					<form class="mui-input-group">
+						<div class="mui-input-row">
+							<label>任务标题</label><br />
+						</div>
+						<div class="mui-input-row" style="width: 90%; margin-left: 5%;">
+							<input type="text" class="mui-input-clear" id="taskTitle" placeholder="请输入任务标题" style="border: 2px solid #EEEEEE; font-size: 0.789rem;" />
+						</div>
+						<div class="mui-input-row">
+							<label>任务领取点</label><br />
+						</div>
+						<div class="mui-input-row" style="width: 90%; margin-left: 5%; border: 2px solid #EEEEEE;">
+							<input type="text" class="mui-input-clear" id="getTaskPlace" placeholder="输入地点模糊定位" style="border: none; font-size: 0.789rem; width: 90%;" />
+							<i class="mui-icon iconfont icon-position" id="getLocation" style="font-size: 1.345rem; color: #E73828;"></i>
+						</div>
+						<div class="mui-input-row">
+							<label>任务交接点</label><br />
+						</div>
+						<div class="mui-input-row" style="width: 90%; margin-left: 5%; border: 2px solid #EEEEEE;">
+							<input type="text" id="connetTaskPlace" class="mui-input-clear" placeholder="输入地点模糊定位" style="border: none; font-size: 0.789rem; width: 90%;" />
+							<i class="mui-icon iconfont icon-position" id="getConnetLocation" style="font-size: 1.345rem; color: #E73828;"></i>
+						</div>
+						<div class="mui-input-row">
+							<label>任务详情</label><br />
+						</div>
+						<div class="mui-input-row" style="height: auto;">
+							<textarea rows="6" id="taskDetail" placeholder="请输入任务详情" style="border: 2px solid #EEEEEE; width: 90%; margin-left: 5%; font-size: 0.789rem;"></textarea>
+						</div>
+					</form>
+					<div class="mui-col-sm-12 mui-col-xs-12">
+						<div class="mui-content-padded" align="center">
+							<button type="button" class="mui-btn mui-btn-danger pt1" id="newTask" style="border:none;">发布任务</button>
+							<button type="button" style="display: none;" class="mui-btn mui-btn-danger pt1" id="updateTask">更新任务</button>
+						</div>
+					</div>
+				</div>
+				<!--任务领取地图选择-->
+				<div id="getPop" class="mui-popover mui-popover-action mui-popover-bottom" style="height: 300px; background: #FFFFFF; width: 100%; margin: 0px; padding: 0px;">
+					<div style="float: left; width: 100%; border-bottom: 1px solid #EFEFF4;">
+						<i class="mui-icon mui-icon-closeempty" id="closeGetPop" style="float: left;"></i>
+						<input type="text" id="searchGetPlace" placeholder="输入领取地点" class="mui-input-clear" style="float: left; width: 70%; font-size: 0.678rem; height: 35px; margin: 5%; margin-top: 1%; margin-bottom: 1%; margin-left: 1%;" />
+						<button type="button" id="btnSearchGet" class="mui-btn mui-btn-green mui-btn-mini" style="float: left; font-size: 0.678rem; height: auto; width: auto; margin: 0px; margin-top: 2%;">搜索</button>
+					</div>
+					<div id="getMap" style="height: 300px; width: 100%;">
+					</div>
+				</div>
+
+				<!--任务交接地图选择-->
+				<div id="connetPop" class="mui-popover mui-popover-action mui-popover-bottom" style="height: 300px; background: #FFFFFF; width: 100%; margin: 0px; padding: 0px;">
+					<div>
+						<i class="mui-icon mui-icon-closeempty" id="closeMap" style="float: left;"></i>
+						<input type="text" id="searchConnetPlace" placeholder="输入交接地点" class="mui-input-clear" style="float: left; width: 70%; font-size: 0.678rem; height: 35px; margin: 5%; margin-top: 1%; margin-bottom: 1%; margin-left: 1%;" />
+						<button type="button" id="btnSearchConnet" class="mui-btn mui-btn-green mui-btn-mini" style="float: left; font-size: 0.678rem; height: auto; width: auto; margin: 0px; margin-top: 2%;">搜索</button>
+					</div>
+					<div id="connetmap" style="height: 300px; width: 100%;">
+					</div>
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12">
+					<div class="mui-content-padded" align="center">
+						<button type="button" style="display: none;border: none;" class="mui-btn mui-btn-danger pt1" id="next" >下一步</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<script type="text/javascript">
+			/*	
+																																																																										//获取任务类型数据
+																																																																											 axios.post('http://47.96.156.75/public/index/Tasktypemanage/selectTaskType')
+																																																																											  .then(function (response) {
+																																																																											     console.log(response.data.data);
+																																																																											     var as = [];
+																																																																											     var taskType =   document.getElementById("taskType");  //获取select节点
+																																																																											      response.data.data.forEach(function(data){
+																																																																											      	console.log(data);
+																																																																											      	as.push(data.tasktype);
+																																																																											      }) ;
+																																																																											     
+																																																																											     var ops = [];
+																																																																											     as.forEach(function(data){
+																																																																											       // console.log(data.tasktype);
+																																																																								 			     	 ops[data.id] =  document.createElement('option');
+																																																																								 			     	 ops[data.id].innerHTML = data;
+																																																																								 			     	 console.log(ops[data.id].innerHTML);
+																																																																								 			     	 taskType.appendChild(ops[data.id]);
+																																																																											     });
+																																																																											  })
+																																																																											  .catch(function (error) {
+																																																																											  });  */
+
+			mui.init({
+				beforeback: function() {　　　　 //获得父页面的webview
+					var publish = plus.webview.currentWebview().opener();　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+					mui.fire(publish, 'refresh');
+					//返回true,继续页面关闭逻辑
+					return true;
+				}
+			});
+			userDate = localStorage.getItem('user');
+			(function($) {
+				$.init();
+				//开始时间
+			/*	document.getElementById("taskStartTime").addEventListener('tap', function() {
+					var _self = this;
+					if(_self.picker) {
+						_self.picker.show(function(rs) {
+							document.getElementById("taskStartTime").value = rs.text;
+							_self.picker.dispose();
+							_self.picker = null;
+						});
+					} else {
+						var optionsJson = this.getAttribute('data-options') || '{}';
+						var options = JSON.parse(optionsJson);
+						var id = this.getAttribute('id');
+						_self.picker = new $.DtPicker(options);
+						_self.picker.show(function(rs) {
+							document.getElementById("taskStartTime").value = rs.text;
+							_self.picker.dispose();
+							_self.picker = null;
+						});
+					}
+
+				}, false);*/
+
+				//结束
+				document.getElementById("taskEndTime").addEventListener('tap', function() {
+					var _self = this;
+					if(_self.picker) {
+						_self.picker.show(function(rs) {
+							document.getElementById("taskEndTime").value = rs.text;
+							_self.picker.dispose();
+							_self.picker = null;
+						});
+					} else {
+						var optionsJson = this.getAttribute('data-options') || '{}';
+						var options = JSON.parse(optionsJson);
+						var id = this.getAttribute('id');
+						_self.picker = new $.DtPicker(options);
+						_self.picker.show(function(rs) {
+							document.getElementById("taskEndTime").value = rs.text;
+							_self.picker.dispose();
+							_self.picker = null;
+						});
+					}
+
+				}, false);
+				//监控有效时间输入
+				document.getElementById("validPeriod").addEventListener("blur", function() {
+					var val = document.getElementById("validPeriod").value;
+					if(val == '') {
+						document.getElementById("validPeriod").value = '';
+					} else {
+						document.getElementById("validPeriod").setAttribute("type", "text");
+						document.getElementById("validPeriod").value = this.value + '分钟';
+					}
+				});
+				//获得焦点，清空
+				document.getElementById("validPeriod").addEventListener("focus", function() {
+					document.getElementById("validPeriod").value = '';
+				});
+			})(mui);
+			mui.plusReady(function() {
+				window.user = plus.webview.currentWebview();
+				window.tasker = user.user;
+				var self = plus.webview.currentWebview();
+				var upId = self.taskId;
+				//获取任务类型数据
+				mui.ajax({
+					url: 'http://47.96.156.75/public/index/Tasktypemanage/selectTaskType',
+					type: 'post',
+					dataType: 'json',
+					header: {
+						'Conetnt-Type': 'application/json'
+					},
+					timeout: 10000,
+					success: function(data) {
+						//alert(data);
+						d = JSON.parse(data);
+						var as = []; //这里放三个对象里面的tasktype
+						var taskType = document.getElementById("taskType"); //获取select节点
+						d.data.forEach(function(data) {
+							//alert(data.taskType);
+							as.push(data.tasktype);
+						});
+
+						var ops = [];
+						as.forEach(function(data) {
+							// console.log(data.tasktype);
+							ops[data.id] = document.createElement('option');
+							ops[data.id].innerHTML = data;
+							//	 alert(ops[data.id].innerHTML);
+							taskType.appendChild(ops[data.id]);
+						});
+					},
+					error: function(xhr, type, errorThrown) {
+						//alert(errorThrown);
+					}
+				});
+
+				//查询余额
+				/*mui.ajax({
+					url:'http://47.96.156.75/public/index/account/queryinout',
+					type:'post',
+					data:{phone:tasker},
+					dataType:'json',
+					async:false,
+					header:{'Conetnt-Type':'application/json'},
+					success:function(data){
+						json = JSON.parse(data);
+						account = json[0].allmoney;
+					},
+					error:function(xhr,type,errorThrown){
+						mui.toast('异常:'+type);
+					}
+				});*/
+				//下一步
+				document.getElementById("next").addEventListener("tap", function() {
+					var td = document.getElementById("taskDes");
+					td.classList.remove("mui-active");
+					if(td.classList.contains("mui-active")) {
+						document.getElementById("next").style.display = "block";
+						document.getElementById("newTask").style.display = "none";
+						document.getElementById("taskOverView").style.display = "block";
+						document.getElementById("taskDetails").style.display = "none";
+					} else {
+						document.getElementById("taskDet").classList.add("mui-active");
+						document.getElementById("next").style.display = "none";
+						document.getElementById("taskOverView").style.display = "none";
+						document.getElementById("taskDetails").style.display = "block";
+					}
+
+				});
+				document.getElementById("taskDes").addEventListener("tap", function() {
+					document.getElementById("taskOverView").style.display = "block";
+					document.getElementById("taskDetails").style.display = "none";
+					document.getElementById("next").style.display = "block";
+				});
+				document.getElementById("taskDet").addEventListener("tap", function() {
+					document.getElementById("taskOverView").style.display = "none";
+					document.getElementById("taskDetails").style.display = "block";
+					document.getElementById("next").style.display = "none";
+				});
+				if(upId == null && upId == undefined) {
+					document.getElementById("next").style.display = "block";
+				} else {
+					plus.nativeUI.showWaiting('加载数据中...');
+					mui.ajax({
+						url: 'http://47.96.156.75/public/index/publish/getTask',
+						type: 'post',
+						data: {
+							id: upId
+						},
+						dataType: 'json',
+						header: {
+							'Conetnt-Type': 'application/json'
+						},
+						async: false,
+						success: function(data) {
+							var json = JSON.parse(data);
+							document.getElementById("taskMoney").value = json[0].task_money;
+							document.getElementById("validPeriod").value = json[0].task_voild;
+							document.getElementById("taskTitle").value = json[0].task_title;
+							document.getElementById("getTaskPlace").value = json[0].task_get_location;
+							document.getElementById("connetTaskPlace").value = json[0].task_connet_location;
+							document.getElementById("taskDetail").value = json[0].task_details;
+							plus.nativeUI.closeWaiting();
+						},
+						error: function(xhr, type, errorThrown) {
+							alert(errorThrown);
+						}
+					});
+					document.getElementById("newTask").style.display = "none";
+					document.getElementById("updateTask").style.display = "block";
+					document.getElementById("next").style.display = "block";
+				}
+				// 百度地图API功能
+				// 创建任务领取点map实例
+				window.map1 = new BMap.Map("getMap", {
+					enableHighResolution: true //是否开启高清   
+				});
+				var point = new BMap.Point(116.404, 39.915);
+				map1.centerAndZoom(point, 15); // 初始化地图,设置中心点坐标和地图级别
+				map1.setCurrentCity("北京"); // 设置地图显示的城市 此项是必须设置的
+				map1.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+				map1.enableInertialDragging();
+				map1.enableContinuousZoom();
+				var get = new BMap.Autocomplete( //建立一个自动完成的对象
+					{
+						"input": "getTaskPlace",
+						"location": map1
+					});
+				var latitude = ""; //纬度
+				var longitude = ""; //经度
+				// 创建任务交接点Map实例
+				window.map = new BMap.Map("connetmap", {
+					enableHighResolution: true //是否开启高清   
+				});
+				var point = new BMap.Point(116.404, 39.915);
+				map.centerAndZoom(point, 16); // 初始化地图,设置中心点坐标和地图级别
+				map.setCurrentCity("北京"); // 设置地图显示的城市 此项是必须设置的
+				map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+				map.enableInertialDragging();
+				map.enableContinuousZoom();
+				var connet = new BMap.Autocomplete( //建立一个自动完成的对象
+					{
+						"input": "connetTaskPlace",
+						"location": map
+					});
+				var connetLat = "";
+				var connetLng = "";
+				//创建搜索
+				var localSearch = new BMap.LocalSearch(map1, {
+					renderOptions: {
+						pageCapacity: 8,
+						autoViewport: true,
+						selectFirstResult: false
+					}
+				});
+				localSearch.enableAutoViewport();
+				//选择交接地点
+				document.getElementById("getConnetLocation").addEventListener("tap", function() {
+					mui.toast('正在获取位置，请稍后...', {
+						duration: 'long',
+						type: 'div'
+					});
+					mui("#connetPop").popover("show", document.getElementById("connetPop"));
+					//定位  
+					var geolocation = new BMap.Geolocation();
+					geolocation.getCurrentPosition(function(result) {
+						if(this.getStatus() == BMAP_STATUS_SUCCESS) {
+							//var myIcon = new BMap.Icon("icon/l.png", new BMap.Size(32,48));
+							var marker = new BMap.Marker(result.point); // 创建标注
+							marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+							//marker.disableDragging() // 可拖拽						
+							map.addOverlay(marker); // 将标注添加到地图中
+							map.panTo(result.point);
+							connetLat = result.point.lat; //获取到的纬度  
+							connetLng = result.point.lng; //获取到的经度  
+							var geoc = new BMap.Geocoder();　
+							var pt = new BMap.Point(connetLng, connetLat); //实例化这两个点	    
+							var dizhi;
+							//marker.enableDragging();  //设置可拖拽
+							marker.addEventListener("click", function(e) { //拖动事件 
+								geoc.getLocation(pt, function(rs) {
+									var addComp = rs.addressComponents;
+									dizhi = addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+									document.getElementById('connetTaskPlace').value = dizhi; //更新地址数据
+									var content = "当前位置" + dizhi;
+									var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + content + "</p>");
+									marker.openInfoWindow(infoWindow, map.getCenter()); //将经纬度信息显示在提示框内
+								});
+							});
+						} else {
+							mui.toast('定位失败' + this.getStatus());
+						}
+					}, {
+						enableHighAccuracy: true
+					});
+				});
+				//任务交接
+				connet.addEventListener("onhighlight", function(e) { //鼠标放在下拉列表上的事件  
+					var str = "";
+					var _value = e.fromitem.value;
+					var value = "";
+					if(e.fromitem.index > -1) {
+						value = _value.province + _value.city + _value.district + _value.street + _value.business;
+					}
+					str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+					value = "";
+					if(e.toitem.index > -1) {
+						_value = e.toitem.value;
+						value = _value.province + _value.city + _value.district + _value.street + _value.business;
+					}
+					str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+					//alert(e.item.point.lat);  
+					document.getElementById("connetTaskPlace").innerHTML = str;
+				});
+				var connetValue;
+				connet.addEventListener("onconfirm", function(e) { //鼠标点击下拉列表后的事件  
+					var _value = e.item.value;
+					connetValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+					document.getElementById("connetTaskPlace").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + connetValue;
+					//alert(e.point);       
+				});
+				/*****************/
+				//定义搜索位置变量
+				var dizhi2;
+				document.getElementById("btnSearchConnet").addEventListener("tap", function() {
+					var keyword = document.getElementById("searchConnetPlace").value;
+					localSearch.setSearchCompleteCallback(function(searchResult) {
+						var poi = searchResult.getPoi(0);
+						//alert(poi.point.lng+"   "+poi.point.lat);  
+						var point = new BMap.Point(poi.point.lng, poi.point.lat);
+						map.centerAndZoom(point, 16);
+						var marker = new BMap.Marker(new BMap.Point(poi.point.lng, poi.point.lat)); // 创建点
+						marker.addEventListener("click", function() {
+							var p = marker.getPosition(); //获取marker的位置
+						});
+						map.addOverlay(marker); //增加点
+						marker.enableDragging(); //设置可拖拽
+						marker.addEventListener("dragend", function(e) { //拖动事件 
+							var geoc = new BMap.Geocoder();
+							geoc.getLocation(poi.point, function(rs) {
+								var addComp = rs.addressComponents;
+								dizhi2 = addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+								document.getElementById('connetTaskPlace').value = dizhi2; //更新地址数据
+								var content = "当前位置:" + dizhi2;
+								var infoWindow = new BMap.InfoWindow("<div style='text-align:center;'><p style='font-size:14px;'>" + content + "</p><button class='mui-btn mui-btn-green' id='confirmGetPlace'>确定</button></div>");
+								marker.openInfoWindow(infoWindow, map.getCenter()); //将经纬度信息显示在提示框内
+							});
+						});
+						marker.addEventListener("click", function() {
+							document.getElementById('connetTaskPlace').value = keyword; //更新地址数据
+							mui('#connetPop').popover("hide");
+						});
+					});
+					localSearch.search(keyword);
+				});
+				/************************/
+				//定位任务领取点
+				document.getElementById("getLocation").addEventListener("tap", function() {
+					mui.toast('正在获取位置，请稍后...', {
+						duration: 'long',
+						type: 'div'
+					});
+					mui("#getPop").popover("show", document.getElementById("getPop"));
+					//定位  
+					var geolocation = new BMap.Geolocation();
+					geolocation.getCurrentPosition(function(result) {
+						if(this.getStatus() == BMAP_STATUS_SUCCESS) {
+							var marker = new BMap.Marker(result.point); // 创建标注
+							marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+							marker.disableDragging() // 可拖拽						
+							map1.addOverlay(marker); // 将标注添加到地图中
+							map1.panTo(result.point);
+							latitude = result.point.lat; //获取到的纬度  
+							longitude = result.point.lng; //获取到的经度  
+							var geoc = new BMap.Geocoder();　
+							var pt = new BMap.Point(longitude, latitude); //实例化这两个点	    
+							var dizhi;
+							//marker.enableDragging();  //设置可拖拽
+							marker.addEventListener("click", function(e) { //拖动事件 
+								geoc.getLocation(pt, function(rs) {
+									var addComp = rs.addressComponents;
+									dizhi = addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+									document.getElementById('getTaskPlace').value = dizhi; //更新地址数据
+									var content = "当前位置" + dizhi;
+									var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + content + "</p>");
+									marker.openInfoWindow(infoWindow, map1.getCenter()); //将经纬度信息显示在提示框内
+								});
+							});
+						} else {
+							mui.toast('定位失败' + this.getStatus());
+						}
+					}, {
+						enableHighAccuracy: true
+					});
+				});
+				//任务领取
+				get.addEventListener("onhighlight", function(e) { //鼠标放在下拉列表上的事件  
+					var str = "";
+					var _value = e.fromitem.value;
+					var value = "";
+					if(e.fromitem.index > -1) {
+						value = _value.province + _value.city + _value.district + _value.street + _value.business;
+					}
+					str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+					value = "";
+					if(e.toitem.index > -1) {
+						_value = e.toitem.value;
+						value = _value.province + _value.city + _value.district + _value.street + _value.business;
+					}
+					str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+					//alert(e.item.point.lat);  
+					document.getElementById("getTaskPlace").innerHTML = str;
+				});
+				var getValue;
+				get.addEventListener("onconfirm", function(e) { //鼠标点击下拉列表后的事件  
+					var _value = e.item.value;
+					getValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+					document.getElementById("getTaskPlace").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + getValue;
+					/*alert(e);*/
+				});
+
+				//定义搜索位置变量
+				var dizhi;
+				document.getElementById("btnSearchGet").addEventListener("tap", function() {
+					var keyword = document.getElementById("searchGetPlace").value;
+					localSearch.setSearchCompleteCallback(function(searchResult) {
+						var poi = searchResult.getPoi(0);
+						//alert(poi.point.lng+"   "+poi.point.lat);  
+						var point = new BMap.Point(poi.point.lng, poi.point.lat);
+						map1.centerAndZoom(point, 16);
+						var marker = new BMap.Marker(new BMap.Point(poi.point.lng, poi.point.lat)); // 创建点
+						marker.addEventListener("click", function() {
+							var p = marker.getPosition(); //获取marker的位置
+						});
+						map1.addOverlay(marker); //增加点
+						marker.enableDragging(); //设置可拖拽
+						marker.addEventListener("dragend", function(e) { //拖动事件 
+							var geoc = new BMap.Geocoder();
+							geoc.getLocation(poi.point, function(rs) {
+								var addComp = rs.addressComponents;
+								dizhi = addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+								document.getElementById('getTaskPlace').value = dizhi; //更新地址数据
+								var content = "当前位置:" + dizhi;
+								var infoWindow = new BMap.InfoWindow("<div style='text-align:center;'><p style='font-size:14px;'>" + content + "</p><button class='mui-btn mui-btn-green' id='confirmGetPlace'>确定</button></div>");
+								marker.openInfoWindow(infoWindow, map.getCenter()); //将经纬度信息显示在提示框内
+							});
+						});
+						marker.addEventListener("click", function() {
+							document.getElementById('getTaskPlace').value = keyword; //更新地址数据
+							mui('#getPop').popover("hide");
+						});
+
+					});
+					localSearch.search(keyword);
+				});
+				//监听输入框
+				document.getElementById("getTaskPlace").addEventListener("blur", function() {
+					var geoc = new BMap.Geocoder();
+					geoc.getPoint(this.value, function(point) {
+						if(point) {
+							latitude = point.lat;
+							longitude = point.lng;
+							//alert(point.lat+","+point.lng);
+						}
+					});
+				});
+				document.getElementById("connetTaskPlace").addEventListener("blur", function() {
+					var geoc = new BMap.Geocoder();
+					geoc.getPoint(this.value, function(point) {
+						if(point) {
+							connetLat = point.lat;
+							connetLng = point.lng;
+							//alert(point.lat+","+point.lng);
+						}
+					});
+				});
+
+				//关闭
+				document.getElementById("closeMap").addEventListener("tap", function() {
+					mui('#connetPop').popover("hide");
+				});
+				document.getElementById("closeGetPop").addEventListener("tap", function() {
+					mui('#getPop').popover("hide");
+				});
+				/*document.getElementById("taskMoney").addEventListener("blur",function(){
+					if(this.value > account){
+						mui.toast('您的账户余额不足');
+					}
+				});*/
+				getUserData();
+				//根据用户发布金额结合用户是否认证判断能否发布任务
+
+				document.getElementById("taskMoney").addEventListener("blur", function() {
+
+					var m = Number(this.value);
+					var state = document.getElementById("idstate").textContent;
+					if(m >= 50) {
+						if(state == '未认证') {
+							
+							mui.confirm('您发布大于50元的任务，需要认证，是否立即认证', '提示', ['是', '否'], function(e) {
+								if(e.index == 0) {
+									mui.openWindow({
+										url: 'unverified.html',
+										id: 'unverified'
+									});
+								} else {
+									//用户点否，刷新整个页面
+								var return_login = mui.back();
+								mui.back = function() {
+									var login = plus.webview.getWebviewById("myCenter");
+									login.reload(true);
+									return_login();
+								}
+								}
+
+							}, 'div');
+							document.getElementById("newTask").setAttribute("disabled", true);
+							document.getElementById("next").setAttribute("disabled", true);
+						} else if(state == '待审核') {
+							mui.toast('正在审核中...');
+							document.getElementById("newTask").setAttribute("disabled", true);
+							document.getElementById("next").setAttribute("disabled", true);
+						} else {
+
+						}
+					}
+
+				})
+				//点击发布任务
+				document.getElementById("newTask").addEventListener("tap", function() {
+					var HOST = 'http://47.96.156.75/index.php';
+					//依次获取值并判断
+					var obj = document.getElementById("taskType"); //定位下拉框id
+					var index = obj.selectedIndex; //选中索引
+					var type = obj.options[index].text; //获取选中值
+					var check = true;
+					var money = document.getElementById("taskMoney").value;
+					/*var start = document.getElementById("taskStartTime").value;*/
+					var end = document.getElementById("taskEndTime").value;
+					var per = document.getElementById("validPeriod").value;
+					var title = document.getElementById("taskTitle").value;
+					var getTaskPlace = document.getElementById("getTaskPlace").value;
+					var connetPlace = document.getElementById("connetTaskPlace").value;
+					var details = document.getElementById("taskDetail").value;
+					if(type == '请选择任务类型') {
+						mui.toast('请选择任务类型');
+						return false;
+					} else {
+						mui(".mui-input-group input").each(function() {
+							if(this.value.length < 1 && this.value == '') {
+								var father = this.parentNode;
+								var fatherBrother = father.previousElementSibling;
+								var lable = fatherBrother.children[0];
+								mui.toast(lable.textContent + '不能为空');
+								check = false;
+								return false;
+							} else {
+								if(details.length < 1 && details == '') {
+									mui.toast('任务详情不能为空');
+									check = false;
+									return false;
+								} else {
+									check = true;
+									return true;
+								}
+							}
+						});
+					}
+					if(check) {
+						/*alert(type+'\n'+money+'\n'+start+'\n'+end+'\n'+per+'\n'+title+'\n'+getTaskPlace+'\n'+connetPlace+'\n'+details+'\n'+latitude+
+						'\n'+longitude+'\n'+connetLat+'\n'+connetLng);*/
+						/*var datas = {
+							"amount":money,
+							"goods_name":title,
+							"goods_num":'1',
+							"goods_xq":details,
+						};
+						var config = {
+							"address":HOST,
+							"type":'post',
+							"paymentMethod":'alipay',
+							"data":datas,
+							"success":successCallback,
+							"error":errorCallback
+						};
+						var payment = new Payment(config);
+						payment.PaymentShow();
+						//支付成功回调
+						function successCallback(result){*/
+						plus.nativeUI.showWaiting('发布中...');
+						mui.ajax({
+							url: 'http://47.96.156.75/public/index/publish/newTask',
+							type: 'post',
+							data: {
+								task_type: type,
+								task_money: money,
+								/*task_start_time: start,*/
+								task_end_time: end,
+								task_voild: per,
+								task_title: title,
+								task_get_location: getTaskPlace,
+								task_connet_location: connetPlace,
+								task_details: details,
+								task_getlat: latitude,
+								task_getlng: longitude,
+								task_connetlat: connetLat,
+								task_connetlng: connetLng,
+								task_user: tasker,
+								task_state: '否'
+							},
+							dataType: 'json',
+							header: {
+								'Conetnt-Type': 'application/json'
+							},
+							async: true,
+							success: function(msg) {
+								var json = JSON.parse(msg);
+								//alert(msg);
+								if(json.state == 200) {
+									//updateAccountBalance();
+									//获取支出记录
+									var payoutdes = document.getElementById("taskTitle").value;
+									var payoutmoney = document.getElementById("taskMoney").value;
+									//获取时间
+									var date = new Date();
+									var seperator1 = "-";
+									var seperator2 = ":";
+									var month = date.getMonth() + 1;
+									var strDate = date.getDate();
+									if(month >= 1 && month <= 9) {
+										month = "0" + month;
+									}
+									if(strDate >= 0 && strDate <= 9) {
+										strDate = "0" + strDate;
+									}
+									var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +
+										" " + date.getHours() + seperator2 + date.getMinutes() +
+										seperator2 + date.getSeconds();
+									//支出记录
+									mui.ajax({
+										url: 'http://47.96.156.75/public/index/incomeoutlog/addpayout',
+										type: 'post',
+										data: {
+											users: tasker,
+											money: Number(payoutmoney),
+											des: '发布' + payoutdes + '任务',
+											type: 0,
+											time: currentdate,
+										},
+										dataType: 'json',
+										async: false,
+										header: {
+											'Conetnt-Type': 'application/json'
+										},
+										success: function(data) {
+											json = JSON.parse(data);
+										},
+										error: function(xhr, type, errorThrown) {
+											mui.toast('异常:' + xhr);
+										}
+									});
+									//财务记录
+									mui.ajax({
+										url: 'http://47.96.156.75/public/index/incomeoutlog/addcaiwu',
+										type: 'post',
+										data: {
+											user: tasker,
+											money: parseInt(payoutmoney),
+											name: '发布' + payoutdes + '任务',
+											num: 1,
+											details: details
+										},
+										dataType: 'json',
+										async: false,
+										header: {
+											'Conetnt-Type': 'application/json'
+										},
+										success: function(data) {
+											json = JSON.parse(data);
+										},
+										error: function(xhr, type, errorThrown) {
+											mui.toast('异常:' + xhr);
+										}
+									});
+									mui.toast("发布成功");
+									plus.nativeUI.closeWaiting();
+									var retun_index = mui.back();
+									mui.back = function() {
+										var index = plus.webview.getWebviewById("index");
+										index.reload(true);
+										retun_index();
+									}
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								alert(errorThrown);
+							}
+						});
+						/*};
+						//请求接口失败 a,b,c失败原因
+						function errorCallback(result){
+							mui.alert('发布失败:'+JSON.stringify(result.msg));
+						};*/
+					}
+					/*if(type == "请选择任务类型"){
+						mui.toast("请选择任务类型");
+						return false;
+					} else if(money == ""){
+						mui.toast("请输入悬赏金额");
+						return false;
+					} else if(money > account){
+						mui.toast("您的账号余额不足");
+						return false;
+					}else if(start == ""){
+						mui.toast("请选择开始时间");
+						return false;
+					} else if(end == ""){
+						mui.toast("请选择结束时间");
+						return false;
+					} else if(per == ""){
+						mui.toast("请输入任务时限");
+						return false;
+					} else if(title == ""){
+						mui.toast("请输入任务标题");
+						return false;
+					} else if(getTaskPlace == ""){
+						mui.toast("请输入领取地点");
+						return false;
+					} else if(connetPlace == ""){
+						mui.toast("请输入交接地点");
+						return false;
+					} else if(details == ""){
+						mui.toast("请输入任务详情");
+						return false;
+					} else{
+						
+					}*/
+				});
+				//点击更新任务
+				document.getElementById("updateTask").addEventListener("tap", function() {
+					//依次获取值并判断
+					var obj = document.getElementById("taskType"); //定位下拉框id
+					var index = obj.selectedIndex; //选中索引
+					var type = obj.options[index].text; //获取选中值
+					var money = document.getElementById("taskMoney").value;
+					var start = document.getElementById("taskStartTime").value;
+					var end = document.getElementById("taskEndTime").value;
+					var per = document.getElementById("validPeriod").value;
+					var title = document.getElementById("taskTitle").value;
+					var getTaskPlace = document.getElementById("getTaskPlace").value;
+					var connetPlace = document.getElementById("connetTaskPlace").value;
+					var details = document.getElementById("taskDetail").value;
+					/*mui.alert(type+","+money+","+start+","+end+","+per+","+title+","+getTaskPlace+","+connetPlace+","+details,'信息','确定',function(){
+					},'div');*/
+					if(type == "请选择任务类型") {
+						mui.toast("请选择任务类型");
+						return false;
+					} else if(money == "") {
+						mui.toast("请输入悬赏金额");
+						return false;
+					} else if(start == "") {
+						mui.toast("请选择开始时间");
+						return false;
+					} else if(end == "") {
+						mui.toast("请选择结束时间");
+						return false;
+					} else if(per == "") {
+						mui.toast("请输入任务时限");
+						return false;
+					} else if(title == "") {
+						mui.toast("请输入任务标题");
+						return false;
+					} else if(getTaskPlace == "") {
+						mui.toast("请输入领取地点");
+						return false;
+					} else if(connetPlace == "") {
+						mui.toast("请输入交接地点");
+						return false;
+					} else if(details == "") {
+						mui.toast("请输入任务详情");
+						return false;
+					} else {
+						plus.nativeUI.showWaiting('更新中...');
+						//alert("任务领取点:"+getTaskPlace+"\n经度:"+longitude+"\n纬度"+latitude+"\n任务交接点:"+connetPlace+"\n经度:"+connetLng+"\n纬度:"+connetLat);
+						//执行ajax
+						mui.ajax({
+							url: 'http://47.96.156.75/public/index/publish/newTask',
+							type: 'post',
+							data: {
+								id: upId,
+								type: type,
+								money: money,
+								start: start,
+								end: end,
+								per: per,
+								title: title,
+								getPlace: getTaskPlace,
+								connetPlace: connetPlace,
+								detail: details,
+								getlat: latitude,
+								getlng: longitude,
+								connetlat: connetLat,
+								connetlng: connetLng,
+								taskUser: tasker,
+								taskState: '否'
+							},
+							dataType: 'json',
+							header: {
+								'Conetnt-Type': 'application/json'
+							},
+							async: true,
+							success: function(msg) {
+								var json = JSON.parse(msg);
+								//alert(msg);
+								if(json.state == 200) {
+									updateAccountBalance();
+									mui.toast("更新成功");
+									plus.nativeUI.closeWaiting();
+									var retun_index = mui.back();
+									mui.back = function() {
+										var index = plus.webview.getWebviewById("index");
+										index.reload(true);
+										retun_index();
+									}
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								alert(errorThrown);
+							}
+						});
+					}
+				});
+				//根据电话号码获取用户数据
+				function getUserData() {
+					plus.nativeUI.showWaiting('正在获取认证状态...');
+					mui.ajax({
+						url: 'http://47.96.156.75/public/index/user/getuserdata',
+						type: 'post',
+						data: {
+							phone: userDate
+						},
+						dataType: 'json',
+						header: {
+							'Content-Type': 'application/json'
+						},
+						async: false,
+						timeout: 10000,
+						success: function(data) {
+							//	alert(data);
+							d = JSON.parse(data);
+
+							document.getElementById("idstate").textContent = d[0].idstate;
+							plus.nativeUI.closeWaiting();
+						},
+						error: function(xhr, type, errorThrown) {
+							mui.toast('异常:' + errorThrown);
+							plus.nativeUI.closeWaiting();
+						}
+					});
+				}
+				//更新账户余额
+				function updateAccountBalance() {
+					var m = document.getElementById("taskMoney").value;
+					var y = account - m;
+					mui.ajax({
+						url: 'http://47.96.156.75/public/index/account/pubtaskmoney',
+						type: 'post',
+						data: {
+							tasker: tasker,
+							taskmoney: y
+						},
+						dataType: 'json',
+						async: false,
+						header: {
+							'Conetnt-Type': 'application/json'
+						},
+						success: function(data) {
+							json = JSON.parse(data);
+							if(json == 1) {}
+						},
+						error: function(xhr, type, errorThrown) {
+							mui.toast('异常:' + type);
+						}
+					});
+				}
+			});
+		</script>
+	</body>
+
+</html>

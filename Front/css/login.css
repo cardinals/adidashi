@@ -1,0 +1,76 @@
+* {
+	font-family: "微软雅黑";
+}
+
+body {
+	background: #FFFFFF;
+}
+
+.mui-content {
+	margin-top: 15%;
+	background: #FFFFFF;
+}
+
+.mui-input-group {
+	width: 85%;
+	margin: 7.5%;
+}
+
+.mui-input-group:before,
+.mui-input-group:after {
+	background: none;
+}
+
+.mui-input-row {
+	margin: 3%;
+}
+.mui-input-row>input{
+	font-size: 80%;
+}
+.input-title {
+	margin-top: 0%;
+	margin-left: 7%;
+}
+
+.input-title label {
+	font-size: 90%;
+	color: #FF0000;
+	font-weight: 650;
+}
+
+input {
+	color: #ACACB4;
+}
+
+.mui-btn-danger {
+	margin-top: 13%;
+	width: 80%;
+	height: 50px;
+	font-size: 1.3rem;
+	background: #E83828;
+	box-shadow: 0px 5px 30px #E83828;
+}
+
+.tips {
+	margin-top: 10%;
+	font-size: 0.8rem;
+}
+
+.tips span {
+	color: #929292;
+}
+
+.tips a {
+	color: #6AD7FF;
+}
+
+.logo{
+
+	width: auto;
+	height: auto;
+	text-align: center;
+}
+.logo>img{
+	width: 35%;
+	height: 25%;
+}

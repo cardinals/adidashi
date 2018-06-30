@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/authenticated.css" />
+		<script src="js/mui.min.js"></script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-left"></a>
+			<h1 class="mui-title">个人认证</h1>
+		</header>
+		<div class="mui-content" style="background-color: #FFFFFF;">
+			<div class="mui-row">
+				<div class="mui-col-sm-12 mui-col-xs-12" style="height: auto; ">
+					<div class="tips" align="left">
+						<span>实名头像</span><i>已认证</i><img id="userHead" src="userImages/th.png" class="mui-pull-right userImageUp" />
+					</div>
+				</div>
+				<hr style="border: 3px solid #EFEFF4;" />
+				<div class="mui-col-sm-12 mui-col-xs-12">
+					<div class="tips">
+						<span>基本信息</span><i>已认证</i>
+					</div>
+				</div>
+				<hr style="border: 1px solid #EFEFF4;" />
+				<div class="mui-col-sm-12 mui-col-xs-12 ed" style="background: #FFFFFF; height: auto;">
+					<span>姓名：<span id="userName"></span></span>
+				</div>
+				<hr style="border: 1px solid #EFEFF4;" />
+				<div class="mui-col-sm-12 mui-col-xs-12 ed" style="background: #FFFFFF; height: auto;">
+					<span>职业：<span id="userZhiye"></span></span>
+				</div>
+				<hr style="border: 1px solid #EFEFF4;" />
+				<div class="mui-col-sm-12 mui-col-xs-12 ed" style="background: #FFFFFF; height: auto;">
+					<span>身份证号：<span id="userId"></span></span>
+				</div>
+			</div>
+		</div>
+		<script>
+			mui.init();
+			var user = localStorage.getItem("user");
+			mui.plusReady(function(){
+				mui.ajax({
+					url:'http://47.96.156.75/public/index/user/getuserdata',
+					type:'post',
+					data:{
+						phone:user
+					},
+					dataType:'json',
+					header:{'Content-Type':'application/json'},
+					async:false,
+					success:function(data){
+						d = JSON.parse(data);
+							if(d[0].idhead == null || d[0].idhead == ''){
+								document.getElementById("userHead").setAttribute('src','userImages/th.png')
+							}
+							else{
+								//alert('http://47.96.156.75/'+d[0].idhead);
+								document.getElementById("userHead").setAttribute('src','http://47.96.156.75/'+d[0].idhead);
+							}
+							document.getElementById("userName").textContent = d[0].username;
+							document.getElementById("userZhiye").textContent = d[0].zhiye;
+							document.getElementById("userId").textContent = d[0].idnumber;
+						plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						mui.toast('异常:'+errorThrown);
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

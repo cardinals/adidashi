@@ -1,0 +1,429 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="AliIconFonts/iconfont.css" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		
+		<link rel="stylesheet" href="css/myCenter.css" />
+		<script src="js/mui.min.js"></script>
+		<script src="js/myCenter/financialDetail.js" ></script>
+		<!--<script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js">
+</script>-->
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-left"></a>
+			<h1 class="mui-title" style="width: 90%;">个人中心
+				<i id="quiteApp" class="mui-icon iconfont icon-exit" style="float: right; font-size: 1.567rem; margin: 3%; margin-right: 5%;"></i>
+			</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-col-sm-12 mui-col-xs-12 userImage" align="center">
+				<img id="userImage" src="userImages/th.png" />
+			</div>
+			<div class="mui-col-sm-12 mui-col-xs-12 nick" align="center">
+				<label id="userName"></label>
+				<div class="renzheng" style="display: none;" id="rz">
+					<i class="mui-icon iconfont icon-shimingrenzheng rzd"></i><i class="rzd">认证</i>
+				</div>
+				<div class="mui-row"  style="margin-top: 2%;margin-bottom: 2%;">
+					<div class="mui-col-sm-1 mui-col-xs-1"></div>
+					<div class="mui-col-sm-1 mui-col-xs-1"></div>
+					<div class="mui-col-sm-1 mui-col-xs-1"></div>
+					<div class="mui-col-sm-1 mui-col-xs-1"></div>
+					<div class="mui-col-sm-1 mui-col-xs-1"></div>
+					
+					<div id="nrz" class="mui-col-sm-2 mui-col-xs-2">
+						<span id="rz_information" style="font-size: 0.567rem;text-align: center;">未认证</span>
+	 				</div>
+				
+				<div id="edit_userInfo" class="mui-col-sm-1 mui-col-xs-1 " style="background-color: white;color:red;font-size: 0.556rem;box-shadow: none;">
+						<i class="mui-icon iconfont icon-tubiao09" style="font-size: 1.4rem;"></i>
+					
+				</div>
+					<div class="mui-col-sm-1 mui-col-xs-1" style="background-color: white;box-shadow: none;"></div>
+					<div class="mui-col-sm-1 mui-col-xs-1" style="background-color: white;box-shadow: none;"></div>
+					<div class="mui-col-sm-1 mui-col-xs-1" style="background-color: white;box-shadow: none;"></div>
+					<div class="mui-col-sm-1 mui-col-xs-1" style="background-color: white;box-shadow: none;"></div>
+					<div class="mui-col-sm-1 mui-col-xs-1" style="background-color: white;box-shadow: none;"></div>
+			</div>
+					<button class="mui-btn  mui-btn-danger" style="box-shadow:0px 5px 5px #ff4d4d;width: 30%;height: 20%;margin-bottom: 3%;text-align: center;font-size: 0.756rem;border:none;"><i class="mui-icon iconfont icon-huiyuan" style="color: #F0AD4E; margin-left:2%;"></i> <span>言而有信</span> </button>  
+					
+			
+			</div>
+			<hr style="border: 2px solid #EFEFF4; margin-top: 1%;" />
+			<div class="mui-col-sm-12 mui-col-xs-12 money">
+				<!--financialDetails财务明细-->
+				<h3 id="btnFinancialDetails"><i class="mui-icon iconfont icon-qian"></i>财务明细<span class="mui-icon mui-icon-forward" style="float: right;"></span></h3>
+				<hr style="border: 1px solid #EFEFF4;" />
+			</div>
+			<div class="mui-col-sm-12 mui-col-xs-12 moneys">
+				<div class="moneyDetail" align="center" style="margin-left: 10%;">
+					<span id="accountBalane"></span><br />
+					<span>账号余额(元)</span>
+				</div>
+				<div class="moneyDetail" align="center">
+					<span id="tixianBalance"></span><br />
+					<span>提现金额(元)</span>
+				</div>
+				<div class="moneyDetail" align="center">
+					<span id="accountCard"></span><br />
+					<span>银行卡(张)</span>
+				</div>
+			</div>
+			<hr style="border: 3px solid #EFEFF4;" />
+			<div class=" mui-col-xs-12 money" >
+				<!--personalPage 个人主页-->
+				<h3 id="btnPersonalPage"><i class="mui-icon iconfont icon-gerenzhongxin"></i>个人主页<span class="mui-icon mui-icon-forward" style="float: right;"></span></h3>
+				</div>
+				<hr style="border: 1px solid #EFEFF4;" />
+			<div class=" mui-col-xs-12 money">
+				<!--personalCertificate个人认证-->
+				<h3 id="btnPersonalCertificate"><i class="mui-icon iconfont icon-shimingrenzheng"></i>个人认证<span class="mui-icon mui-icon-forward" style="float: right;"></span></h3>
+			</div>
+			<hr style="border: 1px solid #EFEFF4;" />
+			<div class=" mui-col-xs-12 money">
+				<!--bindAccount账号绑定-->
+				<h3 id="btnBindAccount"><i class="mui-icon iconfont icon-shezhi"></i>账号绑定<span class="mui-icon mui-icon-forward" style="float: right;"></span></h3>
+			</div>
+			<hr style="border: 1px solid #EFEFF4;" />
+			<div class=" mui-col-xs-12 money">
+				<!--integrityOf诚信勋章-->
+				<h3 id="btnIntegrityOf"><i class="mui-icon iconfont icon-chengxin"></i>诚信勋章<span class="mui-icon mui-icon-forward" style="float: right;"></span></h3>
+			</div>
+			<hr style="border: 1px solid #EFEFF4;" />
+			<div class=" mui-col-xs-12 money">
+				<!--questLog任务记录-->
+				<h3 id="questLog"><i class="mui-icon iconfont icon-5"></i>任务记录<span class="mui-icon mui-icon-forward" style="float: right;"></span></h3>
+			</div>
+			<hr style="border: 3px solid #EFEFF4;" />
+			<div class=" mui-col-xs-12 money">
+				<!--contactUs联系我们-->
+				<h3 id="btnContactUs"><i class="mui-icon iconfont icon-kefunv"></i>联系客服<span class="mui-icon mui-icon-forward" style="float: right;"></span></h3>
+				<div id="contactUs" align="center" class=" mui-col-xs-12 box mui-popover mui-popover-action mui-popover-bottom" style="height: 220px; background: #FFFFFF;">
+					<div align="center">
+						<div>
+							<h3>联系我们</h3>
+						</div>
+					</div>
+					<div align="center">
+						<div>
+							<div id="wchat">
+								<i class="mui-icon iconfont icon-weixin"></i><br>
+								<span>微信公众号</span>
+							</div>
+							<div id="imqq">
+								<i class="mui-icon iconfont icon-qq"></i><br>
+								<span>客服QQ</span>
+							</div>
+							<div id="weibo">
+								<i class="mui-icon iconfont icon-weibo"></i><br>
+								<span>官方微博</span>
+							</div> 
+						</div>
+					</div>
+					<div align="center">
+						<div class="mui-content-padded">
+							<button id="callServier">拨打客服电话</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr style="border: 1px solid #EFEFF4;" />
+			<div class=" mui-col-xs-12 money">
+				<!--消息中心-->
+				<h3 id="btnMessage"><i class="mui-icon iconfont icon-xiaoxi">
+					</i>消息中心<i class="mui-badge mui-badge-danger" id="noticeCount" style="font-style: normal; color: #FFFFFF; font-size: 0.567rem; position: absolute; right: 58%;"></i><span class="mui-icon mui-icon-forward" style="float: right;"></span></h3>
+			</div>
+			<hr style="border: 1px solid #EFEFF4;" />
+			<div class=" mui-col-xs-12 money">
+				<!--aboutUs关于我们-->
+				<h3 id="btnAboutUs"><i class="mui-icon iconfont icon-guanyuwomen"></i>关于我们<span class="mui-icon mui-icon-forward" style="float: right;"></span></h3>
+			</div>
+			<hr style="border: 1px solid #EFEFF4;" />
+		</div>
+		<script type="text/javascript">
+			mui.init({
+				beforeback: function() {
+			　　　　 //获得父页面的webview
+			        var center = plus.webview.currentWebview().opener();
+			　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+			        mui.fire(center, 'refresh');
+			        //返回true,继续页面关闭逻辑
+			        return true;
+			    }
+			});
+			var user = localStorage.getItem("user");
+			//移动端测试，浏览器测试不了
+			mui.plusReady(function(){
+				getUserData();
+				window.addEventListener('refresh', function(e) { //执行刷新
+					location.reload();
+				});
+				noticeCount();
+				//加载用户数据
+				
+				//消息中心
+				document.getElementById("btnMessage").addEventListener("tap",function(){
+					mui.openWindow({
+						url:'notification.html',
+						id:'notification'
+					});
+				});
+				//编辑个人信息
+			
+				document.getElementById("edit_userInfo").addEventListener("tap",function(){
+					mui.openWindow({
+						url:'editInformation.html',
+						
+					})
+				})
+				
+
+				
+				//个人主页
+				document.getElementById("btnPersonalPage").addEventListener("tap",function(){
+					//请求后台数据，看用户是否编辑过个人信息
+								
+						mui.ajax({
+						url:'http://47.96.156.75/public/index/user/getuserdata',
+						type:'post',
+						data:{
+							phone:user
+						},
+						dataType:'json',
+						header:{'Content-Type':'application/json'},
+						async:false,
+						success:function(data){
+							d = JSON.parse(data);
+							if(d[0].nickname == '' || d[0].nickname == null){
+								mui.confirm("你还没有编辑用户名和头像信息，请编辑完后，才可进入个人主页")
+							}
+							else{
+									mui.openWindow({
+										url:'personnalPage.html',
+										id: 'personnalpage',
+										extras:{
+											
+						                 }
+					});
+							}
+						
+						},
+						error:function(xhr,type,errorThrown){
+							mui.toast('异常:'+errorThrown);
+						}
+					});
+					
+					
+					
+					
+					//请求到当前用户的个人信息后，渲染出来 (目前先写成死的数据)
+					// mui.ajax({});
+				
+					
+				})
+				//个人认证
+				document.getElementById("btnPersonalCertificate").addEventListener("tap",function(){
+					plus.nativeUI.showWaiting('加载中...');					
+						mui.ajax({
+						url:'http://47.96.156.75/public/index/user/getuserdata',
+						type:'post',
+						data:{
+							phone:user
+						},
+						dataType:'json',
+						header:{'Content-Type':'application/json'},
+						async:false,
+						success:function(data){
+							d = JSON.parse(data);
+							if(d[0].idstate == '待审核'){
+								mui.openWindow({
+									url:'waiting.html',
+									id:'waiting'
+								});
+							}else if(d[0].idstate == '未认证'){
+								mui.openWindow({
+									url:'unverified.html',
+									id:'unverified'
+								});
+							}else{
+								mui.openWindow({
+									url:'authenticated.html',
+									id:'authenticated',
+									extras:{
+										user:user
+									}
+								});
+							}
+							plus.nativeUI.closeWaiting();
+						},
+						error:function(xhr,type,errorThrown){
+							mui.toast('异常:'+errorThrown);
+						}
+					});
+				});
+				//关于我们
+				document.getElementById("btnAboutUs").addEventListener("tap",function(){
+					/*mui.alert("奇睿互联科技有限公司版权所有","关于我们","确定",function(){},"div");*/
+					mui.openWindow({
+						url:'aboutUs.html',
+						id:'aboutUs'
+					});
+				});
+				//财务明细
+				document.getElementById("btnFinancialDetails").addEventListener("tap",function(){		
+					mui.openWindow({
+						url:'financialDetail/financialDetails.html',
+						id:'inancialDetails',
+						extras:{
+							user:user
+						}
+					});
+				});
+				document.getElementById("btnContactUs").addEventListener("tap",function(){
+					mui("#contactUs").popover("show",document.getElementById("contactUs"));
+				});
+				//账号绑定
+				document.getElementById("btnBindAccount").addEventListener("tap",function(){
+					mui.openWindow({
+						url:'bindAccount.html',
+						id:'bindAccount'
+					});
+				});
+				//任务记录
+				document.getElementById("questLog").addEventListener("tap",function(){
+					mui.openWindow({
+						url:'taskLog.html',
+						id:'taskLog'
+					})
+				});
+				//退出
+				document.getElementById("quiteApp").addEventListener("tap",function(){
+					// 弹出系统选择按钮框
+					plus.nativeUI.actionSheet( {title:"选择你要进行的操作",cancel:'取消',buttons:[{title:"注销账户"},{title:"退出应用"}]}, function(e){
+						if(e.index == 1){
+							localStorage.clear();
+							var backToHome = mui.back();
+							backToHome = function(){
+								var index = plus.webview.getLaunchWebview(plus.webview.getLaunchWebview().getURL());
+								index.reload(true);
+								backToHome();
+								}
+							}else if(e.index == 2){
+								mui.confirm('确定退出应用?','警告',function(e){
+									if(e.index == 1){
+										plus.runtime.quit();
+									}
+								},'div');
+						}
+					});
+				});
+				//拨打客服电话
+				document.getElementById("callServier").addEventListener("tap",function(){
+					plus.device.dial("10010",false);
+				});
+				//调用QQ
+				document.getElementById("imqq").addEventListener("tap",function(){
+					if(plus.os.name == "Android"){
+						var main = plus.android.runtimeMainActivity();
+						var Intent = plus.android.importClass('android.content.Intent');
+						var Uri = plus.android.importClass('android.net.Uri');
+						var intent = new Intent(Intent.ACTION_VIEW,Uri.parse("mqqwpa://im/chat?chat_type=wpa&uin=1935537208"));
+						main.startActivity(intent);
+					}
+				});
+				//点击头像进入个人主页
+				document.getElementById("userImage").addEventListener("tap",function(){
+					mui.openWindow({
+						url:"personnalPage.html",
+						id:"",
+						extras:{
+							
+						}
+					})
+				})
+	//根据电话号码获取用户数据
+			function getUserData(){
+				plus.nativeUI.showWaiting('加载用户数据中...');
+				mui.ajax({
+					url:'http://47.96.156.75/public/index/user/getuserdata',
+					type:'post',
+					data:{
+						phone:user
+					},
+					dataType:'json',
+					header:{'Content-Type':'application/json'},
+					async:false,
+					timeout:10000,
+					success:function(data){
+						d = JSON.parse(data);
+						//alert(d[0].nickname);
+						if(d[0].nickname == null || d[0].nickname ==''){
+							document.getElementById("userName").textContent = user;
+						}
+						else{
+							document.getElementById("userName").textContent = d[0].nickname;
+						}
+				
+						
+						
+						
+						//alert(d[0].idstate);
+						//添加请求来的认证信息
+						document.getElementById("rz_information").innerHTML = d[0].idstate;
+						//判断头像是否存在
+						 //alert(d[0].idhead);
+						 
+						if(d[0].idhead == "" || d[0].idhead == null){
+							
+							document.getElementById("userImage").setAttribute('src',"userImages/th.png");
+						}else{
+							//alert('http://47.96.156.75/'+d[0].img);
+							document.getElementById("userImage").setAttribute('src','http://47.96.156.75/'+d[0].idhead);
+						}
+						plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						mui.toast('异常:'+errorThrown);
+					}
+				});
+			}
+			});
+			function noticeCount(){
+				//查询所有消息
+				mui.ajax({
+					url:'http://47.96.156.75/public/index/notice/allnotreadnotice',
+						type:'post',
+						data:{st:0},
+						dataType:'json',
+						header:{'Conetnt-Type':'application/json'},
+						async:false,
+						timeout:10000,
+						success:function(data){
+							notice = JSON.parse(data);
+							if(notice.code == 200){
+								if(notice.datas.length < 1){
+									document.getElementById("noticeCount").textContent = '0';
+								} else{
+									document.getElementById("noticeCount").textContent = notice.datas.length;
+								}
+							} else{
+								document.getElementById("noticeCount").textContent = '0';
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							mui.toast('异常:'+type);
+						}
+					});
+				}
+</script>
+		
+	</body>
+
+</html>

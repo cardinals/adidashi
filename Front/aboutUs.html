@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>关于我们</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/aboutUs.css" />
+		<script src="js/mui.min.js"></script>
+			
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-left"></a>
+			<h1 class="mui-title">关于我们</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-row">
+				<div class="mui-col-sm-12 mui-col-xs-12 logoAndVersion" align="center">
+					<div>
+						<img src="logo/logo.png" /><br />
+						<h3>友令V1.0</h3>
+					</div>
+				</div>
+				<div id="btnUscompany" class="mui-col-sm-12 mui-col-xs-12 details" id="companyProfile">
+					<h3>公司介绍<span class="mui-icon mui-icon-forward" style="float: right;"></span></h3>
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12 details" id="UseTutorial">
+					<h3>使用教程<span class="mui-icon mui-icon-forward" style="float: right;"></span></h3>
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12 details" id="softwareUpdate">
+					<h3>版本更新<span class="mui-icon mui-icon-forward" style="float: right;"></span></h3>
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12 details" id="devicesInfo" style="display: none;">
+					<h3>设备信息<span class="mui-icon mui-icon-forward" style="float: right;"></span></h3>
+				</div>
+				
+				<div class="mui-col-sm-12 mui-col-xs-12" align="center" style="margin-top: 10%;">
+					<div>
+						<h3>联系我们</h3>
+					</div>
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12" align="center">
+					<div>
+						<div>
+							<i class="mui-icon iconfont icon-weixin"></i><br>
+							<span>微信公众号</span>
+						</div>
+						<div id="imqq">
+							<i class="mui-icon iconfont icon-qq"></i><br>
+							<span>客服QQ</span>
+						</div>
+						<div>
+							<i class="mui-icon iconfont icon-weibo"></i><br>
+							<span>官方微博</span>
+						</div> 
+					</div>
+				</div>
+				<div  class="mui-col-sm-12 mui-col-xs-12" align="center">
+					<div class="mui-content-padded">
+						<button class="mui-btn mui-btn-danger" id="callServier">拨打客服电话</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function(){
+				document.getElementById("callServier").addEventListener("tap",function(){
+					call();
+				});
+				//调用QQ
+				document.getElementById("imqq").addEventListener("tap",function(){
+					if(plus.os.name == "Android"){
+						var main = plus.android.runtimeMainActivity();
+						var Intent = plus.android.importClass('android.content.Intent');
+						var Uri = plus.android.importClass('android.net.Uri');
+						var intent = new Intent(Intent.ACTION_VIEW,Uri.parse("mqqwpa://im/chat?chat_type=wpa&uin=1935537208"));
+						main.startActivity(intent);
+					}
+				});
+				document.getElementById("softwareUpdate").addEventListener("tap",function(){
+					mui.toast('已是最新版本');
+				});
+				document.getElementById("devicesInfo").addEventListener("tap",function(){
+					mui.openWindow({
+						url:'devicesInfo.html',
+						id:'devicesInfo'
+					});
+				});
+				//点击公司介绍跳到公司介绍
+				document.getElementById("btnUscompany").addEventListener("tap",function(){
+					mui.openWindow({
+						url:'uscompany.html',
+						id:'',
+						extras:{
+							
+						}
+					});
+				
+				
+				
+			});
+			function call(){
+				plus.device.dial("10010",false);
+			}
+			
+		
+		});
+		</script>
+	</body>
+
+</html>

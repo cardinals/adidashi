@@ -1,0 +1,60 @@
+.mui-bar a {
+	color: #E73828;
+}
+
+.mui-bar h1 {
+	color: #E73828;
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+.tips {
+	margin: 0px;
+	padding: 0px;
+	width: auto;
+	height: 60px;
+	background: #FFFFFF;
+}
+
+.tips span {
+	margin: 0px;
+	padding: 0px;
+	font-size: 1.222rem;
+	height: auto;
+	float: left;
+	padding: 4px;
+	margin-top: 4%;
+	margin-left: 4%;
+}
+
+.tips i {
+	font-style: normal;
+	color: #FF8B1F;
+	border: 1px solid #FF8B1F;
+	border-radius: 5px;
+	font-size: 0.222rem;
+	width: 11%;
+	height: auto;
+	margin-top: 6%;
+	float: left;
+	margin-left: 3%;
+	text-align: center;
+}
+
+.tips img {
+	width: 15%;
+	height: 90%;
+	border-radius: 50%;
+	margin: 1%;
+}
+
+.ed {
+	margin: 5%;
+	margin-left: 0px;
+}
+
+.ed span {
+	font-size: 1.123rem;
+	color: #929292;
+	margin-left: 5%;
+}

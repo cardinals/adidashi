@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/myGet.css" />
+		<script src="../js/mui.min.js"></script>
+	</head>
+<!--我发布的-->
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-left"></a>
+			<h1 class="mui-title">我的领取</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-row">
+				<div class="mui-col-sm-12 mui-col-xs-12 publisherArea">
+					<div>
+						<img src="../logo/logo.png" />
+					</div>
+					<div>
+						<h4>已完成</h4>
+						<h4 id="performer"></h4>
+						<h4 id="performerMobile"></h4>
+						<div>
+							<div>
+								<i class="mui-icon iconfont icon-shimingrenzheng"></i>
+							</div>
+							<div>
+								<i>认证</i>
+							</div>
+						</div>
+					</div>
+					<div id="comment">
+						<div align="center" class="c"> <!--praise好评-->
+							<i class="mui-icon iconfont icon-haoping"></i><br />
+							<span>好评</span>
+						</div>
+						<div align="center" class="c"><!--差评negativeComment-->
+							<i class="mui-icon iconfont icon-chaping"></i><br />
+							<span>差评</span>
+						</div>
+					</div>
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12 des">
+					<div style="width: 100%; background-color: #FFFFFF;">
+						<div class="taskDetails" align="left">
+							<span style="font-weight: bold;">任务详情&nbsp;:&nbsp;</span><span id="myGetTaskDetails"></span><br />
+							<span style="font-weight: bold;">开始时间&nbsp;:&nbsp;</span><span id="myGetTaskStratTime"></span><br />
+							<span style="font-weight: bold;">截止时间&nbsp;:&nbsp;</span><span id="myGetTaskEndTime"></span><br />
+							<span style="font-weight: bold;">联系方式&nbsp;:&nbsp;</span><span id="myGetTaskContactType"></span><br />
+							<span style="font-weight: bold;">领取地点&nbsp;:&nbsp;</span><span id="myGetTaskGetPlace"></span><br />
+							<span style="font-weight: bold;">交接地点&nbsp;:&nbsp;</span><span id="myGetTaskJoinPlace"></span><br />
+						</div>
+					</div>
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12 taskdetails">
+					<div align="center">
+						<h3 id="taskMoney"></h3>
+						<span>任务悬赏金额(元)</span>
+					</div>
+					<div align="center">
+						<h3>29:59:00</h3>
+						<span>任务剩余时间</span>
+					</div>
+					<div align="center">
+						<h3>00:00:00</h3>
+						<span>任务延迟时间</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			mui.init({
+				beforeback: function() {
+			　　　　 //获得父页面的webview
+			        var center = plus.webview.currentWebview().opener();
+			　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+			        mui.fire(center, 'refresh');
+			        //返回true,继续页面关闭逻辑
+			        return true;
+			    }
+			});
+			mui.plusReady(function(){
+				//获取上一界面传过来的id
+				var self = plus.webview.currentWebview();
+				var id = self.taskId;
+				plus.nativeUI.showWaiting('玩命加载中...');
+				mui.ajax({
+					url:'http://47.96.156.75/public/index/task/gettaskinfo',
+					dataType:'json',
+					type:'post',
+					async:false,
+					data:{id:id},
+					header:{'Conetnt-Type':'application/json'},
+					success:function(data){
+						var json = JSON.parse(data);
+						document.getElementById("performer").textContent = '执行者:'+json.task_get_user;
+						document.getElementById("performerMobile").innerHTML = '手机:'+"<span>"+json.task_get_user+"</span>";
+						document.getElementById("myGetTaskDetails").textContent = json.task_details;
+						document.getElementById("myGetTaskStratTime").textContent = json.task_start_time;
+						document.getElementById("myGetTaskEndTime").textContent = json.task_end_time;
+						document.getElementById("myGetTaskContactType").innerHTML = json.task_user+"<i class='mui-icon iconfont icon-dianhua' style='font-size: 1.2rem; color: #FF0000;'></i><i style='font-style: normal; font-size: 0.78rem; color: #FF0000;' id='callPhone'>拨打电话</i>";
+						document.getElementById("myGetTaskGetPlace").innerHTML = json.task_get_location+'<i class="mui-icon iconfont icon-position" style="font-size: 1.2rem; color: #FF0000;"></i><i style="font-style: normal; color: #FF0000;">查看定位</i>';
+						document.getElementById("myGetTaskJoinPlace").innerHTML = json.task_connet_location+'<i class="mui-icon iconfont icon-position" style="font-size: 1.2rem; color: #FF0000;"></i><i style="font-style: normal; color: #FF0000;">查看定位</i>';
+						document.getElementById("taskMoney").textContent = json.task_money;
+						plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						mui.toast('异常：'+type);
+					}
+				});
+				//拨打电话
+				document.getElementById("callPhone").addEventListener("tap",function(){
+					plus.device.dial(document.getElementById("myGetTaskContactType").textContent,false);
+				});
+				//好评或者差评都跳转到评论界面，后期版本将加入点赞数量
+				mui('#comment').on('tap','.c',function(){
+					
+					var u = document.getElementById("performerMobile").textContent;
+					var us = u.split(":")[1];
+					mui.openWindow({
+						url:'../evluation/executer.html',
+						id:'executer',
+						extras:{executor:us}
+					});
+				});
+			});
+		</script>
+	</body>
+
+</html>

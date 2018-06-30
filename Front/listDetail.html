@@ -1,0 +1,71 @@
+	<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+	</head>
+
+	<body>
+		
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-left" style="color: red;"></a>
+			<h1 class="mui-title" style="color: red;font-weight: bold;font-size: 1.2rem;">列表详情</h1>
+		</header>
+		
+		<div class="mui-card" style="margin-top: 15%;">
+		    <!--页眉，放置标题-->
+		    <div class="mui-card-header" style="color: red;">
+		    	
+		    	<i class="mui-icon iconfont icon-5"></i>
+		    	<p><h6>标题</h6></p>
+		    	<p><h6>时间</h6></p>
+		    	<p><h6>评价</h6></p>
+		    	
+		    </div>
+		    <!--内容区-->
+		    <div class="mui-card-content">
+		    	<img  id="imgs" src="userImages/book.png" alt="" />
+		    	
+		    </div>
+		    <!--页脚，放置补充信息或支持的操作-->
+		    <div class="mui-card-footer">
+		    	这是什么什么什么
+		    	
+		    </div>
+	</div>
+		
+
+		
+		
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			console.log(1);
+			mui.plusReady(function(){
+				var self = plus.webview.currentWebview();  
+           		var src = self.src;  
+           		
+				mui.init({
+						beforeback: function() {
+				　　　　 //获得父页面的webview
+				        var list = plus.webview.currentWebview().opener();
+				　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+				        mui.fire(list, 'refresh');
+				        //返回true,继续页面关闭逻辑
+				        return true;
+				    }
+				});
+				var a = 	document.getElementById("imgs").src
+			   	document.getElementById("imgs").src = src;
+			
+			});
+			
+			
+		
+		</script>
+	</body>
+
+</html>

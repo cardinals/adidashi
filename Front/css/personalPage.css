@@ -1,0 +1,132 @@
+* {
+	font-family: "微软雅黑";
+	margin: 0px;
+	padding: 0px;
+}
+
+.mui-col-sm-6,
+.mui-col-xs-12 {
+	background: #FFFFFF;
+}
+
+.mui-bar a {
+	color: #E73828;
+}
+
+.mui-bar h1 {
+	color: #E73828;
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+.fxicon{
+	color: red;
+	left:80%;
+}
+.tx{
+	text-align: center;
+	padding-top: 20%;
+	padding-bottom: 10%;
+	background-color: white;
+	}
+	.tx img{
+		max-height: 50%;
+		max-height: 50%;
+		width: 50%;
+		height: 50%;
+		border-radius: 50%;
+	}
+.dizhiicon{
+	color: red;
+	
+}
+.dizhi{
+	/*border: 1px solid red;*/
+	text-align: center;
+	margin-top: -10%;
+	
+}
+.rzimg{
+	
+	width: 6%;
+	margin-bottom: -1.2%;;
+	
+}
+.cx-btn{
+	/*border: 1px solid red;*/
+	text-align: center;
+	margin-top: -3%;
+	
+	
+}
+
+.zhuanshiicon{
+	color: #1afa29;
+	font-size: 30px;
+}
+.btn-boder{
+	
+	border-radius: 8%;
+	width: 30%;
+}
+
+.jindu{
+	background-color: white;
+	border: 1px solid white;
+	margin: 1%;
+	padding: 2%;
+	margin-top:0px ;
+}
+ .jindu>div{
+ /*border:1px solid gray;*/
+ 	padding: 2%;
+ 	font-size: 1.2rem;
+ 	margin:  0 auto;
+ 	color :gray;
+ }
+ .fabu{
+ 	border-right: gray solid 2px;
+ 	}
+ .wangcheng{
+ 	border-right:gray solid 2px;
+ }
+ .title{
+ /*	border : 1px solid red;*/
+ 	background-color: white;
+ 	text-align: center;
+ 	padding-top: 3%;
+ 	padding-bottom: 3%;
+ 	color: gray;
+ 	font-size: 0.99rem;
+ }
+ .active {
+ 	background-color: white;	
+ 	text-align: center;
+ 	border-bottom:3px solid red ;
+ 	color :red;
+ }
+.money{
+	/* border: 1px solid red; */
+	right: 5%;
+	color: red;
+	font-weight: bold;
+	font-size: 0.99rem;
+	position: absolute;
+
+}
+
+
+.mui-control-content {
+background-color: white;
+min-height: 215px;
+
+}
+.mui-control-content .mui-loading {
+margin-top: 50px;
+
+}
+
+#sliderSegmentedControl{
+	
+	
+	
+}

@@ -1,0 +1,85 @@
+* {
+	font-family: "微软雅黑";
+	margin: 0px;
+	padding: 0px;
+}
+
+body {
+	background-color: #FFFFFF;
+}
+
+.mui-content-padded button {
+	color: #E7CE96;
+	font-size: 28px;
+	height: auto;
+	outline: none;
+	overflow: hidden;
+	background: transparent;
+	border: none;
+}
+
+.mui-content-padded h1 {
+	color: #E7CE96;
+}
+
+.taskDetails {
+	width: 90%;
+	height: auto;
+	padding-top: 10px;
+}
+
+.taskDetails span {
+	font-size: 0.756rem;
+	color: #595F6E;
+}
+
+.tasker {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	height: auto;
+	background-color: #EFEFF7;
+}
+
+.tasker h5 {
+	margin: 0px;
+	padding: 0px;
+	margin-top: 8px;
+	color: #000000;
+	font-weight: bold;
+}
+
+.mui-content-padded {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	border-radius: 0px 0px 50% 50%;
+	background-color: #D75940;
+	height: 100px;
+}
+
+.userPhoto {
+	width: 25%;
+	height: 25%;
+	border-radius: 50%;
+	position: relative;
+	margin-top: -12%;
+	border: 1px solid #EC971F;
+}
+
+.tri {
+	margin-top: -10px;
+	width: 0;
+	height: 0;
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-bottom: 20px solid #FFFFFF;
+}
+
+.mui-btn-danger {
+	width: 60%;
+	height: 40px;
+	font-size: 0.912rem;
+	background: #E83828;
+	box-shadow: 0px 5px 30px #E83828;
+}

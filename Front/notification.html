@@ -1,0 +1,281 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/notification.css" />
+		<script src="js/mui.min.js"></script>
+		<style type="text/css">
+			li{
+				list-style: none;
+			}
+			.tipsStyle{
+				height: 28px;
+				margin-top: 1%;
+				background: #FDF8E4;
+			}
+			.tipsStyle>span{
+				font-size: 0.567rem;
+				color: #8C6E3C;
+			}
+			.tipsStyle>span:first-child{
+				margin-left: 5%;
+			}
+			.tipsStyle>span:last-child{
+				font-size: 1.123rem;
+				float: right;
+				margin-top: 1.5%;
+				margin-right: 5%;
+			}
+			/*移除底部或顶部三角,需要在删除此代码*/  
+		    .mui-popover .mui-popover-arrow:after {  
+		        width: 0px;  
+		    }  
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-left"></a>
+			<h1 class="mui-title" style="width: 90%;" id="delAllNotice">消息通知<i class="mui-icon mui-icon-trash" id="clearNotice" style="float: right; font-size: 2.234rem; margin: 1%; margin-right: 2%;"></i></h1>
+		</header>
+		<div class="mui-content" id="allNews">
+		</div>
+		<div id="notifications" class="mui-popover">
+		    <div class="mui-col-sm-12 mui-col-xs-12">
+				<div class="title">
+					<span id="noticeTitle"></span><br /><i id="noticeTime"></i><i style="display: none;" id="noticeId"></i>
+				</div>
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll" id="noticeContent">
+					</div>
+				</div>
+			</div>
+		    <div>
+		    	<button class="mui-btn mui-btn-success" style="display: none;" id="readThrough">已阅读</button>
+		    	<button class="mui-btn mui-btn-warning" style="display: none;" id="btnCloseNotifications">关闭</button>
+		    </div>
+		</div>
+		<script type="text/javascript">
+			mui.init({
+				beforeback: function() {
+			　　　　 //获得父页面的webview
+			        var center = plus.webview.currentWebview().opener();
+			　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+			        mui.fire(center, 'refresh');
+			        //返回true,继续页面关闭逻辑
+			        return true;
+			    }
+			});
+			//触发删除事件
+			mui.plusReady(function(){
+				allNotice();
+				//新闻
+				mui("#allNews").on("tap",".all",function(){
+					id = this.getAttribute("id");
+					mui.ajax({
+						url:'http://47.96.156.75/public/index/notice/getNoticeById',
+						type:'post',
+						data:{
+							noId:id
+						},
+						dataType:'json',
+						header:{'Conetnt-Type':'application/json'},
+						async:false,
+						success:function(msg){
+							json = JSON.parse(msg);
+							document.getElementById("noticeTitle").textContent = json[0].noTitle;
+							document.getElementById("noticeTime").textContent = json[0].noTime;
+							document.getElementById("noticeContent").textContent = json[0].noContent;
+							document.getElementById("noticeId").textContent = json[0].id;
+							if(json[0].noState == 1){
+								document.getElementById("btnCloseNotifications").style.display = "block";
+								document.getElementById("readThrough").style.display = "none"
+							} else{
+								document.getElementById("readThrough").style.display = "block";
+								document.getElementById("btnCloseNotifications").style.display = "none"
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							mui.toast('异常:'+type);
+						}
+					});
+					mui("#notifications").popover("toggle",document.getElementById("notifications"));
+				});
+				document.getElementById("btnCloseNotifications").addEventListener("tap",function(){
+					mui("#notifications").popover("toggle",document.getElementById("notifications"));
+				});
+				document.getElementById("clearNotice").addEventListener("tap",function(){
+					plus.nativeUI.showWaiting('正在清空...');
+					plus.push.clear();
+					plus.nativeUI.closeWaiting();
+				});
+				document.getElementById("readThrough").addEventListener("tap",function(){
+					var id = document.getElementById("noticeId").textContent;
+					mui.ajax({
+						url:'http://47.96.156.75/public/index/notice/readthrough',
+						type:'post',
+						data:{
+							noUpId:id,
+							noState:1
+						},
+						dataType:'json',
+						header:{'Conetnt-Type':'application/json'},
+						async:false,
+						success:function(msg){
+							json = JSON.parse(msg);
+							if(json == 1){
+								mui("#notifications").popover("toggle",document.getElementById("notifications"));
+								allNotice();
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							mui.toast('异常:'+type);
+						}
+					});
+				});
+				mui('.mui-scroll-wrapper').scroll();
+				//模拟插入消息数据
+				/*document.getElementById("delAllNotice").addEventListener('tap',function(){
+					mui.ajax({
+						url:'http://47.96.156.75/public/index/notice/addnotice',
+						type:'post',
+						data:{
+							title:'已读',
+							time:'2018-05-09 10:20',
+							content:'测试是否已读消息',
+							state:0 
+						},
+						dataType:'json',
+						header:{'Conetnt-Type':'application/json'},
+						async:false,
+						success:function(msg){
+							json = JSON.parse(msg);
+							if(json.code == 200){
+								mui.toast('添加成功');
+							} else{
+								mui.toast('添加失败');
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							mui.toast('异常:'+type);
+						}
+					});
+				});*/
+				document.getElementById("closeTips").addEventListener("tap",function(){
+					document.getElementById("newsTips").style.display = "none";
+				});
+				function allNotice(){
+				plus.nativeUI.showWaiting('消息加载中...');
+				//查询所有消息
+				mui.ajax({
+					url:'http://47.96.156.75/public/index/notice/allnotice',
+						type:'post',
+						dataType:'json',
+						header:{'Conetnt-Type':'application/json'},
+						async:false,
+						success:function(data){
+							notice = JSON.parse(data);
+							var noticeHTML = "";
+							var tips = '<div class="tipsStyle" id="newsTips"><span>小提示:</span><span>你可以通过左滑下面的新闻进行删除</span><span class="mui-icon mui-icon-close" id="closeTips"></span></div>';
+							if(notice.code == 200){
+								for(var i = 0; i < notice.datas.length; i ++){
+									noticeHTML += '<div class="mui-col-sm-12 mui-col-xs-12 all" id="'+notice.datas[i].id+'" style="height: auto;"><li class="mui-table-view-cell">'+
+					'<div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red del" id="'+notice.datas[i].id+'">删除</a></div>'+
+					'<div class="notificationTitle mui-slider-handle" align="left"><div class="tips"><i class="mui-badge mui-badge-danger notReday" id="n'+notice.datas[i].id+'" style="font-size: 8px;">未读</i>'+
+					'</div><div class="title"><span>'+notice.datas[i].noTitle+'</span><i>'+notice.datas[i].noTime+'</i></div></div></li></div>';
+								}
+								document.getElementById("allNews").innerHTML = tips + noticeHTML;
+								for(var i = 0; i < notice.datas.length; i ++){
+									if(notice.datas[i].noState == 1){
+										document.getElementById("n"+notice.datas[i].id+"").textContent = '已读';
+										document.getElementById("n"+notice.datas[i].id+"").classList.remove('mui-badge-danger');
+										document.getElementById("n"+notice.datas[i].id+"").classList.add('mui-badge-success');
+									}
+								}
+								plus.nativeUI.closeWaiting();
+							} else if(notice.code == 201){
+								mui.toast(notice.datas);
+								plus.nativeUI.closeWaiting();
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							mui.toast('异常:'+type);
+						}
+					});
+				}
+				mui("#allNews").on('tap','.del',function(){
+					var delId = this.getAttribute('id');
+					mui.ajax({
+						url:'http://47.96.156.75/public/index/notice/getNoticeById',
+						type:'post',
+						data:{
+							noId:delId
+						},
+						dataType:'json',
+						header:{'Conetnt-Type':'application/json'},
+						async:false,
+						success:function(msg){
+							json = JSON.parse(msg);
+							if(json[0].noState == 0){
+								mui.confirm('还未阅读，确定删除吗？','警告',['确定','取消'],function(e){
+									if(e.index == 0){
+										mui.ajax({
+											url:'http://47.96.156.75/public/index/notice/delnotice',
+											type:'post',
+											data:{
+												did:delId
+											},
+											dataType:'json',
+											header:{'Conetnt-Type':'application/json'},
+											async:false,
+											success:function(msg){
+												json = JSON.parse(msg);
+												if(json == 1){
+													mui.toast('删除成功');
+													allNotice();
+												}
+											},
+											error:function(xhr,type,errorThrown){
+												mui.toast('异常:'+type);
+											}
+										});
+									}
+								},'div');
+							} else{
+								mui.ajax({
+									url:'http://47.96.156.75/public/index/notice/delnotice',
+									type:'post',
+									data:{
+										did:delId
+									},
+									dataType:'json',
+									header:{'Conetnt-Type':'application/json'},
+									async:false,
+									success:function(msg){
+										json = JSON.parse(msg);
+										if(json == 1){
+											mui.toast('删除成功');
+											allNotice();
+										}
+									},
+									error:function(xhr,type,errorThrown){
+										mui.toast('异常:'+type);
+									}
+								});
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							mui.toast('异常:'+type);
+						}
+					});
+				});
+			}); 
+	</script>
+	</body>
+
+</html>

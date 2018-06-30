@@ -1,0 +1,78 @@
+* {
+	font-family: "微软雅黑";
+}
+
+.mui-bar a {
+	color: #E73828;
+}
+
+.mui-bar h1 {
+	color: #E73828;
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+.bindAccount>div {
+	height: auto;
+	float: left;
+	width: 95%;
+	margin-left: 2.5%;
+	border-bottom: 1px solid #DDDDDD;
+}
+
+.bindAccount>div>div {
+	float: left;
+	margin: 3%;
+}
+
+.bindAccount>div>div:nth-child(1) {
+	width: 45%;
+}
+
+.bindAccount>div>div:nth-child(1)>i {
+	font-size: 2.678rem;
+	color: #2AA6DF;
+	float: left;
+}
+
+.bindAccount>div:nth-child(2)>div>i {
+	color: #4FB473;
+}
+
+.bindAccount>div:nth-child(3)>div>i {
+	color: #3D86F7;
+}
+
+.bindAccount>div:nth-child(4)>div>i {
+	color: #34A2DA;
+}
+
+.bindAccount>div:nth-child(5)>div>i {
+	color: #E33920;
+}
+
+.bindAccount>div:nth-child(6)>div>i {
+	color: #DB1A00;
+}
+
+.bindAccount>div>div:nth-child(1)>span {
+	font-size: 1.456rem;
+	float: left;
+	margin-top: 6%;
+	margin-left: 5%;
+}
+
+.bindAccount>div>div:nth-child(2) {
+	width: 22%;
+	position: relative;
+	top: 0.567rem;
+}
+
+.bindAccount>div>div:nth-child(2)>h5 {
+	font-size: 1.123rem;
+}
+
+.bindAccount>div>div:nth-child(3) {
+	float: right;
+	margin-top: 5%;
+}

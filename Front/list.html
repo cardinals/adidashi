@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/list.css" />
+		
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-left" style="color: red;"></a>
+			<h1 class="mui-title" style="color: red;font-weight: bold;font-size: 1.2rem;">列表页面</h1>
+		</header>
+		
+		
+		<div class="mui-row" style="padding-top: 15%;">
+			<div class="mui-col-sm-4 mui-col-xs-4 list">
+				<img src="userImages/door handle.png" alt="" />
+				<div class="detail" onclick ="openDetail()" style="margin: 1%;">
+					<span>详情概要:</span>
+					<span >这是什么什么什么</span>
+					<br />
+					<span style="color:red;font-weight: bold;display: block;margin-left:60%;">￥xx</span>
+				
+				</div>
+			</div>
+			<div class="mui-col-sm-4 mui-col-xs-4  list">
+				<img src="userImages/book.png" alt="" />
+				<div class="detail" onclick ="openDetail()" style="margin :1%;">
+					<span>详情概要:</span>
+					<span >这是什么什么什么</span>
+					<br />
+					<span style="color:red;font-weight: bold;display: block;margin-left:60%;">￥xx</span>
+				</div>
+			</div>
+			
+			<div class="mui-col-sm-4 mui-col-xs-4 list">
+				<img src="userImages/tianmao.png" alt="" />
+				<div class="detail" style="margin: 1%;" onclick ="openDetail()">
+					<span>详情概要:</span>
+					<span >这是什么什么什么</span>
+					<br />
+					<span style="color:red;font-weight: bold;display: block;margin-left:60%;">￥xx</span>
+				
+				</div>
+			</div>
+			
+		<div class="mui-row" style="padding-top: 15%;">
+			
+			<div class="mui-col-sm-4 mui-col-xs-4  list">
+				<img src="userImages/computer.png" alt="" />
+				<div class="detail" style="margin :1%;" onclick ="openDetail()">
+					<span>详情概要:</span>
+					<span >这是什么什么什么</span>
+					<br />
+					<span style="color:red;font-weight: bold;display: block;margin-left:60%;">￥xx</span>
+				</div>
+			</div>
+			
+			<div class="mui-col-sm-4 mui-col-xs-4  list">
+			<img src="userImages/computer.png" alt="" />
+			<div class="detail" style="margin :1%;" onclick ="openDetail()">
+				<span>详情概要:</span>
+				<span >这是什么什么什么</span>
+				<br />
+				<span style="color:red;font-weight: bold;display: block;margin-left:60%;">￥xx</span>
+			</div>
+		</div>
+		
+			<div class="mui-col-sm-4 mui-col-xs-4  list">
+			<img src="userImages/computer.png" alt="" />
+			<div class="detail" style="margin :1%;" onclick ="openDetail()">
+				<span>详情概要:</span>
+				<span >这是什么什么什么</span>
+				<br />
+				<span style="color:red;font-weight: bold;display: block;margin-left:60%;">￥xx</span>
+			</div>
+		</div>
+			
+			
+			
+			
+			
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init({
+				beforeback: function() {
+			　　　　 //获得父页面的webview
+			        var index = plus.webview.currentWebview().opener();
+			　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+			        mui.fire(index, 'refresh');
+			        //返回true,继续页面关闭逻辑
+			        return true;
+			    }
+			});
+				//点击详情概要进入详情页面
+				
+				function openDetail (){
+					
+				console.log(this.event.target.parentNode.parentNode.firstElementChild.src);	
+				
+				var s = this.event.target.parentNode.parentNode.firstElementChild.src;
+					mui.openWindow({
+					url:'listDetail.html',
+					id:'listDetail',
+					extras:{
+						src:s
+					}
+				})
+				}
+			mui.plusReady(function() {
+
+			
+			
+			})
+		
+		</script>
+	</body>
+
+</html>

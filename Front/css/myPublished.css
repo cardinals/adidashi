@@ -1,0 +1,97 @@
+* {
+	font-family: "微软雅黑";
+}
+
+.mui-bar a {
+	color: #E73828;
+}
+
+.mui-bar h1 {
+	color: #E73828;
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+.publisherArea>div,
+.publisherArea {
+	float: left;
+	margin-top: 1%;
+}
+.publisherArea>div:nth-child(2) {
+	width: 65%;
+	margin-left: 2%;
+}
+
+.publisherArea>div:nth-child(2)>h4:nth-child(1) {
+	border: 1px solid #FEB834;
+	font-size: 0.756rem;
+	width: 41px;
+	padding: 0.5%;
+	color: #FEB834;
+}
+
+.publisherArea>div:nth-child(2)>h4:nth-child(2) {
+	padding: 0.5%;
+	font-weight: 600;
+}
+
+.publisherArea>div:nth-child(2)>h4:nth-child(3) {
+	padding: 0.5%;
+	font-weight: 600;
+	font-size: 0.856rem;
+}
+
+.mui-row>div {
+	background: #FFFFFF;
+}
+
+.mui-row>div:nth-child(2) {
+	margin-top: 1%;
+}
+
+.mui-row>div:nth-child(2)>div {
+	float: left;
+	width: 50%;
+	height: auto;
+}
+
+.mui-row>div:nth-child(2)>div:nth-child(1) {
+	border-right: 1px solid #EFEFF4;
+}
+
+.mui-row>div:nth-child(2)>div>h3 {
+	font-weight: 100;
+	margin: 2%;
+	font-size: 1.567rem;
+}
+
+.mui-row>div:nth-child(2)>div>span {
+	font-size: 0.756rem;
+}
+
+.taskBtns>div {
+	background: #EFEFF4;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	margin-top: 2%;
+}
+
+.mui-btn-danger {
+	margin-top: 15%;
+	width: 70%;
+	height: 40px;
+	font-size: 0.999rem;
+	background: #E83828;
+	box-shadow: 0px 5px 30px #E83828;
+	margin-bottom: 2%;
+}
+
+.mui-btn-warning {
+	margin-top: 6%;
+	width: 70%;
+	height: 40px;
+	font-size: 0.999rem;
+	background: #FEB834;
+	box-shadow: 0px 3px 15px #FFFF00;
+}

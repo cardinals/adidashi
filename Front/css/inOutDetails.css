@@ -1,0 +1,99 @@
+* {
+	font-family: "微软雅黑";
+}
+
+.mui-bar {
+	width: 100%;
+	height: auto;
+}
+
+.mui-bar a {
+	color: #E73828;
+}
+
+.mui-bar h1 {
+	color: #E73828;
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+.tabController {
+	width: 90%;
+	margin: 3%;
+	height: 40px;
+	border-radius: 10px;
+	border: 2px solid #E83928;
+	margin-left: 5%;
+}
+
+.mui-segmented-control .mui-control-item.mui-active {
+	background: #E83928;
+}
+
+.mui-segmented-control .mui-control-item {
+	font-size: 1.123rem;
+	color: #E83928;
+	border: none;
+}
+
+#payIn>div,
+#payOut>div {
+	height: 65px;
+	width: 100%;
+	border-bottom: 1px solid #EEEEEE;
+}
+
+#payIn>div>div>span:last-child,
+#payOut>div>div>span:last-child {
+	margin-left: 5%;
+}
+
+#payIn>div>div:nth-child(1),
+#payOut>div>div:nth-child(1) {
+	width: 70%;
+	margin: 2%;
+	margin-left: 5%;
+	float: left;
+}
+
+#payIn>div>div:nth-child(2),
+#payOut>div>div:nth-child(2) {
+	width: 23%;
+	float: right;
+	margin-top: 5%;
+}
+
+#payIn>div>div:nth-child(1)>h4,
+#payOut>div>div:nth-child(1)>h4 {
+	font-weight: 100;
+	font-size: 0.987rem;
+}
+
+#payIn>div>div:nth-child(1)>span,
+#payOut>div>div:nth-child(1)>span {
+	font-size: 0.756rem;
+	font-weight: 100;
+	margin-left: 0px;
+}
+
+#payIn>div>div:nth-child(2)>h4,
+#payOut>div>div:nth-child(2)>h4 {
+	font-weight: 100;
+	font-size: 0.756rem;
+}
+
+#payIn>div>div:nth-child(2)>h4>i:first-child,
+#payOut>div>div:nth-child(2)>h4>i:first-child {
+	font-size: 0.789rem;
+	margin-left: 5%;
+}
+
+#payIn>div>div:nth-child(2)>h4>i:last-child {
+	font-size: 0.567rem;
+	margin-left: 10%;
+}
+
+#payOut>div>div:nth-child(2)>h4>i:last-child {
+	font-size: 0.789rem;
+	margin-left: 5%;
+}

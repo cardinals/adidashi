@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/taskLog.css" />
+		<script src="js/mui.min.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-left"></a>
+			<h1 class="mui-title">任务记录</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-row">
+				<div class="mui-col-sm-12 mui-col-xs-12" style="background: #FFFFFF;">
+					<div class="mui-segmented-control tabController">
+						<a href="#accountDetailsPayOut" id="publish" class="mui-control-item mui-active">发布</a>
+						<a href="#accountDetailsPayIn" id="get" class="mui-control-item">领取</a>
+					</div>
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12" style="margin-top: 2%; background: #FFFFFF;">
+					<div id="accountDetailsPayOut" class="mui-control-content mui-active">
+					</div>
+					<div id="accountDetailsPayIn" class="mui-control-content">
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			mui.init();
+			//获取登录用户
+			var user = localStorage.getItem("user");
+			mui.plusReady(function(){
+				mui("#accountDetailsPayIn").on("tap",".taskDetail",function(){
+					var did = this.getAttribute("id");
+					mui.openWindow({
+						url:'taskDetail.html',
+						id:'taskDetail',
+						extras:{
+							dataid:did
+						}
+					});
+				});
+				mui("#accountDetailsPayOut").on("tap",".taskDetail",function(){
+					var did = this.getAttribute("id");
+					mui.openWindow({
+						url:'taskDetail.html',
+						id:'taskDetail',
+						extras:{
+							dataid:did
+						}
+					});
+				});
+				getLoginPT(user);
+				document.getElementById("publish").addEventListener("tap",function(){
+					getLoginPT(user);
+				});
+				document.getElementById("get").addEventListener("tap",function(){
+					getLoginGT(user);
+				});
+			});
+			//获取登录用户发布的任务
+			function getLoginPT(u){
+				plus.nativeUI.showWaiting('加载中...');
+				mui.ajax({
+					url:'http://app.goodsceo.com/public/index/task/getmytask',
+					type:'post',
+					data:{my:u},
+					dataType:'json',
+					header:{'Content-Type':'application/json'},
+					timeout:10000,
+					success:function(data){
+						var json = JSON.parse(data);
+						var strs = "";
+						if(json.code == 200){
+							for(var i = 0; i < json.datas.length; i ++){
+								strs += "<div><div><h4>"+json.datas[i].task_title+"</h4><span>"+json.datas[i].task_start_time+"</span></div><div><h4 class='taskDetail' id='"+json.datas[i].id+"'>查看详情</h4></div></div>";
+								plus.nativeUI.closeWaiting();
+							}
+						}else{
+							mui.toast('未查询到数据');
+						}
+						document.getElementById("accountDetailsPayIn").innerHTML = strs;
+					},
+					error:function(xhr,type,errorThrown){
+						mui.toast('异常:'+type);
+						plus.nativeUI.closeWaiting();
+					}
+				});
+			}
+			
+			//获取登录用户领取的任务
+			function getLoginGT(u){
+				plus.nativeUI.showWaiting('加载中...');
+				mui.ajax({
+					url:'http://app.goodsceo.com/public/index/task/mygettask',
+					type:'post',
+					data:{my:u},
+					dataType:'json',
+					header:{'Content-Type':'application/json'},
+					timeout:10000,
+					success:function(data){
+						var json = JSON.parse(data);
+						var strs = "";
+						if(json.code == 200){
+							for(var i = 0; i < json.datas.length; i ++){
+								strs += "<div><div><h4>"+json.datas[i].task_title+"</h4><span>"+json.datas[i].task_start_time+"</span></div><div><h4 class='taskDetail' id='"+json.datas[i].id+"'>查看详情</h4></div></div>";
+							}
+						}else{
+							mui.toast('未查询到数据');
+						}
+						document.getElementById("accountDetailsPayOut").innerHTML = strs;
+						plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						mui.toast('异常:'+type);
+						plus.nativeUI.closeWaiting();
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

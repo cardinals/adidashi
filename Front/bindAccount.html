@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/bindAccount.css" />
+		<script src="js/mui.min.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-left"></a>
+			<h1 class="mui-title">账号绑定</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-row">
+				<div class="mui-col-sm-12 mui-col-xs-12 bindAccount">
+					<div>
+						<div>
+							<i class="mui-icon iconfont icon-qq"></i><span>QQ</span>
+						</div>
+						<div>
+							<h5 id="qq">已绑定</h5>
+						</div>
+						<!-- 简洁模式开关关闭状态 -->
+						<div id="bindQQ" class="mui-switch mui-switch-mini mui-active">
+						  <div class="mui-switch-handle"></div>
+						</div>
+					</div>
+					
+					<div>
+						<div>
+							<i class="mui-icon iconfont icon-weixin"></i><span>微信</span>
+						</div>
+						<div>
+							<h5 id="weixin">未绑定</h5>
+						</div>
+						<!-- 简洁模式开关关闭状态 -->
+						<div id="bindWeixin" class="mui-switch mui-switch-mini">
+						  <div class="mui-switch-handle"></div>
+						</div>
+					</div>
+					
+					<div>
+						<div>
+							<i class="mui-icon iconfont icon-zhifubao"></i><span>支付宝</span>
+						</div>
+						<div>
+							<h5 id="zhifubao">未绑定</h5>
+						</div>
+						<!-- 简洁模式开关关闭状态 -->
+						<div id="bindZhifubao" class="mui-switch mui-switch-mini">
+						  <div class="mui-switch-handle"></div>
+						</div>
+					</div>
+					
+					<div>
+						<div>
+							<i class="mui-icon iconfont icon-zhima"></i><span>芝麻信用</span>
+						</div>
+						<div>
+							<h5 id="zhima">未绑定</h5>
+						</div>
+						<!-- 简洁模式开关关闭状态 -->
+						<div id="bindZhima" class="mui-switch mui-switch-mini">
+						  <div class="mui-switch-handle"></div>
+						</div>
+					</div>
+					
+					<div>
+						<div>
+							<i class="mui-icon iconfont icon-weibo"></i><span>新浪微博</span>
+						</div>
+						<div>
+							<h5 id="xinlang">未绑定</h5>
+						</div>
+						<!-- 简洁模式开关关闭状态 -->
+						<div id="bindWeibo" class="mui-switch mui-switch-mini">
+						  <div class="mui-switch-handle"></div>
+						</div>
+					</div>
+					
+					<div>
+						<div>
+							<i class="mui-icon iconfont icon-jingdongbaitiao"></i><span>京东白条</span>
+						</div>
+						<div>
+							<h5 id="jingdong">未绑定</h5>
+						</div>
+						<!-- 简洁模式开关关闭状态 -->
+						<div id="bindJingdong" class="mui-switch mui-switch-mini">
+						  <div class="mui-switch-handle"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function(){
+				//qq
+				document.getElementById("bindQQ").addEventListener("toggle",function(event){
+					if(event.detail.isActive){
+						document.getElementById("qq").innerText = "已绑定"
+					}else{
+						document.getElementById("qq").innerText = "未绑定"
+					}
+				});
+				//微信
+				document.getElementById("bindWeixin").addEventListener("toggle",function(event){
+					if(event.detail.isActive){
+						document.getElementById("weixin").innerText = "已绑定"
+					}else{
+						document.getElementById("weixin").innerText = "未绑定"
+					}
+				});
+				//支付宝
+				document.getElementById("bindZhifubao").addEventListener("toggle",function(event){
+					if(event.detail.isActive){
+						document.getElementById("zhifubao").innerText = "已绑定"
+					}else{
+						document.getElementById("zhifubao").innerText = "未绑定"
+					}
+				});
+				//芝麻信用
+				document.getElementById("bindZhima").addEventListener("toggle",function(event){
+					if(event.detail.isActive){
+						document.getElementById("zhima").innerText = "已绑定"
+					}else{
+						document.getElementById("zhima").innerText = "未绑定"
+					}
+				});
+				//新浪微博
+				document.getElementById("bindWeibo").addEventListener("toggle",function(event){
+					if(event.detail.isActive){
+						document.getElementById("xinlang").innerText = "已绑定"
+					}else{
+						document.getElementById("xinlang").innerText = "未绑定"
+					}
+				});
+				//京东白条
+				document.getElementById("bindJingdong").addEventListener("toggle",function(event){
+					if(event.detail.isActive){
+						document.getElementById("jingdong").innerText = "已绑定"
+					}else{
+						document.getElementById("jingdong").innerText = "未绑定"
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>

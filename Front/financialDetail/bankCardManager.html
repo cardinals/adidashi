@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/bankCardManager.css" />
+		<script src="../js/mui.min.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-left"></a>
+			<h1 class="mui-title">银行卡管理</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-row">
+				<div class="mui-col-sm-12 mui-col-xs-12 bankCard" id="bankList">
+					<!--建设银行-->
+					<!--<div>
+						<div>
+							<div>
+								<i class="mui-icon iconfont icon-jiansheyinhang"></i>
+							</div>
+						</div>
+						<div>
+							<h3>建设银行</h3>
+							<h4>储蓄卡</h4>
+							<h2>**** **** ****2457</h2>
+						</div>
+					</div>-->
+					<!--农业银行-->
+					<!--<div>
+						<div>
+							<div>
+								<i class="mui-icon iconfont icon-nongyeyinhang"></i>
+							</div>
+						</div>
+						<div>
+							<h3>农业银行</h3>
+							<h4>储蓄卡</h4>
+							<h2>**** **** ****1517</h2>
+						</div>
+					</div>-->
+					<!--工商银行-->
+					<!--<div>
+						<div>
+							<div>
+								<i class="mui-icon iconfont icon-gongshangyinhang"></i>
+							</div>
+						</div>
+						<div>
+							<h3>工商银行</h3>
+							<h4>储蓄卡</h4>
+							<h2>**** **** ****1090</h2>
+						</div>
+					</div>-->
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12 addBankCardDiv">
+					<div class="mui-content-padded">
+						<h5 id="btnAddBankCard"><i class="mui-icon iconfont icon-jiajianzujianjiahao"></i>添加银行卡</h5>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			mui.init();
+			var user = localStorage.getItem("user");
+			mui.plusReady(function(){
+				window.addEventListener('refresh', function(e) { //执行刷新
+					location.reload();
+				});
+				plus.nativeUI.showWaiting('加载数据中...');
+				mui.ajax({
+							url:'http://47.96.156.75/public/index/account/queryBank',
+							type:'post',
+							data:{
+								bankphone:user
+							},
+							dataType:'json',
+							async:false,
+							header:{'Conetnt-Type':'application/json'},
+							success:function(data){
+								bank = JSON.parse(data);
+								var bankHtml = "";
+								if(bank.length < 1){
+									mui.toast('没有查到相关信息');
+									plus.nativeUI.closeWaiting();
+								} else{
+									for(var i = 0; i < bank.length; i ++){
+										jiami = bank[i].bank_number.substr(0,15);
+										bujiami = bank[i].bank_number.substr(15,19);
+										bankname = bank[i].bank_name.slice(2);
+										jiamied = jiami.replace(jiami,'***************');
+										if(bankname == '建设银行'){
+											bankHtml += '<div class="jsyh"><div><div><i class="mui-icon iconfont icon-jiansheyinhang"></i></div>'+
+											'</div><div><h3>'+bankname+'</h3><h4>'+bank[i].bank_des+'</h4><h2>'+jiamied+bujiami+'</h2></div></div>';
+										} else if(bankname == '工商银行'){
+											bankHtml += '<div class="gsyh"><div><div><i class="mui-icon iconfont icon-gongshangyinhang"></i></div>'+
+											'</div><div><h3>'+bankname+'</h3><h4>'+bank[i].bank_des+'</h4><h2>'+jiamied+bujiami+'</h2></div></div>';
+										} else if(bankname == '农业银行'){
+											bankHtml += '<div class="nyyh"><div><div><i class="mui-icon iconfont icon-nongyeyinhang"></i></div>'+
+											'</div><div><h3>'+bankname+'</h3><h4>'+bank[i].bank_des+'</h4><h2>'+jiamied+bujiami+'</h2></div></div>';
+										}
+										
+									}
+									document.getElementById("bankList").innerHTML = bankHtml;
+									plus.nativeUI.closeWaiting();
+								}
+							},
+							error:function(xhr,type,errorThrown){
+								mui.toast('异常:'+type);
+							}
+						});
+				document.getElementById("btnAddBankCard").addEventListener("tap",function(){
+					mui.openWindow({
+						url:'addBankCard.html',
+						id:'addBankCard'
+					});
+				});
+			});
+		</script>
+	</body>
+
+</html>

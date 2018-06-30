@@ -1,0 +1,220 @@
+ <!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/accountDetails.css" />
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/axiso.min.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-left"></a>
+			<h1 class="mui-title">账户明细</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-row">
+				<div class="mui-col-sm-12 mui-col-xs-12" style="background: #FFFFFF;">
+					<div class="mui-segmented-control tabController">
+						<a href="#accountDetailsPayIn" class="mui-control-item mui-active">充值</a>
+						<a href="#accountDetailsPayOut" class="mui-control-item">提现</a>
+					</div>
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12" id="account" style="margin-top: 2%; background: #FFFFFF;">
+					<div id="accountDetailsPayIn" class="mui-control-content mui-active">
+						<!--<div>
+							<div>
+								<h4>财付通充值</h4>
+								<span>2018-04-03</span><span>08:23:34</span>
+							</div>
+							<div>
+								<h4><i class="mui-icon iconfont icon-msnui-rmb"></i><i class="mui-icon iconfont icon-jiajianzujianjiahao"></i>15.00</h4>
+							</div>
+						</div>
+						<div>
+							<div>
+								<h4>翼支付充值</h4>
+								<span>2018-04-03</span><span>08:23:34</span>
+							</div>
+							<div>
+								<h4><i class="mui-icon iconfont icon-msnui-rmb"></i><i class="mui-icon iconfont icon-jiajianzujianjiahao"></i>15.00</h4>
+							</div>
+						</div>
+						<div>
+							<div>
+								<h4>支付宝充值</h4>
+								<span>2018-04-03</span><span>08:23:34</span>
+							</div>
+							<div>
+								<h4><i class="mui-icon iconfont icon-msnui-rmb"></i><i class="mui-icon iconfont icon-jiajianzujianjiahao"></i>15.00</h4>
+							</div>
+						</div>
+						<div>
+							<div>
+								<h4>银行卡充值</h4>
+								<span>2018-04-03</span><span>08:23:34</span>
+							</div>
+							<div>
+								<h4><i class="mui-icon iconfont icon-msnui-rmb"></i><i class="mui-icon iconfont icon-jiajianzujianjiahao"></i>15.00</h4>
+							</div>
+						</div>
+						<div>
+							<div>
+								<h4>微信充值</h4>
+								<span>2018-04-03</span><span>08:23:34</span>
+							</div>
+							<div>
+								<h4><i class="mui-icon iconfont icon-msnui-rmb"></i><i class="mui-icon iconfont icon-jiajianzujianjiahao"></i>15.00</h4>
+							</div>
+						</div>-->
+					</div>
+					<div id="accountDetailsPayOut" class="mui-control-content">
+						<div>
+							<div>
+								<h4>发起提现</h4>
+								<span>2018-04-03</span><span>08:23:34</span>
+							</div>
+							<div>
+								<h4><i class="mui-icon iconfont icon-msnui-rmb"></i><i class="mui-icon iconfont icon-subtract"></i>15.00</h4>
+							</div>
+						</div>
+						<div>
+							<div>
+								<h4>发起提现</h4>
+								<span>2018-04-03</span><span>08:23:34</span>
+							</div>
+							<div>
+								<h4><i class="mui-icon iconfont icon-msnui-rmb"></i><i class="mui-icon iconfont icon-subtract"></i>15.00</h4>
+							</div>
+						</div>
+						<div>
+							<div>
+								<h4>发起提现</h4>
+								<span>2018-04-03</span><span>08:23:34</span>
+							</div>
+							<div>
+								<h4><i class="mui-icon iconfont icon-msnui-rmb"></i><i class="mui-icon iconfont icon-subtract"></i>15.00</h4>
+							</div>
+						</div>
+						<div>
+							<div>
+								<h4>发起提现</h4>
+								<span>2018-04-03</span><span>08:23:34</span>
+							</div>
+							<div>
+								<h4><i class="mui-icon iconfont icon-msnui-rmb"></i><i class="mui-icon iconfont icon-subtract"></i>15.00</h4>
+							</div>
+						</div>
+						<div>
+							<div>
+								<h4>发起提现</h4>
+								<span>2018-04-03</span><span>08:23:34</span>
+							</div>
+							<div>
+								<h4><i class="mui-icon iconfont icon-msnui-rmb"></i><i class="mui-icon iconfont icon-subtract"></i>15.00</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var u = localStorage.getItem("user");
+	mui.init({
+	  pullRefresh : {
+	    container:"#account",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+	    down : {
+	      style:'circle',//必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
+	      color:'#2BD009', //可选，默认“#2BD009” 下拉刷新控件颜色
+	      height:'50px',//可选,默认50px.下拉刷新控件的高度,
+	      auto: true,//可选,默认false.首次加载自动下拉刷新一次
+	      range:'100px', //可选 默认100px,控件可下拉拖拽的范围
+	      offset:'200px', //可选 默认0px,下拉刷新控件的起始位置
+	      callback :function(){
+	  
+	      	mui.ajax({
+				url: 'http://47.96.156.75/public/index/incomeoutlog/queryinlog',
+				type: 'post',
+				data:{
+					users:u,
+					type:3
+				},
+				dataType: 'json',
+				header: {
+					'Conetnt-Type': 'application/json'
+				},
+				async: false,
+				success: function(data) {
+					var income = JSON.parse(data);
+					var ihtml = "";
+					if(income.code == 200){
+						 for(var i = 0; i < income.data.length; i ++){
+						 	ihtml += '<div><div><h4>'+income.data[i].incomedes+'</h4>'+
+								'<span>'+income.data[i].incometime+'</span></div><div>'+
+								'<h4><i class="mui-icon iconfont icon-msnui-rmb"></i><i class="mui-icon iconfont icon-jiajianzujianjiahao"></i>'+income.data[i].incomemoney+'</h4>'+
+							'</div></div>';
+						 }
+						document.getElementById("accountDetailsPayIn").innerHTML = ihtml;
+					}else{
+						document.getElementById("accountDetailsPayIn").innerHTML = "<div style='margin: 0px; padding: 0px; background: #EFEFF4; border: 1px solid #EFEFF4;'><h5 style='margin: 30%; margin-top: 10%; color: #333333; margin-bottom: 0px;'>未查询到相关充值数据</h5></div>";
+						mui.toast(income.data);
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+					mui.toast('异常:' + errorThrown);
+				}
+			}); 
+			mui.ajax({
+				url: 'http://47.96.156.75/public/index/incomeoutlog/queryoutlog',
+				type: 'post',
+				data:{users:u,type:4},
+				dataType: 'json',
+				header: {
+					'Conetnt-Type': 'application/json'
+				},
+				async: false,
+				success: function(data) {
+					var out = JSON.parse(data);
+					var ohtml = "";
+					if(out.code == 200){
+						for(var i = 0; i < out.data.length; i ++){
+						 	ohtml += '<div><div><h4>'+out.data[i].incomedes+'</h4>'+
+								'<span>'+out.data[i].incometime+'</span></div><div>'+
+								'<h4><i class="mui-icon iconfont icon-msnui-rmb"></i><i class="mui-icon iconfont icon-subtract"></i>'+out.data[i].incomemoney+'</h4>'+
+							'</div></div>';
+						 }
+						document.getElementById("accountDetailsPayOut").innerHTML = ohtml;
+					}else{
+						document.getElementById("accountDetailsPayOut").innerHTML = "<div style='margin: 0px; padding: 0px; background: #EFEFF4; border: 1px solid #EFEFF4;'><h5 style='margin: 30%; margin-top: 10%; color: #333333; margin-bottom: 0px;'>未查询到相关提现数据</h5></div>";
+						mui.toast(out.data); 
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+					mui.toast('异常:' + errorThrown);
+				}
+			});
+	      	mui('#account').pullRefresh().endPulldown(true);
+	      } //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+	    },
+	    up : {
+	      height:50,//可选.默认50.触发上拉加载拖动距离
+	      auto:true,//可选,默认false.自动上拉加载一次
+	      contentrefresh : "正在加载...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+      	  contentnomore:'没有更多数据了',//可选，请求完毕若没有更多数据时显示的提醒内容；
+	      callback :function(){
+	      	this.endPullupToRefresh(true);
+	      } //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+	    }
+	  }
+	});
+	mui.plusReady(function(){
+	});
+	</script>
+	</body>
+
+</html>

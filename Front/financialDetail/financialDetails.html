@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/financialDetails.css" />
+		<script src="../js/mui.min.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-left"></a>
+			<h1 class="mui-title">财务明细</h1>
+		</header>
+		<div class="mui-content" align="center">
+			<div class="mui-row">
+				<div class="mui-col-sm-12 mui-col-xs-12 myBalance">
+					<div class="myBalance-balance">
+						<h2 id="accountBalance">0.00</h2>
+						<h5>我的余额</h5>
+					</div>
+					<div class="myBalance-in-out">
+						<!--pay充值-->
+						<div id="pay">
+							<i class="mui-icon iconfont icon-3"></i><span>充值</span>
+						</div>
+						<!--withDraw提现-->
+						<div id="withDraw">
+							<i class="mui-icon iconfont icon-tixian"></i><span>提现</span>
+						</div>
+					</div>
+				</div>
+				<hr style="border: 6px solid #EFEFF4;" />
+				<div class="mui-col-sm-12 mui-col-xs-12 menus">
+					<h3 id="bankCardManagerBtn">银行卡管理<span class="mui-icon mui-icon-forward" style="float: right;"></span></h3>
+				</div>
+				<hr style="border: 2px solid #EFEFF4;" />
+				<div class="mui-col-sm-12 mui-col-xs-12 menus">
+					<h3 id="inOutDetailBtn">收支明细<span class="mui-icon mui-icon-forward" style="float: right;"></span></h3>
+				</div>
+				<hr style="border: 2px solid #EFEFF4;" />
+				<div class="mui-col-sm-12 mui-col-xs-12 menus">
+					<h3 id="accountDetailBtn">账户明细<span class="mui-icon mui-icon-forward" style="float: right;"></span></h3>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			mui.init({
+				beforeback: function() {
+			　　　　 //获得父页面的webview
+			        var center = plus.webview.currentWebview().opener();
+			　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+			        mui.fire(center, 'refresh');
+			        //返回true,继续页面关闭逻辑
+			        return true;
+			    }
+			});
+			var user = localStorage.getItem("user");
+			mui.plusReady(function(){
+				window.addEventListener('refresh', function(e) { //执行刷新
+					location.reload();
+					
+				});
+				myBalance();
+				//充值
+				document.getElementById("pay").addEventListener("tap",function(){
+					mui.openWindow({
+						url:'payCenter.html',
+						id:'payCenter'
+					});
+				});
+				//提现
+				document.getElementById("withDraw").addEventListener("tap",function(){
+					mui.openWindow({
+						url:'withDrawDetails.html',
+						id:'withDrawDetails'
+					});
+				});
+				//银行卡管理
+				document.getElementById("bankCardManagerBtn").addEventListener("tap",function(){
+					mui.openWindow({
+						url:'bankCardManager.html',
+						id:'bankCardManager'
+					});
+				});
+				//收支明细
+				document.getElementById("inOutDetailBtn").addEventListener("tap",function(){
+					mui.openWindow({
+						url:'inOutDetails.html',
+						id:'inOutDetails'
+					});
+				});
+				//账户明细
+				document.getElementById("accountDetailBtn").addEventListener("tap",function(){
+					mui.openWindow({
+						url:'accountDetails.html',
+						id:'accountDetails'
+					});
+				});
+			});
+			function myBalance(){
+				plus.nativeUI.showWaiting('加载数据中...');
+				//根据手机号查询账号相关信息
+				mui.ajax({
+					url:'http://47.96.156.75/public/index/account/queryaccounts',
+					type:'post',
+					data:{phone:user},
+					dataType:'json',
+					async:false,
+					header:{'Conetnt-Type':'application/json'},
+					timeout:5000,
+					success:function(data){
+						account = JSON.parse(data);
+						if(account[0].allpay == 0 || account[0].allpay == undefined){
+							document.getElementById("accountBalance").textContent = 0;
+						} else{
+							document.getElementById("accountBalance").textContent = account[0].allpay;
+						}
+						plus.nativeUI.closeWaiting();
+					},
+					error:function(xhr,type,errorThrown){
+						mui.toast('异常:'+errorThrown);
+						plus.nativeUI.closeWaiting();
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/myPublished.css" />
+		<script src="../js/mui.min.js"></script>
+		<style type="text/css">
+			.wrapp {
+				float:left;
+				width:50px;
+				height:50px;
+				margin:5%;
+				border-radius:5px;
+				text-align:center;
+			}
+			.k-ball-holder3 {
+				margin:10%;
+			}
+			.k-ball7a {
+				border:0;
+				margin:0;
+				width:20px;
+				height:20px;
+				position:absolute;
+				border-radius:50%;
+				animation:k-loadingO 2s ease infinite;
+				background:#19A68C;
+				animation-delay:-1.5s
+			}
+			.k-ball7b {
+				border:0;
+				margin:0;
+				width:20px;
+				height:20px;
+				position:absolute;
+				border-radius:50%;
+				animation:k-loadingO 2s ease infinite;
+				background:#F63D3A;
+				animation-delay:-1s
+			}
+			.k-ball7c {
+				border:0;
+				margin:0;
+				width:20px;
+				height:20px;
+				position:absolute;
+				border-radius:50%;
+				animation:k-loadingO 2s ease infinite;
+				background:#FDA543;
+				animation-delay:-0.5s
+			}
+			.k-ball7d {
+				border:0;
+				margin:0;
+				width:20px;
+				height:20px;
+				position:absolute;
+				border-radius:50%;
+				animation:k-loadingO 2s ease infinite;
+				background:#193B48
+			}
+			@keyframes k-loadingO {
+					0%,100% {
+					transform:translate(0)
+				}
+				25% {
+					transform:translate(160%)
+				}
+				50% {
+					transform:translate(160%,160%)
+				}
+				75% {
+					transform:translate(0,160%)
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-left"></a>
+			<h1 class="mui-title">我的发布</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-row">
+				<div class="mui-col-sm-12 mui-col-xs-12 publisherArea">
+					<div class="wrapp">
+						<div class="k-ball-holder3">
+							<div class="k-ball7a" ></div>
+							<div class="k-ball7b" ></div>
+							<div class="k-ball7c" ></div>
+							<div class="k-ball7d" ></div>
+						</div>
+					</div> 
+					<div>
+						<h4>匹配中</h4>
+						<h4>任务状态：未领取</h4>
+						<h4>有效时间：09:59:34</h4>
+					</div>
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12" align="center">
+					<div>
+						<h3>30:00:00</h3>
+						<span>规定任务完成时间</span>
+					</div>
+					<div>
+						<h3>3</h3>
+						<span>附近可接受任务人数</span>
+					</div>
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12 taskBtns" align="center" style="background: #EFEFF4;">
+					<div class="mui-content-padded">
+						<button type="button" class="mui-btn mui-btn-danger" id="delTask">取消任务</button>
+						<button type="button" class="mui-btn mui-btn-warning" id="updateTask">修改任务</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			mui.init({
+				beforeback: function() {
+			　　　　 //获得父页面的webview
+			        var published = plus.webview.currentWebview().opener();
+			　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+			        mui.fire(published, 'refresh');
+			        //返回true,继续页面关闭逻辑
+			        return true;
+			    }
+			});
+			mui.plusReady(function(){
+				//接受id
+				var did = plus.webview.currentWebview();
+				var del = did.u;
+				//修改
+				document.getElementById("updateTask").addEventListener("tap",function(){
+					mui.openWindow({
+						url:'../publishTask.html',
+						id:'publishTask',
+						extras:{taskId:del}
+					});
+				});
+				//取消任务
+				document.getElementById("delTask").addEventListener("tap",function(){
+					plus.nativeUI.actionSheet( {title:"确定取消任务?(此操作不可逆转)",buttons:[{title:"确定"},{title:"取消"}]}, function(e){
+						if(e.index == 1){
+							plus.nativeUI.showWaiting('取消中...');
+							mui.ajax({
+								url: 'http://47.96.156.75/public/index/task/deltask',
+								type: 'post',
+								dataType: 'json',
+								async: true,
+								header: {
+									'Content-Type': 'application/json'
+								},
+								data:{delid:del},
+								success:function(data){
+									var json = JSON.parse(data);
+									if(json == '1'){
+										plus.nativeUI.closeWaiting();
+										mui.toast('取消成功');
+										var index = mui.back();
+											var h = plus.webview.getLaunchWebview().getURL();
+											mui.back = function(){
+												var indexs = plus.webview.getLaunchWebview(h);
+												indexs.reload(true);
+												index();
+											}
+									} else{
+										mui.toast('取消失败');
+									}
+								},
+								error:function(xhr,type,errorThrown){
+									mui.toast('异常:'+type);
+								}
+							});
+							}else if(e.index == 2){
+						}
+					});
+				});
+			});
+		</script>
+	</body>
+
+</html>

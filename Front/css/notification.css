@@ -1,0 +1,98 @@
+* {
+	font-family: "微软雅黑";
+}
+
+body {
+	background-color: #FFFFFF;
+}
+
+.mui-bar a {
+	color: #E73828;
+}
+
+.mui-bar h1 {
+	color: #E73828;
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+.notificationTitle {
+	height: auto;
+}
+
+.title span {
+	height: auto;
+	font-weight: bold;
+	font-size: 1.011rem;
+}
+
+.title i {
+	font-style: normal;
+	font-size: 0.756rem;
+	margin-left: 5%;
+}
+
+.tips {
+	text-align: center;
+	margin: 0px;
+	padding: 0px;
+	margin-left: 20%;
+}
+
+.notReday {
+	width: auto;
+	height: auto;
+	font-style: normal;
+}
+
+.all {
+	margin-top: 2%;
+	background: #FFFFFF;
+	border: 1px solid #EFEFF4;
+}
+#notifications {
+	border: 1px solid #EFEFF4;
+	height: 400px;
+	width: 90%;
+	position: absolute;
+	bottom: 40%;
+	margin: 0px;
+	padding: 0px;
+}
+#notifications>div:nth-child(1){
+	margin-top: 3%;
+	height: 330px;
+}
+#notifications>div:nth-child(1)>div:nth-child(1){
+	margin: 3%;
+	margin-top: 0px;
+	text-align: center;
+}
+#notifications>div:nth-child(1)>div:nth-child(2){
+	margin-top: 0px;
+	height: 280px;
+	overflow: scroll;
+	width: 100%;
+	top: 15%;
+	right: 3%;
+	border-top: 1px solid #EFEFF4;
+}
+#notifications>div:nth-child(1)>div:nth-child(2)>div{
+	font-size: 0.756rem;
+	margin: 0px;
+	padding: 3%;
+	padding-top: 1%;
+}
+#notifications>div:nth-child(2) {
+	margin-top: 4%;
+	text-align: center;
+	width: 100%;
+}
+
+#notifications>div:nth-child(2)>button {
+	width: 80%;
+	border-radius: 50px;
+	margin: 10%;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}

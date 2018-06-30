@@ -1,0 +1,121 @@
+/*
+ 此css用于关于我们
+ 代码解释:.mui-row>div:nth-child(6)>div:first-child>div:nth-child(1)>i
+ 查找类mui-row下的第六个div下的第一个div下的第一个div下的i元素
+ * */
+* {
+	font-family: "微软雅黑";
+	margin: 0px;
+	padding: 0px;
+}
+
+.mui-col-sm-6,
+.mui-col-xs-12 {
+	background: #FFFFFF;
+}
+
+.mui-bar a {
+	color: #E73828;
+}
+
+.mui-bar h1 {
+	color: #E73828;
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+.logoAndVersion>div:nth-child(1)>img {
+	width: 35%;
+	margin-top: 5%;
+}
+
+.logoAndVersion>div:nth-child(1)>h3 {
+	font-family: "仿宋";
+	font-weight: 700;
+	font-size: 1.456rem;
+	margin-bottom: 2%;
+}
+
+.details {
+	margin-top: 1.5%;
+}
+
+.details>h3 {
+	font-family: "仿宋";
+	font-weight: 700;
+	font-size: 1.123rem;
+	margin: 3%;
+}
+
+.mui-row>div:nth-child(2) {
+	margin-top: 3%;
+}
+
+.mui-row>div:nth-child(6) {
+	margin-top: 3%;
+}
+
+.mui-row>div:nth-child(6)>div>h3 {
+	font-size: 1.123rem;
+	font-family: "仿宋";
+	font-weight: 700;
+}
+
+.mui-row>div:nth-child(6)>div>h3:before,
+.mui-row>div:nth-child(6)>div>h3:after {
+	content: "";
+	width: 10%;
+	height: 3px;
+	position: absolute;
+	top: 50%;
+}
+
+.mui-row>div:nth-child(6)>div>h3:before {
+	background: -webkit-linear-gradient(right, #E73828, #eee);
+	background: linear-gradient(to left, #E73828, #eee);
+	left: 28%;
+}
+
+.mui-row>div:nth-child(6)>div>h3:after {
+	background: -webkit-linear-gradient(left, #E73828, #eee);
+	background: linear-gradient(to right, #E73828, #eee);
+	right: 28%;
+}
+
+.mui-row>div:nth-child(7)>div:first-child>div {
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	margin-top: 3%;
+	margin-left: 12%;
+}
+
+.mui-row>div:nth-child(7)>div:first-child>div:nth-child(1)>i {
+	color: #50B674;
+}
+
+.mui-row>div:nth-child(7)>div:first-child>div:nth-child(2)>i {
+	color: #2DA5DB;
+}
+
+.mui-row>div:nth-child(7)>div:first-child>div:nth-child(3)>i {
+	color: #DE462F;
+}
+
+.mui-row>div:nth-child(7)>div:first-child>div>i {
+	font-size: 3.789rem;
+}
+
+.mui-row>div:nth-child(7)>div:first-child>div>span {
+	font-size: 0.612rem;
+}
+
+.mui-row>div:nth-child(8)>div>button {
+	margin: 0px;
+	padding: 0px;
+	width: 98%;
+	height: auto;
+	background: #E83928;
+	font-size: 1.888rem;
+	margin-bottom: 3%;
+}

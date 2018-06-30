@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/addBankCard.css" />
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/bankCard.js" ></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-left"></a>
+			<h1 class="mui-title">添加银行卡</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-row">
+				<div class="mui-col-sm-12 mui-col-xs-12 tips">
+					<div>
+						<span>请添加持卡人本人的银行卡</span>
+					</div>
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12 cardInfo">
+					<div>
+						<div class="mui-input-row">
+							<label>持卡人</label>
+							<input type="text" id="bankUser" placeholder="自动获取认证姓名" />
+						</div>
+					</div>
+					<div>
+						<div class="mui-input-row">
+							<label>银行卡号</label>
+							<input type="number" maxlength="19" id="bankCard" placeholder="请填写16或19位银行卡号" />
+						</div>
+					</div>
+					<div>
+						<div class="mui-input-row">
+							<label>所属银行</label>
+							<input type="text" disabled="disabled" id="bankCardName" placeholder="自动获取所属银行" />
+						</div>
+					</div>
+					<div>
+						<div class="mui-input-row">
+							<label>银行绑定手机号</label>
+							<input type="number" id="bankPhone" placeholder="请填写办理银行卡时登记的手机号" />
+						</div>
+					</div>
+					<div>
+						<div class="mui-input-row">
+							<label>短信验证码</label>
+							<input type="number" id="bankVerifyCode" placeholder="请输入验证码" />
+							<a href="javascript:sendVerifyCode(60);" id="get_bank_code">获取验证码</a>
+						</div>
+					</div>
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12" style="background: #EFEFF4;"
+					<div class="mui-content-padded" align="center">
+						<button type="button" class="mui-btn mui-btn-danger" id="addBankCardBtn">添加银行卡</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			mui.init({
+				beforeback: function() {
+			　　　　 //获得父页面的webview
+			        var list = plus.webview.currentWebview().opener();
+			　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+			        mui.fire(list, 'refresh');
+			        //返回true,继续页面关闭逻辑
+			        return true;
+			    }
+			});
+			//加载验证函数
+			var isSendCode = true;
+			var user = localStorage.getItem("user");
+			function sendVerifyCode(t){
+				//逐级获取输入框内的值，并检查是否为空
+				if(isSendCode){
+					var phone = document.getElementById("bankPhone");
+					if(phone.value != ""){
+						var phoneVal = phone.value;
+						var regP = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
+						var me = false;
+							if(regP.test(phoneVal)) me=true;
+							if(!me){
+								phone.value = '';
+								plus.nativeUI.toast('请输入正确的手机号码');
+								phone.focus();
+								return false;
+							} else{
+							for(i = 1; i <= t; i++){
+							window.setTimeout("send(" + i + "," + t +")",i*1000);
+							}
+						}
+					} else{
+					plus.nativeUI.toast("请填写银行预留手机号码");
+					}
+				}
+			}
+			//倒计时
+			function send(num,t){
+				var getCode = document.getElementById("get_bank_code");
+				if(num == t){
+					getCode.innerHTML = '重新发送';
+					isSend = true;
+				} else{
+					var remainTimes = t - num;
+					getCode.innerHTML = remainTimes + '秒后发送';
+				}
+			}
+			//执行plusReady函数
+			mui.plusReady(function(){
+				var bankType = '';
+				document.getElementById("bankUser").value = user;
+				document.getElementById("bankCard").addEventListener("blur",function(){
+					var isComplete = this.value;
+					if(isComplete.length != 19){
+						mui.toast('请填写合法的19位银行卡号');
+					}else{
+						var obj = bankCardAttribution(this.value);
+						var b = obj.bankName;
+						bankType = obj.cardTypeName;
+						document.getElementById("bankCardName").value = b;
+					}
+				});
+				document.getElementById("addBankCardBtn").addEventListener("tap",function(){
+					//逐级获取输入框内的值，并检查是否为空
+					var username = document.getElementById("bankUser");
+					var cardnumber = document.getElementById("bankCard");
+					var phone = document.getElementById("bankPhone");
+					var vd = document.getElementById("bankVerifyCode");
+					var bankName = document.getElementById("bankCardName");
+					//var bankId = https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?cardNo=1111&cardBinCheck=true;
+					if(username.value == ""){
+						plus.nativeUI.toast('持卡人姓名不能为空');
+					} else if(cardnumber.value == ""){
+						plus.nativeUI.toast('银行卡号不能为空');
+					} else if(cardnumber.value.length < 16 || cardnumber.value.length > 19){
+						plus.nativeUI.toast('银行卡号只能是16或者19位');
+					} else if(phone.value == ""){
+						plus.nativeUI.toast('手机号不能为空');
+					} else if(vd.value == ""){
+						plus.nativeUI.toast('验证码不能为空');
+					} else if(bankName.value == ""){
+						plus.nativeUI.toast('未选择所属银行');
+					} else{
+						plus.nativeUI.showWaiting('正在添加');
+						//alert(user+","+texts+","+cardnumber.value+","+phone.value);
+						mui.ajax({
+							url:'http://47.96.156.75/public/index/account/addbankcard',
+							type:'post',
+							data:{
+								banker:user,
+								bank:bankName.value,
+								bankcard:cardnumber.value,
+								bankphone:phone.value,
+								bankdes:bankType
+							},
+							dataType:'json',
+							async:false,
+							header:{'Conetnt-Type':'application/json'},
+							success:function(msg){
+								bank = JSON.parse(msg);
+								if(bank == 1){
+									mui.toast('添加成功');
+									plus.nativeUI.closeWaiting();
+									var index = mui.back();
+									mui.back = function(){
+										var indexs = plus.webview.getWebviewById("bankCardManager");
+										indexs.reload(true);
+										index();
+									}
+								}
+							},
+							error:function(xhr,type,errorThrown){
+								mui.toast('异常:'+type);
+							}
+						});
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>

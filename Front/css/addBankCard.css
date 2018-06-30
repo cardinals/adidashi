@@ -1,0 +1,95 @@
+* {
+	font-family: "微软雅黑";
+}
+
+.mui-content {
+	background: #FFFFFF;
+	height: auto;
+}
+
+.mui-bar a {
+	color: #E73828;
+}
+
+.mui-bar h1 {
+	color: #E73828;
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+.tips {
+	background: #EFEFF4;
+	height: auto;
+}
+
+.tips>div {
+	margin: 2%;
+	height: 25px;
+}
+
+.tips>div>span {
+	margin-left: 5%;
+	font-size: 0.856rem;
+	color: #999999;
+}
+
+.cardInfo {
+	height: auto;
+}
+
+.cardInfo>div {
+	border-bottom: 1px solid #EFEFF4;
+}
+
+.cardInfo>div>div {
+	height: 55px;
+}
+
+.cardInfo>div>div>label {
+	margin: 2%;
+	width: auto;
+	font-size: 0.756rem;
+	margin-left: 1%;
+}
+
+.cardInfo>div:nth-child(4)>div>input {
+	width: auto;
+	float: left;
+}
+
+.cardInfo>div:nth-child(5)>div>input {
+	width: 40%;
+	float: left;
+}
+
+.cardInfo>div:nth-child(5)>div>a {
+	font-size: 0.756rem;
+	float: right;
+	margin-top: 4.5%;
+	margin-right: 2%;
+	color: #6AD7FF;
+}
+
+.cardInfo>div>div>input {
+	margin: 2%;
+	font-size: 0.756rem;
+}
+
+.mui-select select {
+	font-size: 0.856rem;
+	color: #AAAAAA;
+	margin-top: 2%;
+}
+
+.mui-select:before {
+	margin-top: 2%;
+}
+
+.mui-btn-danger {
+	margin-top: 15%;
+	width: 60%;
+	height: 40px;
+	font-size: 0.999rem;
+	background: #E83828;
+	box-shadow: 0px 5px 30px #E83828;
+}

@@ -1,0 +1,54 @@
+* {
+	font-family: "微软雅黑";
+}
+
+body {
+	background: #FFFFFF;
+}
+
+.mui-content {
+	background: #FFFFFF;
+	height: auto;
+}
+
+.mui-input-group {
+	width: 85%;
+	margin: 7.5%;
+	margin-top: 15%;
+}
+
+.mui-input-group:before,
+.mui-input-group:after {
+	background: none;
+}
+
+.mui-input-row {
+	margin: 3%;
+	margin-top: 2%;
+}
+
+.input-title {
+	margin-top: 7%;
+	margin-left: 7%;
+}
+
+.list{
+	border: 1px solid gray;
+	margin: 2%;
+	width: 29%;
+	
+}
+.list>img{
+	width: 100%;
+	height: 100%;
+	padding: 10%;
+	background-color: white;
+	
+	
+}
+.detail{
+	width: 100%;
+	height: 30%;
+	font-size: 0.7rem;
+	
+}

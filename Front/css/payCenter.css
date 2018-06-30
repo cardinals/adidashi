@@ -1,0 +1,183 @@
+* {
+	font-family: "微软雅黑";
+}
+
+.mui-content {
+	background: #FFFFFF;
+	height: auto;
+}
+
+.mui-bar {
+	width: 100%;
+	height: auto;
+}
+
+.mui-bar a {
+	color: #E73828;
+}
+
+.mui-title {
+	color: #E73828;
+	font-size: 1.2rem;
+	font-weight: bold;
+	float: left;
+}
+
+.mui-bar-nav>i {
+	font-weight: 100;
+	font-size: 0.756rem;
+	float: right;
+	margin: 2%;
+	font-style: normal;
+	margin-top: 3.5%;
+	color: #007AFF;
+}
+
+.payArea {
+	height: 120px;
+	background: #E73828;
+}
+
+.payArea div {
+	margin-top: 3%;
+	color: #FFFFFF;
+	height: auto;
+}
+
+.payArea div>h3 {
+	font-size: 3.456rem;
+	height: 60px;
+}
+
+.payArea div>span {
+	font-size: 1.123rem;
+}
+
+.selectPayMoney {
+	height: 65px;
+	text-align: center;
+	margin-top: 5%;
+}
+
+.selectPayMoney>button {
+	height: 55px;
+	width: 28%;
+	margin-top: 1%;
+	border: 1px solid #ACACB4;
+}
+
+.selectPayMoney>button:active {
+	background: #FFFFFF;
+	color: #000000;
+}
+
+.mui-btn-danger {
+	margin-top: 10%;
+	width: 60%;
+	height: 40px;
+	font-size: 0.999rem;
+	background: #E83828;
+	box-shadow: 0px 5px 30px #E83828;
+}
+
+#confirmPay>div {
+	height: 40px;
+	border-bottom: 1px solid #EFEFF4;
+}
+
+#confirmPay>div:nth-child(1)>i {
+	float: left;
+	font-size: 1.567rem;
+	font-weight: bold;
+	margin: 1.5%;
+	margin-left: 3%;
+}
+
+#confirmPay>div:nth-child(1)>span {
+	font-size: 1.345rem;
+	margin: 1.5%;
+	float: left;
+	margin-left: 30%;
+}
+
+#confirmPay>div:nth-child(2)>i,
+#confirmPay>div:nth-child(3)>i,
+#confirmPay>div:nth-child(4)>i {
+	font-size: 1.234rem;
+	float: left;
+	margin: 2%;
+	color: #6D6D72;
+	font-style: normal;
+	margin-left: 3%;
+}
+
+#confirmPay>div:nth-child(2)>span,
+#confirmPay>div:nth-child(3)>span {
+	font-size: 1.345rem;
+	float: right;
+	margin: 2%;
+	color: yellow;
+	font-style: normal;
+	margin-right: 3%;
+}
+
+#confirmPay>div:nth-child(4)>span {
+	font-size: 1.678rem;
+	float: right;
+	margin: 2%;
+	font-style: normal;
+	margin-right: 3%;
+}
+
+#confirmPay>div:nth-child(5) {
+	height: 30px;
+	background: #EFEFF4;
+}
+
+#confirmPay>div:nth-child(5)>span {
+	font-size: 0.856rem;
+	float: left;
+	margin: 1%;
+	margin-left: 2.5%;
+}
+
+#confirmPay>div:nth-child(6) {
+	height: 90px;
+	border: none;
+}
+
+#confirmPay>div:nth-child(6)>div {
+	height: 90px;
+	width: 20%;
+	float: left;
+	margin-left: 10%;
+	margin-top: 2%;
+}
+
+#confirmPay>div:nth-child(6)>div:nth-child(1)>i {
+	font-size: 3.988rem;
+	float: left;
+	margin: 2%;
+	margin-left: 3%;
+	color: #E73828;
+}
+
+#confirmPay>div:nth-child(6)>div:nth-child(2)>i {
+	font-size: 3.988rem;
+	float: left;
+	margin: 2%;
+	margin-left: 3%;
+	color: #57B274;
+}
+
+#confirmPay>div:nth-child(6)>div:nth-child(3)>i {
+	font-size: 3.988rem;
+	float: left;
+	margin: 2%;
+	margin-left: 3%;
+	color: #3987F7;
+}
+
+#confirmPay>div:nth-child(6)>div>span {
+	font-size: 0.756rem;
+}

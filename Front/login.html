@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/login.css" />
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="tools/md5.js" ></script>
+		<!-- <script type="text/javascript" src="js/verifyUser.js" ></script>-->
+		<script type="text/javascript" charset="UTF-8">
+			//检测登录用户名和密码是否为空
+			//初始化MUI主函数
+			mui.init({
+				beforeback: function() {
+			　　　　 //获得父页面的webview
+			        var list = plus.webview.currentWebview().opener();
+			　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+			        mui.fire(list, 'refresh');
+			        //返回true,继续页面关闭逻辑
+			        return true;
+			    }
+			});
+			//子函数开始
+			mui.plusReady(function() {
+				//获取登录按钮ID
+				var login = document.getElementById('userLogin');
+				//给按钮绑定事件
+				login.addEventListener('tap', function() {
+					var name = document.getElementById("username");
+					var psw = document.getElementById("userpassword");
+					if(name.value != "") {
+						var nameVal = name.value;
+						var regP = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
+						var me = false;
+						if(regP.test(nameVal)) me = true;
+						if(!me) {
+							name.value = '';
+							mui.toast('请输入正确的手机号码'); 
+							name.focus();
+							return false;
+						} else if(psw.length < 6) {
+							mui.toast('密码不能低于6位');
+							return false;
+						} else {
+							plus.nativeUI.showWaiting('登录中...');
+							//执行MD5加密
+							var pw = hex_md5(psw.value);
+							mui.ajax({
+								url: 'http://47.96.156.75/public/index/user/login',
+								data: {
+									name: name.value,
+									psw: pw
+								},
+								type: "post",
+								async: true,
+								dataType: 'json',
+								timeout: 10000,
+								header: {
+									'Content-Type': 'application/json'
+								},
+								timeout:5000,
+								success: function(data) {
+									//alert(data);
+									var json = JSON.parse(data);
+									if(json.code == "200") {
+										mui.toast("登录成功");
+										plus.nativeUI.closeWaiting();
+										//alert(json.infos);
+										localStorage.setItem("user",json.infos[0].mobile);
+										//alert(json.infos[0].mobile);
+										var index = mui.back();
+										var h = plus.webview.getLaunchWebview().getURL();
+										mui.back = function(){
+											var indexs = plus.webview.getLaunchWebview(h);
+											indexs.reload(true);
+											index();
+										}
+								}else {
+										mui.toast("用户名或密码错误");
+										plus.nativeUI.closeWaiting();
+									}
+
+								},
+								error: function(xhr, type, errorThrown) {
+									mui.toast('异常:'+errorThrown);
+									plus.nativeUI.closeWaiting();
+								}
+							});
+
+							/*mui.toast('验证通过');*/
+						}
+					} else {
+						mui.toast('手机号不能为空');
+					}
+					//执行ajax代码
+
+					/*mui.openWindow({
+						url:'myCenter.html',
+						id:'myCenter'
+					});*/
+				});
+				//进入注册界面
+				document.getElementById("goToReg").addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'register.html',
+						id: 'register'
+					});
+				});
+			});
+		</script>
+	</head>
+
+	<body>
+		<div class="mui-row">
+			<div class="mui-col-sm-12 mui-col-xs-12">
+				<header class="mui-bar mui-bar-nav">
+					<h1 class="mui-title">登录</h1>
+				</header>
+			</div>
+		</div>
+		<div class="mui-content">
+			<div class="mui-row">
+				<div class="mui-col-sm-12 mui-col-xs-12">
+						<!--添加logo-->
+					<div class="logo">
+						<img src="logo/logo.png" alt="" />
+					</div>
+					<form class="mui-input-group">
+						<div class="input-title">
+							<label>手机号</label>
+						</div>
+						<div class="mui-input-row">
+							<input type="number" autocomplete="on" class="mui-input-clear" id="username" placeholder="请输入电话号码" />
+						</div>
+						<div class="input-title">
+							<label>密码</label>
+						</div>
+						<div class="mui-input-row">
+							<input type="password" class="mui-input-password" id="userpassword" placeholder="请输入密码" />
+						</div>
+					</form>
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12">
+					<div class="mui-content-padded" align="center">
+						<button type="button" class="mui-btn mui-btn-danger" id="userLogin" style="border: none;">登录</button>
+					</div>
+					<div class="mui-content-padded tips" align="center">
+						<span>还没有注册账号？</span>
+						<a id="goToReg">点击注册</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>

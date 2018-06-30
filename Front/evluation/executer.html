@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/executer.css" />
+		<script src="../js/mui.min.js"></script>
+	</head>
+<!--评价执行人-->
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-left"></a>
+			<h1 class="mui-title">评价</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-row">
+				<div class="mui-col-sm-6 mui-col-xs-12 evluaterArea" align="center">
+					<div>
+						<img src="../logo/logo.png" />
+					</div>
+					<div>
+						<h3 id="userName"></h3>
+						<h4>执行人</h4>
+					</div>
+					<div>
+						<div class="starCount mui-inline">
+							<i data-index = "1" class="mui-icon iconfont icon-xingxing gray"></i>
+							<i data-index = "2" class="mui-icon iconfont icon-xingxing gray"></i>
+							<i data-index = "3" class="mui-icon iconfont icon-xingxing gray"></i>
+							<i data-index = "4" class="mui-icon iconfont icon-xingxing gray"></i>
+							<i data-index = "5" class="mui-icon iconfont icon-xingxing gray"></i>
+						</div>
+					</div>
+					<div>
+						<textarea rows="8" id="remark" placeholder="请填写您的评语" style="overflow: scroll;"></textarea>
+					</div>
+					<div>
+						<div class="mui-content-padded">
+							<button type="button" id="submitEvlaution" class="mui-btn mui-btn-danger">提交评价</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function(){
+				var self = plus.webview.currentWebview();
+				var executor = self.executor;
+				document.getElementById("userName").textContent = executor;
+				//定义此函数下的全局变量
+				var index = 0;
+				//给星星绑定点击事件
+				mui(".starCount").on("click","i",function(){
+					//获取星星的data-index属性
+					index = parseInt(this.getAttribute("data-index"));
+					var parent = this.parentNode;
+					var children = parent.children;
+					if(this.classList.contains("gray")){
+						for(var i = 0; i < index; i++){
+							children[i].classList.remove("gray");
+							children[i].classList.add("yellow");
+						}
+					}else{
+						for(var i = 0; i < 5; i++){
+							children[i].classList.add("gray");
+							children[i].classList.remove("yellow");
+						}
+					}
+				});
+				document.getElementById("submitEvlaution").addEventListener("tap",function(){
+					//评论人
+					var executor = document.getElementById("userName").textContent;
+					//获取评语
+					var remark = document.getElementById("remark").value;
+					if(index == 0){
+						plus.nativeUI.toast("您还未选择评星");
+					} else if(remark == ""){
+						plus.nativeUI.toast("您未发表评语");
+					} else if(remark.length < 5){
+						plus.nativeUI.toast("评语不能低于5个字");
+					} else{
+						mui.alert("评论人:"+executor+"\n评星:"+index+"\n评语:"+remark);
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>

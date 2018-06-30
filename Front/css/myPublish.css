@@ -1,0 +1,149 @@
+* {
+	font-family: "微软雅黑";
+}
+
+.mui-bar a {
+	color: #E73828;
+}
+
+.mui-bar h1 {
+	color: #E73828;
+	font-size: 1.2rem;
+	font-weight: bold;
+}
+
+.publisherArea>div,
+.publisherArea {
+	float: left;
+	margin-top: 1%;
+}
+
+.publisherArea>div:nth-child(1) {
+	width: 25%;
+	margin-left: 3%;
+}
+
+.publisherArea>div:nth-child(1)>img {
+	width: 100%;
+}
+
+.publisherArea>div:nth-child(2) {
+	width: 65%;
+	margin-left: 2%;
+}
+
+.publisherArea>div:nth-child(2)>h4:nth-child(1) {
+	border: 1px solid #FEB834;
+	font-size: 0.756rem;
+	width: 41px;
+	padding: 0.5%;
+	color: #FEB834;
+}
+
+.publisherArea>div:nth-child(2)>h4:nth-child(2) {
+	padding: 0.5%;
+	font-weight: 600;
+}
+
+.publisherArea>div:nth-child(2)>h4:nth-child(3) {
+	padding: 0.5%;
+	font-weight: 600;
+	font-size: 0.856rem;
+}
+
+.publisherArea>div:nth-child(2)>h4:nth-child(3)>span {
+	color: #34A2DA;
+}
+
+.publisherArea>div:nth-child(2)>div {
+	background: #FFB927;
+	height: 18px;
+	width: 50px;
+}
+
+.publisherArea>div:nth-child(2)>div>div:nth-child(1)>i {
+	margin: 0px;
+	padding: 0px;
+	font-size: 1.123rem;
+	margin-left: 2px;
+	color: #FFFFFF;
+	float: left;
+}
+
+.publisherArea>div:nth-child(2)>div>div {
+	width: 50%;
+	float: left;
+	margin: 0px;
+	padding: 0px;
+}
+
+.publisherArea>div:nth-child(2)>div>div:nth-child(2) {
+	height: 20px;
+}
+
+.publisherArea>div:nth-child(2)>div>div:nth-child(2)>i {
+	margin: 0px;
+	padding: 0px;
+	font-weight: 600;
+	font-size: 0.678rem;
+	color: #FFFFFF;
+	float: left;
+	font-style: normal;
+	margin-top: -3px;
+}
+
+.mui-col-sm-6,
+.mui-col-xs-12 {
+	background: #FFFFFF;
+}
+.taskdetails {
+	margin-top: 1%;
+}
+
+.taskdetails>div {
+	float: left;
+	width: 33%;
+}
+
+.taskdetails>div>h3 {
+	font-weight: 100;
+	font-size: 1.456rem;
+	margin-top: %;
+}
+
+.taskdetails>div>span {
+	font-size: 0.756rem;
+	margin-bottom: 5%;
+}
+
+.taskdetails>div:nth-child(2),
+.taskdetails>div:nth-child(3) {
+	border-left: 1px solid #EFEFF4;
+}
+
+.taskBtns>div {
+	background: #EFEFF4;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	margin-top: 2%;
+}
+
+.mui-btn-danger {
+	margin-top: 15%;
+	width: 70%;
+	height: 40px;
+	font-size: 0.999rem;
+	background: #E83828;
+	box-shadow: 0px 5px 30px #E83828;
+	margin-bottom: 2%;
+}
+
+.mui-btn-warning {
+	margin-top: 6%;
+	width: 70%;
+	height: 40px;
+	font-size: 0.999rem;
+	background: #FEB834;
+	box-shadow: 0px 3px 15px #FFFF00;
+}

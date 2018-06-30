@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/myPublishss.css" />
+		<link rel="stylesheet" href="../css/time.css" />
+		<script src="../js/mui.min.js"></script>
+		<style type="text/css">
+			.time-horizontal li:nth-child(2)>b:before {
+				content: '';
+				position: absolute;
+				top: -10px;
+				width: 14px;
+				height: 14px;
+				border: 3px solid #F39A92;
+				border-radius: 50%;
+				background: #E83928;
+			}
+			.time-horizontal li:nth-child(3)>b:before {
+				content: '';
+				position: absolute;
+				top: -10px;
+				width: 14px;
+				height: 14px;
+				border: 3px solid #F39A92;
+				border-radius: 50%;
+				background: #E83928;
+			}
+		</style>
+	</head>
+<!--我发布的-->
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-left"></a>
+			<h1 class="mui-title">我的发布</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-row">
+				<div class="mui-col-sm-12 mui-col-xs-12 publisherArea">
+					<div>
+						<img src="../logo/logo.png" />
+					</div>
+					<div>
+						<h4>已完成</h4>
+						<h4>执行人：用户名称</h4>
+						<h4>手机：<span>12345678901</span></h4>
+						<div>
+							<div>
+								<i class="mui-icon iconfont icon-shimingrenzheng"></i>
+							</div>
+							<div>
+								<i>认证</i>
+							</div>
+						</div>
+					</div>
+					<div>
+						<div align="center">
+							<i class="mui-icon iconfont icon-haoping"></i><br />
+							<span>好评</span>
+						</div>
+						<div align="center">
+							<i class="mui-icon iconfont icon-chaping"></i><br />
+							<span>差评</span>
+						</div>
+					</div>
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12 completeArea">
+					<div>
+						<span>已完成0%</span>
+						<span>已完成50%</span>
+						<span>已完成100%</span>
+					</div>
+					<ul class="time-horizontal">
+				        <li><b></b></li>
+				        <li><b></b></li>
+				        <li><b></b></li>
+				    </ul>
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12 progreesDetails">
+					<ul>
+				    	<li><h4>查看位置</h4><h5>2018-04-03&nbsp;08:20:38</h5></li>
+				    	<li><h4>查看位置</h4><h5>2018-04-03&nbsp;08:20:38</h5></li>
+				    	<li><h4>查看位置</h4><h5>2018-04-03&nbsp;08:20:38</h5></li>
+				    </ul>
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12 taskdetails">
+					<div align="center">
+						<h3 id="taskMoney"></h3>
+						<span>任务悬赏金额</span>
+					</div>
+					<div align="center">
+						<h3>00:00:00</h3>
+						<span>任务剩余时间</span>
+					</div>
+					<div align="center">
+						<h3>00:00:00</h3>
+						<span>任务延迟时间</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function(){
+				window.self = plus.webview.currentWebview();
+				window.money = self.money;
+				document.getElementById("taskMoney").textContent = money;
+			});
+		</script>
+	</body>
+
+</html>

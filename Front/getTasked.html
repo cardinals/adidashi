@@ -1,0 +1,456 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>被领取的任务详情</title>    
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/getTasked.css" />
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="js/tools/speech.js" ></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=nSxiPohfziUaCuONe4ViUP2N"></script>
+		<style type="text/css">
+			.tab{
+				border-bottom: 1px solid #EFEFF4;
+			}
+			.mui-slider-indicator.mui-segmented-control.mui-segmented-control-inverted {
+				width: 100%;
+			}
+			.mui-slider-indicator>a{
+				width: auto;
+			}
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item {
+				color: #AAAAAA;
+			}
+			
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+				color: #E73828;
+				border-bottom: 3px solid #E73828;
+			}
+			.anchorBL {
+				display: none;
+			}
+			.taskGetPlaceCss{
+				margin: 1%; 
+				border-bottom: 1px solid #EFEFF4;
+				border-top: 1px solid #EFEFF4;
+			}
+			.taskGetPlaceCss>span{
+				font-size: 0.756rem;
+				color: #888888;
+				margin-left: 1%;
+			}
+			.taskGetPlaceCss>span:nth-child(1){
+				margin-left: 5%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content" style="width: 100%; height: auto;" align="center">
+			<div class="mui-row">
+				<div class="mui-col-sm-12 mui-col-xs-12">
+					<div class="mui-content-padded"align="left">
+						<h1 class="mui-title">红包详情</h1>
+						<button id="goBackTask" style="position:absolute;display: inline;"  class="mui-action-back mui-icon iconfont icon-left"></button>
+					</div>
+					<img class="userPhoto" src="userImages/logo.png"/>
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12">
+					<div style="width: 100%; height: auto;">
+						<div class="tasker" align="center">
+							<h5 style="color: #595F6E; font-size: 1.2rem;" id="userName"></h5>
+							<h5 style="color: #FF0000; font-size: 1rem;">00:51:53</h5>
+							<h5 style="font-size: 2.1rem;" id="taskMoney"></h5>
+						<!--	<h5 style="font-size: 1.0rem;" id="taskTitle">任务名称</h5>-->
+							<br />
+							<div class="tri"></div>
+						</div>
+					</div>
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12">
+					<div style="width: 100%; background-color: #FFFFFF;">
+						<div class="taskDetails" align="left">
+							<span>任务详情&nbsp;:&nbsp;</span><span id="taskDetails"></span><br />
+							<span>开始时间&nbsp;:&nbsp;</span><span id="taskStratTime"></span><br />
+							<span>截止时间&nbsp;:&nbsp;</span><span id="taskEndTime"></span><br />
+							<span>联系方式&nbsp;:&nbsp;</span><span id="contactType"></span><br />
+							<span>领取地点&nbsp;:&nbsp;</span><span id="getPlace"></span><br />
+							<span>交接地点&nbsp;:&nbsp;</span><span id="joinPlace"></span><br />
+						</div>
+					</div>
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12" style="background: #FFFFFF;">
+					<div style=" width:100%; margin-top: 15%; margin-bottom: 10%; background-color: #FFFFFF; float: left;">
+						<button type="button" class="mui-btn mui-btn-danger" id="lookRoad">查看路线</button>
+					</div>
+				</div>
+			</div>
+			<!--查看路线-->
+			<div id="roadView" class="mui-popover mui-popover-action mui-popover-bottom" style="height: 400px; background: #FFFFFF; width: 100%; margin: 0px; padding: 0px;">
+				<div class="mui-col-sm-12 mui-col-xs-12 tab">
+					<div style="border-bottom: 1px solid #EFEFF4; float: left; width: 100%;">
+						<i class="mui-icon mui-icon-closeempty" style="width: auto; height: auto; float: left; margin: 0px; padding: 0px; margin-left: 3%; color: #FF0000;" id="closeRoad"></i><h5>路线类型</h5>
+					</div>
+					<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+						<a class="mui-active mui-icon iconfont icon-walk mui-control-item mui-active" href="#walking" id="w"></a>
+						<a class="mui-icon iconfont icon-drive mui-control-item" href="#driving" id="d"></a>
+						<a class="mui-icon iconfont icon-transit mui-control-item" href="#traning" id="t"></a>
+					</div>
+				</div>
+					<div class="mui-slider-group" style="margin: 0px; padding: 0px;">
+						<div id="walking" class="mui-slider-item mui-control-content mui-active" style="width: 100%; height: 340px;">
+						<div style="position: fixed; z-index: 9999;">
+							<button type="button">详情</button>
+						</div>
+						</div>
+						<div id="driving" class="mui-slider-item mui-control-content" style="width: 100%; height: 340px;">
+						</div>
+						<div id="traning" class="mui-slider-item mui-control-content" style="width: 100%; height: 340px;">
+						</div>
+					</div>
+			</div>
+			<!--定位-->
+			<div id="locationView" class="mui-popover mui-popover-action mui-popover-bottom" style="height: 350px; background: #FFFFFF; width: 100%; margin: 0px; padding: 0px;">
+				<div class="taskGetPlaceCss" align="left">
+					<span id="change">任务领取点:</span><span id="taskGetPlace"></span><br />
+					<span style="margin-left: 5%;">距离:</span><span id="distance"></span>
+				</div>
+				<div id="locationDiv" style="height: 350px; background: #FFFFFF; width: 100%; margin: 0px; padding: 0px;">
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			mui.init({
+				beforeback: function() {
+			　　　　 //获得父页面的webview
+			        var task = plus.webview.currentWebview().opener();
+			　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+			        mui.fire(task, 'refresh');
+			        //返回true,继续页面关闭逻辑
+			        return true;
+			    }
+			});
+			//初始化主函数
+			//加载执行函数
+			mui.plusReady(function(){
+				//获取上一页传过来的值
+				window.self = plus.webview.currentWebview();
+				window.taskType = self.task_type;
+				window.taskTitle = self.task_title;
+				window.taskMoney = self.task_money;
+				window.taskStart = self.task_startTime;
+				window.taskEnd = self.task_endTime;
+				window.taskPer = self.task_per;
+				window.taskGetPlace = self.task_getPlace;
+				window.taskConnetPlace = self.task_connetPlace;
+				window.taskDetails = self.task_details;
+				window.taskGetLng = self.task_getLng;
+				window.taskGetLat = self.task_getLat;
+				window.taskConnetLng = self.task_connetLng;
+				window.taskConnetLat = self.task_connetLat;
+				window.tasker = self.task_user;
+				document.getElementById("userName").textContent = tasker;
+				document.getElementById("contactType").innerHTML = tasker+'<i class="mui-icon iconfont icon-dianhua" style="font-size: 1.2rem; color: #FF0000;"></i><i style="font-style: normal; font-size: 0.78rem; color: #FF0000;" id="callPhone">拨打电话</i>';				
+				//设置元
+				var str = "<span style='font-size:1.123rem;'>元</span>";
+				document.getElementById("taskMoney").innerHTML =taskMoney+str;
+				document.getElementById("taskTitle").textContent = taskTitle;
+				document.getElementById("taskDetails").textContent = taskDetails;
+				document.getElementById("taskStratTime").textContent = taskStart; 
+				document.getElementById("taskEndTime").textContent = taskEnd;
+				var loca = "<i class='mui-icon iconfont icon-position' style='font-size: 1.2rem; color: #FF0000;'></i><i style='font-style: normal; color: #FF0000;' id='lookGetTaskPosition'>查看定位</i>";
+				var locas = "<i class='mui-icon iconfont icon-position' style='font-size: 1.2rem; color: #FF0000;'></i><i style='font-style: normal; color: #FF0000;' id='lookConnetPosition'>查看定位</i>";
+				document.getElementById("getPlace").innerHTML = taskGetPlace + loca;
+				document.getElementById("joinPlace").innerHTML = taskConnetPlace + locas;
+				//返回上一页并刷新数据
+				document.getElementById("goBackTask").addEventListener("click",function(){
+					alert("0");
+				});
+				//拨打电话
+				document.getElementById("callPhone").addEventListener("click",function(){
+					var phoneNum = document.getElementById("contactType").textContent; 
+					plus.device.dial(phoneNum,false);
+				});
+				document.getElementById("lookRoad").addEventListener("tap",function(){
+					var sl = document.getElementById("walking");
+					if(sl.classList.contains("mui-active")){
+						walk();
+					}
+					mui("#roadView").popover("toggle",document.getElementById("lookRoad"));
+				});
+				document.getElementById("closeRoad").addEventListener("tap",function(){
+					mui("#roadView").popover("toggle",document.getElementById("lookRoad"));
+				});
+				document.getElementById("w").addEventListener("tap",function(){
+					walk();
+				});
+				document.getElementById("d").addEventListener("tap",function(){
+					driving();
+				});
+				document.getElementById("t").addEventListener("tap",function(){
+					funTran();
+				});
+				
+				//查看领取地点定位
+				document.getElementById("lookGetTaskPosition").addEventListener("tap",function(){
+					document.getElementById("distance").textContent = '计算中...';
+					mui("#locationView").popover("toggle",document.getElementById("location"));
+					document.getElementById("taskGetPlace").textContent = taskGetPlace;
+					document.getElementById("change").textContent = '任务领取点:';
+					var location = new BMap.Map("locationDiv",{
+						enableHighResolution: true //是否开启高清   
+					}); 
+					location.centerAndZoom(new BMap.Point(taskGetLng, taskGetLat), 16); // 初始化地图,设置中心点坐标和地图级别
+					location.setCurrentCity(taskGetPlace);          // 设置地图显示的城市 此项是必须设置的
+					location.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+					location.enableInertialDragging();
+					location.enableContinuousZoom();
+					var mk = new BMap.Marker(new BMap.Point(taskGetLng, taskGetLat));//创建一个覆盖物  
+		            location.addOverlay(mk);//增加一个标示到地图上  
+		            location.panTo(new BMap.Point(taskGetLng, taskGetLat));
+		            mui.toast('正在计算你到任务领取点的距离');
+		            //mui.toast();
+		            var geoc = new BMap.Geolocation();  
+					   geoc.getCurrentPosition(function(result){  
+					    if(this.getStatus() == BMAP_STATUS_SUCCESS){  
+					           var latitude  = result.point.lat;//获取到的纬度  
+					           var longitude = result.point.lng;//获取到的经度  
+					           var m = getDistance(longitude,latitude,taskGetLng,taskGetLat);
+					           document.getElementById("distance").textContent = m.toFixed(2)+'米';
+					           mui.toast("你到任务领取点的距离为"+m.toFixed(2)+"米")
+					       }  
+					   });
+				});
+				//查看交接地点定位
+				document.getElementById("lookConnetPosition").addEventListener("tap",function(){
+					document.getElementById("distance").textContent = '计算中...';
+					mui("#locationView").popover("toggle",document.getElementById("location"));
+					document.getElementById("taskGetPlace").textContent = taskConnetPlace;
+					document.getElementById("change").textContent = '任务交接点:';
+					var location = new BMap.Map("locationDiv",{
+						enableHighResolution: true //是否开启高清   
+					}); 
+					location.centerAndZoom(new BMap.Point(taskConnetLng, taskConnetLat), 16); // 初始化地图,设置中心点坐标和地图级别
+					location.setCurrentCity(taskGetPlace);          // 设置地图显示的城市 此项是必须设置的
+					location.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+					location.enableInertialDragging();
+					location.enableContinuousZoom();
+					var mk = new BMap.Marker(new BMap.Point(taskConnetLng, taskConnetLat));//创建一个覆盖物  
+		            location.addOverlay(mk);//增加一个标示到地图上  
+		            location.panTo(new BMap.Point(taskConnetLng, taskConnetLat));
+		            //获取当前位置
+					//定位  
+					mui.toast('正在计算你到任务交接点的距离');
+					//mui.toast('正在计算你到任务交接点的距离...');
+					var geoc = new BMap.Geolocation();  
+					   geoc.getCurrentPosition(function(result){  
+					    if(this.getStatus() == BMAP_STATUS_SUCCESS){  
+					           var latitude  = result.point.lat;//获取到的纬度  
+					           var longitude = result.point.lng;//获取到的经度  
+					           var m = getDistance(longitude,latitude,taskConnetLng,taskConnetLat);
+					           document.getElementById("distance").textContent = m.toFixed(2)+'米';
+					           mui.toast('你到任务交接点的距离为'+m.toFixed(2)+'米');
+					       }  
+					   });  
+				});
+			});
+			//步行
+			function walk(){
+				var map = new BMap.Map("walking",{
+						enableHighResolution: true //是否开启高清   
+					}); 
+				map.centerAndZoom(new BMap.Point(106.714473, 26.604029), 16); // 初始化地图,设置中心点坐标和地图级别
+				map.setCurrentCity("贵阳");          // 设置地图显示的城市 此项是必须设置的
+				map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+				map.enableInertialDragging();
+				map.enableContinuousZoom();
+				var walkDistance = getDistance(taskGetLng,taskGetLat,taskConnetLng,taskConnetLat);
+				// 定义一个控件类,即function
+				function ZoomControl(){
+				// 默认停靠位置和偏移量
+				this.defaultAnchor = BMAP_ANCHOR_BOTTOM_RIGHT;
+				this.defaultOffset = new BMap.Size(10, 10);
+				}
+				// 通过JavaScript的prototype属性继承于BMap.Control
+				ZoomControl.prototype = new BMap.Control();
+				// 自定义控件必须实现自己的initialize方法,并且将控件的DOM元素返回
+				// 在本方法中创建个div元素作为控件的容器,并将其添加到地图容器中
+				ZoomControl.prototype.initialize = function(map){
+				// 创建一个DOM元素
+				var div = document.createElement("div");
+				// 设置样式
+				div.style.color = "#000000";
+				div.style.backgroundColor = "transparent";
+				div.style.fontSize = "0.567rem";
+				div.style.marginRight = "2%";
+                // 添加文字说明
+				div.appendChild(document.createTextNode("距离:"+(walkDistance/1000).toFixed(2)+"公里"));
+                 //alert(walkDistance+","+walkTime);
+				// 绑定事件,点击一次放大两级
+				/*div.onclick = function(e){
+					
+				}*/
+				// 添加DOM元素到地图中
+				map.getContainer().appendChild(div);
+				// 将DOM元素返回
+				return div;
+				}
+				// 创建控件
+				var myZoomCtrl = new ZoomControl();
+				// 添加到地图当中
+				map.addControl(myZoomCtrl);
+				var point = new BMap.Point(taskGetLng,taskGetLat);
+				var points = new BMap.Point(taskConnetLng,taskConnetLat);
+				var walk = new BMap.WalkingRoute(map, {renderOptions:{map: map, autoViewport: true}});
+				walk.search(point,points);
+			}
+			//驾车 
+			function driving(){
+				var drive = new BMap.Map("driving",{
+						enableHighResolution: true //是否开启高清   
+					}); 
+				drive.centerAndZoom(new BMap.Point(106.714473, 26.604029), 16); // 初始化地图,设置中心点坐标和地图级别
+				drive.setCurrentCity("贵阳");          // 设置地图显示的城市 此项是必须设置的
+				drive.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+				drive.enableInertialDragging();
+				drive.enableContinuousZoom();
+				// 定义一个控件类,即function
+				function ZoomControl(){
+				// 默认停靠位置和偏移量
+				this.defaultAnchor = BMAP_ANCHOR_BOTTOM_RIGHT;
+				this.defaultOffset = new BMap.Size(10, 10);
+				}
+				// 通过JavaScript的prototype属性继承于BMap.Control
+				ZoomControl.prototype = new BMap.Control();
+				// 自定义控件必须实现自己的initialize方法,并且将控件的DOM元素返回
+				// 在本方法中创建个div元素作为控件的容器,并将其添加到地图容器中
+				ZoomControl.prototype.initialize = function(drive){
+				// 创建一个DOM元素
+				var div = document.createElement("div");
+				// 设置样式
+				div.style.color = "#000000";
+				div.style.backgroundColor = "transparent";
+				div.style.fontSize = "0.567rem";
+				div.style.marginRight = "2%";
+				var walkTime = "";  //步行时间
+				var walkDistance = "";  //步行距离
+				var point = new BMap.Point(taskGetLng,taskGetLat);
+				var points = new BMap.Point(taskConnetLng,taskConnetLat);
+				var searchComplete = function (results) {
+                        if (drives.getStatus() == BMAP_STATUS_SUCCESS) {
+                            var plan = results.getPlan(0);
+                            walkTime = plan.getDuration(true) + "\n"; //获取时间
+                            //output = "总路程为：";
+                            walkDistance = plan.getDistance(true) + "\n"; //获取距离
+                            speak('你到终点距离为'+walkDistance+'需要时间'+walkTime);
+                            // 添加文字说明
+							div.appendChild(document.createTextNode("距离:"+walkDistance));
+                            //alert(walkDistance+","+walkTime);
+                        }
+                    }
+                    var drives = new BMap.DrivingRoute(point, { onSearchComplete: searchComplete });
+                    drives.search(point, points);
+				// 绑定事件,点击一次放大两级
+				/*div.onclick = function(e){
+					
+				}*/
+				// 添加DOM元素到地图中
+				drive.getContainer().appendChild(div);
+				// 将DOM元素返回
+				return div;
+				}
+				// 创建控件
+				var myZoomCtrl = new ZoomControl();
+				// 添加到地图当中
+				drive.addControl(myZoomCtrl);
+				//alert(taskGetLng+','+taskGetLat+','+taskConnetLng+','+taskConnetLat)
+				var p1 = new BMap.Point(taskGetLng,taskGetLat);
+				var p2 = new BMap.Point(taskConnetLng,taskConnetLat);
+				var driving = new BMap.DrivingRoute(drive, {renderOptions:{map: drive, autoViewport: true}});
+				driving.search(p1, p2);
+			}
+			//公交
+			function funTran(){
+				var tran = new BMap.Map("traning"); 
+				tran.centerAndZoom(new BMap.Point(106.714473, 26.604029), 16); // 初始化地图,设置中心点坐标和地图级别
+				tran.setCurrentCity("贵阳");          // 设置地图显示的城市 此项是必须设置的
+				tran.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+				tran.enableInertialDragging();
+				tran.enableContinuousZoom();
+				// 定义一个控件类,即function
+				function ZoomControl(){
+				// 默认停靠位置和偏移量
+				this.defaultAnchor = BMAP_ANCHOR_BOTTOM_RIGHT;
+				this.defaultOffset = new BMap.Size(10, 10);
+				}
+				// 通过JavaScript的prototype属性继承于BMap.Control
+				ZoomControl.prototype = new BMap.Control();
+				// 自定义控件必须实现自己的initialize方法,并且将控件的DOM元素返回
+				// 在本方法中创建个div元素作为控件的容器,并将其添加到地图容器中
+				ZoomControl.prototype.initialize = function(tran){
+				// 创建一个DOM元素
+				var div = document.createElement("div");
+				// 设置样式
+				div.style.color = "#000000";
+				div.style.backgroundColor = "transparent";
+				div.style.fontSize = "0.567rem";
+				div.style.marginRight = "2%";
+				var walkTime = "";  //步行时间
+				var walkDistance = "";  //步行距离
+				var point = new BMap.Point(taskGetLng,taskGetLat);
+				var points = new BMap.Point(taskConnetLng,taskConnetLat);
+				var searchComplete = function (results) {
+                        if (trans.getStatus() == BMAP_STATUS_SUCCESS) {
+                            var plan = results.getPlan(0);
+                            walkTime = plan.getDuration(true) + "\n"; //获取时间
+                            //output = "总路程为：";
+                            walkDistance = plan.getDistance(true) + "\n"; //获取距离
+                            speak('你到终点距离为'+walkDistance+'需要时间'+walkTime);
+                            // 添加文字说明
+							div.appendChild(document.createTextNode("距离:"+walkDistance));
+                            //alert(walkDistance+","+walkTime);
+                        }
+                    }
+                    var trans = new BMap.TransitRoute(point, { onSearchComplete: searchComplete });
+                    trans.search(point, points);
+				// 绑定事件,点击一次放大两级
+				/*div.onclick = function(e){
+					
+				}*/
+				// 添加DOM元素到地图中
+				tran.getContainer().appendChild(div);
+				// 将DOM元素返回
+				return div;
+				}
+				// 创建控件
+				var myZoomCtrl = new ZoomControl();
+				// 添加到地图当中
+				tran.addControl(myZoomCtrl);
+				var t1 = new BMap.Point(taskGetLng,taskGetLat);
+				var t2 = new BMap.Point(taskConnetLng,taskConnetLat);
+				var transit = new BMap.TransitRoute(tran, {renderOptions: {map: tran,autoViewport: true}});
+				transit.search(t1,t2);
+			}
+			function OD(a, b, c) {
+			    while (a > c) a -= c - b;
+			    while (a < b) a += c - b;
+			    return a;
+			}
+			function SD(a, b, c) {
+			    b != null && (a = Math.max(a, b));
+			    c != null && (a = Math.min(a, c));
+			    return a;
+			}
+			function getDistance(a_lat,a_lng,b_lat,b_lng) {
+			    var a = Math.PI * OD(a_lat, -180, 180) / 180;
+			    var b = Math.PI * OD(b_lat, -180, 180) / 180;
+			    var c = Math.PI * SD(a_lng, -74, 74) / 180;
+			    var d = Math.PI * SD(b_lng, -74, 74) / 180;
+			    return 6370996.81 * Math.acos(Math.sin(c) * Math.sin(d) + Math.cos(c) * Math.cos(d) * Math.cos(b-a));
+			}
+			
+		</script>
+	</body>
+</html>

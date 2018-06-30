@@ -1,0 +1,451 @@
+{
+  "publishTask.html": {
+    "href": "publishTask.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/mui.picker.min.css",
+      "css/publishTask.css",
+      "js/mui.min.js",
+      "js/axiso.min.js",
+      "js/mui.picker.min.js",
+      "js/wang_payment.min.js"
+    ],
+    "priority": 0
+  },
+  "task/myPublished.html": {
+    "href": "task/myPublished.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/myPublished.css",
+      "js/mui.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "evluation/executer.html": {
+    "href": "evluation/executer.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/executer.css",
+      "js/mui.min.js",
+      "logo/logo.png"
+    ],
+    "priority": 1
+  },
+  "task/myGet.html": {
+    "href": "task/myGet.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/myGet.css",
+      "js/mui.min.js",
+      "logo/logo.png"
+    ],
+    "refer": [],
+    "priority": 1
+  },
+  "task/myPublishss.html": {
+    "href": "task/myPublishss.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/myPublishss.css",
+      "css/time.css",
+      "js/mui.min.js",
+      "logo/logo.png"
+    ],
+    "priority": 2
+  },
+  "task/myPublishs.html": {
+    "href": "task/myPublishs.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/myPublishs.css",
+      "css/time.css",
+      "js/mui.min.js",
+      "logo/logo.png"
+    ],
+    "refer": [],
+    "priority": 2
+  },
+  "task/myPublish.html": {
+    "href": "task/myPublish.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/myPublish.css",
+      "css/time.css",
+      "js/mui.min.js",
+      "logo/logo.png"
+    ],
+    "refer": [],
+    "priority": 2
+  },
+  "task/myGets.html": {
+    "href": "task/myGets.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/myGets.css",
+      "js/mui.min.js",
+      "logo/logo.png"
+    ],
+    "refer": [],
+    "priority": 3
+  },
+  "task/taskProgress.html": {
+    "href": "task/taskProgress.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/taskProgress.css",
+      "js/mui.min.js",
+      "js/task/taskProgress.js",
+      "tipImages/noptask.png",
+      "tipImages/noGetTask.png"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "taskDetail.html": {
+    "href": "taskDetail.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/taskDetail.css",
+      "js/mui.min.js"
+    ],
+    "priority": 1
+  },
+  "taskLog.html": {
+    "href": "taskLog.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/taskLog.css",
+      "js/mui.min.js"
+    ],
+    "refer": [],
+    "priority": 1
+  },
+  "waiting.html": {
+    "href": "waiting.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "js/mui.min.js"
+    ],
+    "priority": 2
+  },
+  "register.html": {
+    "href": "register.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/register.css",
+      "js/mui.min.js",
+      "tools/md5.js",
+      "logo/logo.png"
+    ],
+    "refer": [],
+    "priority": 3
+  },
+  "login.html": {
+    "href": "login.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/login.css",
+      "js/mui.min.js",
+      "tools/md5.js",
+      "logo/logo.png"
+    ],
+    "refer": [],
+    "priority": 3
+  },
+  "getTasked.html": {
+    "href": "getTasked.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/getTasked.css",
+      "js/mui.min.js",
+      "js/tools/speech.js",
+      "userImages/logo.png"
+    ],
+    "priority": 4
+  },
+  "getTask.html": {
+    "href": "getTask.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/getTask.css",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "js/mui.min.js",
+      "js/tools/speech.js",
+      "userImages/logo.png"
+    ],
+    "refer": [],
+    "priority": 4
+  },
+  "authenticated.html": {
+    "href": "authenticated.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/authenticated.css",
+      "js/mui.min.js",
+      "userImages/th.png"
+    ],
+    "priority": 7
+  },
+  "unverified.html": {
+    "href": "unverified.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/unverified.css",
+      "js/mui.min.js",
+      "js/axiso.min.js",
+      "userImages/th.png",
+      "userImages/photo1.png"
+    ],
+    "refer": [],
+    "priority": 7
+  },
+  "financialDetail/inOutDetails.html": {
+    "href": "financialDetail/inOutDetails.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/inOutDetails.css",
+      "js/mui.min.js"
+    ],
+    "priority": 9
+  },
+  "financialDetail/accountDetails.html": {
+    "href": "financialDetail/accountDetails.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/accountDetails.css",
+      "js/mui.min.js",
+      "js/axiso.min.js"
+    ],
+    "priority": 10
+  },
+  "financialDetail/addBankCard.html": {
+    "href": "financialDetail/addBankCard.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/addBankCard.css",
+      "js/mui.min.js",
+      "js/bankCard.js"
+    ],
+    "priority": 11
+  },
+  "financialDetail/bankCardManager.html": {
+    "href": "financialDetail/bankCardManager.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/bankCardManager.css",
+      "js/mui.min.js"
+    ],
+    "refer": [],
+    "priority": 11
+  },
+  "financialDetail/payCenter.html": {
+    "href": "financialDetail/payCenter.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/payCenter.css",
+      "js/jquery.2.1.1.min.js",
+      "js/mui.min.js",
+      "js/wang_payment.min.js"
+    ],
+    "refer": [],
+    "priority": 12
+  },
+  "financialDetail/withDrawDetails.html": {
+    "href": "financialDetail/withDrawDetails.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/withDrawDetails.css",
+      "js/mui.min.js"
+    ],
+    "refer": [],
+    "priority": 13
+  },
+  "financialDetail/financialDetails.html": {
+    "href": "financialDetail/financialDetails.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/financialDetails.css",
+      "js/mui.min.js"
+    ],
+    "refer": [],
+    "priority": 9
+  },
+  "devicesInfo.html": {
+    "href": "devicesInfo.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "js/mui.min.js"
+    ],
+    "priority": 11
+  },
+  "uscompany.html": {
+    "href": "uscompany.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/uscompany.css",
+      "js/mui.min.js",
+      "logo/logo2.png"
+    ],
+    "priority": 12
+  },
+  "aboutUs.html": {
+    "href": "aboutUs.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/aboutUs.css",
+      "js/mui.min.js",
+      "logo/logo.png"
+    ],
+    "refer": [
+      "uscompany.html"
+    ],
+    "priority": 11
+  },
+  "bindAccount.html": {
+    "href": "bindAccount.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/bindAccount.css",
+      "js/mui.min.js"
+    ],
+    "priority": 13
+  },
+  "notification.html": {
+    "href": "notification.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/notification.css",
+      "js/mui.min.js"
+    ],
+    "priority": 15
+  },
+  "myCenter.html": {
+    "href": "myCenter.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "AliIconFonts/iconfont.css",
+      "AliIconFonts/iconfont.eot",
+      "AliIconFonts/iconfont.ttf",
+      "AliIconFonts/iconfont.svg",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "css/myCenter.css",
+      "js/mui.min.js",
+      "userImages/logo.png",
+      "js/myCenter/financialDetail.js"
+    ],
+    "refer": [],
+    "priority": 8
+  },
+  "index.html": {
+    "href": "index.html",
+    "resources": [
+      "icon/tasks.svg",
+      "icon/here.svg",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "AliIconFonts/iconfont.css",
+      "AliIconFonts/iconfont.eot",
+      "AliIconFonts/iconfont.ttf",
+      "AliIconFonts/iconfont.svg",
+      "css/index.css",
+      "css/liMarquee.css",
+      "js/mui.min.js",
+      "js/phoneInfo.js",
+      "js/convertor.js",
+      "js/jquery.2.1.1.min.js",
+      "js/axiso.min.js"
+    ],
+    "refer": [
+      "waiting.html"
+    ],
+    "priority": 0
+  }
+}

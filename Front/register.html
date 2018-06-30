@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>    
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/register.css" />
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" src="tools/md5.js" ></script>
+	</head>
+	<body>
+		<div class="mui-row">
+			<div class="mui-col-sm-12 mui-col-xs-12">
+				<header class="mui-bar mui-bar-nav">
+					<h1 class="mui-title">注册</h1>
+				</header>
+			</div>
+		</div>
+		<div class="mui-content">
+			<div class="mui-row">
+				<div class="mui-col-sm-12 mui-col-xs-12" style="margin-top: 10%;">
+					<!--添加logo-->
+					<div >
+						<img class="logo"  src="logo/logo.png" alt="" />
+					</div>
+					
+					<form class="mui-input-group">
+				    	<div class="input-title">
+				    		<label>手机号</label>
+				    	</div>
+				    	<div class="mui-input-row">
+				    		<input type="number" class="mui-input-clear" id="phoneNumber" placeholder="请输入手机号码" />
+				    	</div>
+				    	<div class="input-title">
+				    		<label>密码</label>
+				    	</div>
+				    	<div class="mui-input-row">
+				    		<input type="password" class="mui-input-password" id="phonePassword" placeholder="请输入密码" />
+				    	</div>
+				    	<div class="input-title">
+				    		<label>验证码</label>
+				    	</div>
+				    	<div class="mui-input-row" style="width: 100%;">
+				    		<a href="javascript:senmobile(60);" class="verifyCode" id="get_code" disabled="true">获取验证码</a>
+				    		<input type="number" style="width: 60%;" maxlength="18" class="mui-input-clear" id="userVerifyCode" placeholder="请输入验证码" />
+				    	</div>
+				    </form>
+				</div>
+				<div class="mui-col-sm-12 mui-col-xs-12">
+					<div class="mui-content-padded" align="center">
+				    	<button type="button" class="mui-btn mui-btn-danger" id="userReg">注册</button>
+				    </div>
+				    <div class="mui-content-padded tips" align="center">
+				    	<span>已注册账号？</span><a id="goToLogin">点击登录</a>
+				    </div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" charset="UTF-8">
+			//初始化函数
+			mui.init();
+			//初始化完毕加载执行函数
+			var isSend = true;
+			function senmobile(t){
+				if(isSend){
+					//验证手机号码
+					var phoneNum = document.getElementById("phoneNumber");
+					var pw = document.getElementById("phonePassword");
+					var getCode = document.getElementById("get_code");
+					if(phoneNum.value != ""){
+						var phoneVal = phoneNum.value;
+						var regP = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
+						var me = false;
+						if(regP.test(phoneVal)) me=true;
+						if(!me){
+							phoneNum.value = '';
+							mui.toast('请输入正确的手机号码');
+							phoneNum.focus();
+							return false;
+						} else{
+							//这里将执行ajax代码，发送验证码
+							//循环时间
+							for(i = 1; i <= t; i++){
+								window.setTimeout("updateTime(" + i + "," + t +")",i*1000);
+							}
+						}
+					} else{
+						mui.toast('手机号不能为空');
+					}
+				} 
+			}
+			//倒计时
+			function updateTime(num,t){
+				var getCode = document.getElementById("get_code");
+				if(num == t){
+					getCode.innerHTML = '重新发送';
+					isSend = true;
+					document.getElementById("get_code").setAttribute("href","javascript:senmobile(60);");
+				} else{
+					var remainTimes = t - num;
+					getCode.innerHTML = remainTimes + '秒后发送';
+					document.getElementById("get_code").setAttribute("href","javascript:return false;")
+					//alert(s);
+				}
+			}
+			//执行预加载函数
+			mui.plusReady(function(){
+				//进入登录界面
+				document.getElementById('goToLogin').addEventListener('tap',function(){
+					mui.openWindow({
+						url:'login.html',
+						id:'login'
+					});
+				});
+				//点击注册
+				document.getElementById("userReg").addEventListener("tap",function(){
+					//依次获取输入框数据并判断
+					var phoneNum = document.getElementById("phoneNumber");
+					var pw = document.getElementById("phonePassword");
+					var getCode = document.getElementById("userVerifyCode");
+						if(phoneNum.value != ""){
+						var phoneVal = phoneNum.value;
+						var regP = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/;
+						var me = false;
+						if(regP.test(phoneVal)) me=true;
+						if(!me){
+							phoneNum.value = '';
+							mui.toast('请输入正确的手机号码');
+							phoneNum.focus();
+							return false;
+						} else if(pw.length < 6 && pw.value == ""){
+							mui.toast('密码长度不能低于6位');
+							return false;
+						} else if(getCode.value == ""){
+							mui.toast('验证码不能为空')
+						} else{
+							plus.nativeUI.showWaiting('注册中...');
+							//执行MD5加密
+							var pw = hex_md5(pw.value);
+							alert(pw);
+							mui.ajax({
+								url:'http://47.96.156.75/public/index/user/register',
+								data:{
+									name:phoneNum.value,
+									psw:pw
+								},
+								type:'post',
+								dataType:'json',
+								timeout:10000,
+								headers:{'Conent-Type':'application/json'},
+								async:true,
+								success:function(msg){
+									var json = JSON.parse(msg);
+									if(json.code == "200"){
+										mui.toast("注册成功");
+										plus.nativeUI.closeWaiting();
+										var return_login = mui.back();
+										mui.back = function(){
+											var login = plus.webview.getWebviewById("login");
+											login.reload(true);
+											plus.nativeUI.closeWaiting();
+											return_login();
+										}
+									mui.ajax({
+										url:'http://47.96.156.75/public/index/account/addaccounter',
+										type:'post',
+										data:{
+											accounter:phoneNum.value
+										},
+										dataType:'json',
+										header:{'Conetnt-Type':'application/json'},
+										async:false,
+										success:function(msg){
+											json = JSON.parse(msg);
+										},
+										error:function(xhr,type,errorThrown){
+											mui.toast('异常:'+type);
+										}
+									});
+									mui.ajax({
+										url:'http://47.96.156.75/public/index/account/addaccounters',
+										type:'post',
+										data:{
+											accounter:phoneNum.value
+										},
+										dataType:'json',
+										header:{'Conetnt-Type':'application/json'},
+										async:false,
+										success:function(msg){
+											json = JSON.parse(msg);
+										},
+										error:function(xhr,type,errorThrown){
+											mui.toast('异常:'+type);
+										}
+									});
+									} else{
+										mui.toast("注册失败");
+									}
+								},
+								error:function(xhr,type,errorThrown){
+									alert('异常:'+errorThrown);
+								}
+							});
+						}
+					} else{
+						mui.toast('手机号不能为空');
+					}
+				});
+
+			});
+		</script>
+	</body>
+</html>
