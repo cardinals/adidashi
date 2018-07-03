@@ -154,7 +154,8 @@
 					"getTasked.html",
 					"waiting.html",
 					"list.html",
-					"editInformation.html"
+					"editInformation.html",
+					"shopping/list.html"
 				],
 				"resources": [
 					"icon/l.png",
@@ -205,7 +206,8 @@
 					"userImages/logo.png"
 				],
 				"refer": [
-					"getTasked.html"
+					"getTasked.html",
+					"personnalPage.html"
 				],
 				"priority": 0
 			},
@@ -251,7 +253,8 @@
 					"waiting.html",
 					"authenticated.html",
 					"personnalPage.html",
-					"editInformation.html"
+					"editInformation.html",
+					"shopping/myorder.html"
 				],
 				"priority": 0
 			},
@@ -650,6 +653,22 @@
 				"resources": [],
 				"refer": [
 					"personnalPage.html"
+				],
+				"priority": 0
+			},
+			"shopping/list.html": {
+				"resources": [],
+				"refer": [
+					"shopping/listDetail.html",
+					"shopping/car.html"
+				],
+				"priority": 0
+			},
+			"shopping/listDetail.html": {
+				"resources": [],
+				"refer": [
+					"shopping/store.html",
+					"shopping/car.html"
 				],
 				"priority": 0
 			}

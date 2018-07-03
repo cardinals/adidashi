@@ -10,21 +10,22 @@
 		<link rel="stylesheet" href="../css/myGet.css" />
 		<script src="../js/mui.min.js"></script>
 	</head>
-<!--我发布的-->
+	<!--我发布的-->
+
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon iconfont icon-left"></a>
-			<h1 class="mui-title">我的领取</h1>
+			<h1 class="mui-title">我领取的</h1>
 		</header>
 		<div class="mui-content">
 			<div class="mui-row">
-				<div class="mui-col-sm-12 mui-col-xs-12 publisherArea">
+				<div class="mui-col-sm-6 mui-col-xs-12 publisherArea">
 					<div>
-						<img src="../logo/logo.png" />
+						<img id="img" src="" />
 					</div>
 					<div>
 						<h4>已完成</h4>
-						<h4 id="performer"></h4>
+						<h5 id="performer"></h5>
 						<h4 id="performerMobile"></h4>
 						<div>
 							<div>
@@ -36,17 +37,19 @@
 						</div>
 					</div>
 					<div id="comment">
-						<div align="center" class="c"> <!--praise好评-->
+						<div align="center" class="c">
+							<!--praise好评-->
 							<i class="mui-icon iconfont icon-haoping"></i><br />
 							<span>好评</span>
 						</div>
-						<div align="center" class="c"><!--差评negativeComment-->
+						<div align="center" class="c">
+							<!--差评negativeComment-->
 							<i class="mui-icon iconfont icon-chaping"></i><br />
 							<span>差评</span>
 						</div>
 					</div>
 				</div>
-				<div class="mui-col-sm-12 mui-col-xs-12 des">
+				<div class="mui-col-sm-6 mui-col-xs-12 des">
 					<div style="width: 100%; background-color: #FFFFFF;">
 						<div class="taskDetails" align="left">
 							<span style="font-weight: bold;">任务详情&nbsp;:&nbsp;</span><span id="myGetTaskDetails"></span><br />
@@ -58,75 +61,186 @@
 						</div>
 					</div>
 				</div>
-				<div class="mui-col-sm-12 mui-col-xs-12 taskdetails">
+				<div class="mui-col-sm-6 mui-col-xs-12 taskdetails">
 					<div align="center">
 						<h3 id="taskMoney"></h3>
 						<span>任务悬赏金额(元)</span>
 					</div>
 					<div align="center">
-						<h3>29:59:00</h3>
+						<span id="timer"></span><br>
 						<span>任务剩余时间</span>
 					</div>
 					<div align="center">
-						<h3>00:00:00</h3>
+						<h4 id="time">00:00:00</h4>
 						<span>任务延迟时间</span>
 					</div>
 				</div>
 			</div>
 		</div>
 		<script type="text/javascript">
-			mui.init({
-				beforeback: function() {
-			　　　　 //获得父页面的webview
-			        var center = plus.webview.currentWebview().opener();
-			　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
-			        mui.fire(center, 'refresh');
-			        //返回true,继续页面关闭逻辑
-			        return true;
-			    }
+			document.getElementById("img").addEventListener("tap",function(){
+					mui.openWindow({url:'../personnalPage.html',extras:{idhead:'../userImages/th.png'}});
 			});
-			mui.plusReady(function(){
+			var time_now_server, time_now_client, time_end, time_server_client, timerID;
+		
+			time_end = new Date(); //结束的时间
+			time_end = time_end.getTime();
+
+			time_now_server = new Date(); //开始的时间是当前时间
+			time_now_server = time_now_server.getTime();
+
+			time_now_client = new Date();
+			time_now_client = time_now_client.getTime();
+
+			time_server_client = time_now_server - time_now_client;
+			setTimeout("show_time()", 1000);
+
+			function show_time() {
+				
+				var timer = document.getElementById("timer");
+				if(!timer) {
+					return;
+				}
+				timer.innerHTML = time_server_client;
+
+				var time_now, time_distance, str_time;
+				var int_day, int_hour, int_minute, int_second;
+				var time_now = new Date();
+				time_now = time_now.getTime() - time_server_client;
+				time_distance = time_end - time_now;
+				if(time_distance > 0) {
+					int_day = Math.floor(time_distance / 86400000)
+					time_distance -= int_day * 86400000;
+					int_hour = Math.floor(time_distance / 3600000)
+					time_distance -= int_hour * 3600000;
+					int_minute = Math.floor(time_distance / 60000)
+					time_distance -= int_minute * 60000;
+					int_second = Math.floor(time_distance / 1000)
+
+					if(int_hour < 10)
+						int_hour = "0" + int_hour;
+					if(int_minute < 10)
+						int_minute = "0" + int_minute;
+					if(int_second < 10)
+						int_second = "0" + int_second;
+					str_time = int_day + "天" + int_hour + "小时" + int_minute + "分钟" + int_second + "秒";
+					timer.innerHTML = str_time;
+					setTimeout("show_time()", 1000);
+				} else {
+					timer.innerHTML = timer.innerHTML;
+					jieshu();
+					clearTimeout(timerID)
+				}
+			}
+
+			function jieshu() {
+				var t_begin = new Date("2018-06-30 00:00:0"); //指定时间
+				setInterval(function() {
+					var t_end = new Date(); //当前时间
+					var i_time = t_end.getTime() - t_begin.getTime(); //两时间的毫秒差
+					i_time = parseInt(i_time / 1000); //转为共有多少秒
+					//  var y=parseInt(i_time/(60*60*24*365)); //暂定365天为一年
+					var i = i_time % (60 * 60 * 24 * 365); //2795994
+					var m = parseInt(i / (60 * 60 * 24 * 30)); //暂定30天为一月
+					i = i % (60 * 60 * 24 * 30);
+					var d = parseInt(i / (60 * 60 * 24)); //24小时为一天
+					i = i % (60 * 60 * 24);
+					var h = parseInt(i / (60 * 60)); //60分钟为一小时
+					i = i % (60 * 60);
+					var M = parseInt(i / (60)); //60秒为一分钟
+					i = i % 60;
+					var s = i; //秒
+					document.getElementById("time").innerHTML = d + "日 " + h + "小时" + M + "分" + s + "秒";
+				}, 1000);
+			}
+
+			mui.init({
+				beforeback: function() {　　　　 //获得父页面的webview
+					var center = plus.webview.currentWebview().opener();　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+					mui.fire(center, 'refresh');
+					//返回true,继续页面关闭逻辑
+					return true;
+				}
+			});
+			mui.plusReady(function() {
 				//获取上一界面传过来的id
 				var self = plus.webview.currentWebview();
+				var task=self.task_get_user;
+				var user=localStorage.getItem("user");
 				var id = self.taskId;
 				plus.nativeUI.showWaiting('玩命加载中...');
 				mui.ajax({
-					url:'http://47.96.156.75/public/index/task/gettaskinfo',
-					dataType:'json',
-					type:'post',
-					async:false,
-					data:{id:id},
-					header:{'Conetnt-Type':'application/json'},
+					//頭像
+					url:"http://47.96.156.75/public/index/user/getuserdata",
+					dataType: 'json',
+					type: 'post',
+					async: false,
+					data: {
+						phone:user 
+					},
+					header: {
+						'Conetnt-Type': 'application/json'
+					},
 					success:function(data){
 						var json = JSON.parse(data);
-						document.getElementById("performer").textContent = '执行者:'+json.task_get_user;
-						document.getElementById("performerMobile").innerHTML = '手机:'+"<span>"+json.task_get_user+"</span>";
+						if(json.idhead=="" || json.idhead==null){
+							document.getElementById("img").src="../userImages/th.png";
+						}else{
+							document.getElementById("img").src=json.idhead;
+						alert(json.idhead);
+						}
+						
+						
+					},
+				error: function(xhr, type, errorThrown) {
+						mui.toast('异常：' + type);
+					}
+				});
+				mui.ajax({
+					url: 'http://47.96.156.75/public/index/task/gettaskinfo',
+					dataType: 'json',
+					type: 'post',
+					async: false,
+					data: {
+						id: id
+					},
+					header: {
+						'Conetnt-Type': 'application/json'
+					},
+					success: function(data) {
+						var json = JSON.parse(data);
+						document.getElementById("performer").textContent = '执行者:' + json.task_get_user;
+						document.getElementById("performerMobile").innerHTML = '手机:' + "<span>" + json.task_get_user + "</span>";
 						document.getElementById("myGetTaskDetails").textContent = json.task_details;
 						document.getElementById("myGetTaskStratTime").textContent = json.task_start_time;
 						document.getElementById("myGetTaskEndTime").textContent = json.task_end_time;
-						document.getElementById("myGetTaskContactType").innerHTML = json.task_user+"<i class='mui-icon iconfont icon-dianhua' style='font-size: 1.2rem; color: #FF0000;'></i><i style='font-style: normal; font-size: 0.78rem; color: #FF0000;' id='callPhone'>拨打电话</i>";
-						document.getElementById("myGetTaskGetPlace").innerHTML = json.task_get_location+'<i class="mui-icon iconfont icon-position" style="font-size: 1.2rem; color: #FF0000;"></i><i style="font-style: normal; color: #FF0000;">查看定位</i>';
-						document.getElementById("myGetTaskJoinPlace").innerHTML = json.task_connet_location+'<i class="mui-icon iconfont icon-position" style="font-size: 1.2rem; color: #FF0000;"></i><i style="font-style: normal; color: #FF0000;">查看定位</i>';
+						var timejiezhi = json.task_end_time;
+						document.getElementById("myGetTaskContactType").innerHTML = json.task_user + "<i class='mui-icon iconfont icon-dianhua' style='font-size: 1.2rem; color: #FF0000;'></i><i style='font-style: normal; font-size: 0.78rem; color: #FF0000;' id='callPhone'>拨打电话</i>";
+						document.getElementById("myGetTaskGetPlace").innerHTML = json.task_get_location + '<i class="mui-icon iconfont icon-position" style="font-size: 1.2rem; color: #FF0000;"></i><i style="font-style: normal; color: #FF0000;">查看定位</i>';
+						document.getElementById("myGetTaskJoinPlace").innerHTML = json.task_connet_location + '<i class="mui-icon iconfont icon-position" style="font-size: 1.2rem; color: #FF0000;"></i><i style="font-style: normal; color: #FF0000;">查看定位</i>';
 						document.getElementById("taskMoney").textContent = json.task_money;
 						plus.nativeUI.closeWaiting();
+							var timejiezhi = json.task_end_time;
 					},
-					error:function(xhr,type,errorThrown){
-						mui.toast('异常：'+type);
+					error: function(xhr, type, errorThrown) {
+						mui.toast('异常：' + type);
 					}
 				});
 				//拨打电话
-				document.getElementById("callPhone").addEventListener("tap",function(){
-					plus.device.dial(document.getElementById("myGetTaskContactType").textContent,false);
+				document.getElementById("callPhone").addEventListener("tap", function() {
+					plus.device.dial(document.getElementById("myGetTaskContactType").textContent, false);
 				});
 				//好评或者差评都跳转到评论界面，后期版本将加入点赞数量
-				mui('#comment').on('tap','.c',function(){
-					
+				mui('#comment').on('tap', '.c', function() {
+
 					var u = document.getElementById("performerMobile").textContent;
 					var us = u.split(":")[1];
 					mui.openWindow({
-						url:'../evluation/executer.html',
-						id:'executer',
-						extras:{executor:us}
+						url: '../evluation/executer.html',
+						id: 'executer',
+						extras: {
+							executor: us
+						}
 					});
 				});
 			});

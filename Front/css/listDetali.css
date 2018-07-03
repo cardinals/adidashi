@@ -1,0 +1,29 @@
+.hide{
+	display: none;
+}
+.ty{
+	
+
+	margin-left: 7%;
+  display: inline-block;
+    
+}
+.ty>h4{
+	font-size: 0.666rem;
+	color: gainsboro;
+	font-weight: 30;
+}
+.ty>h4>span{
+	color: red;
+	
+}
+.ty>h4>span>i{
+	font-size: 0.5rem;
+	background-color: #F8215D;
+	color: white;
+	display: inline-block;
+	border-radius: 0.25rem;
+	width: 10%;
+	padding-top: 0.1rem;
+	
+}

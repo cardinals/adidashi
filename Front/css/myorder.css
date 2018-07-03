@@ -1,0 +1,9 @@
+.btns{
+	margin-left:30%;
+	padding-bottom: 5%;
+}
+.btns>button{
+	margin-left: 5%;
+	border: 1px solid black;
+	
+}

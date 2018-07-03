@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
@@ -9,6 +10,7 @@
 		<link rel="stylesheet" href="../css/withDrawDetails.css" />
 		<script src="../js/mui.min.js"></script>
 	</head>
+
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon iconfont icon-left"></a>
@@ -23,7 +25,7 @@
 						<input type="text" id="drawer" class="mui-input-clear" placeholder="自动获取认证姓名" />
 					</div>
 				</div>
-				<hr style="border: 4px solid #EFEFF4; margin-bottom: 0px;"/>
+				<hr style="border: 4px solid #EFEFF4; margin-bottom: 0px;" />
 				<div class="mui-col-sm-12 mui-col-xs-12 withDrawMoney">
 					<div class="mui-input-row">
 						<label>提现金额</label>
@@ -38,29 +40,29 @@
 						<span>可提现：<i id="availableBalance"></i>元</span>
 					</div>
 				</div>
-				<hr style="border: 5px solid #EFEFF4; margin-bottom: 0px;"/>
+				<hr style="border: 5px solid #EFEFF4; margin-bottom: 0px;" />
 				<div class="mui-col-sm-12 mui-col-xs-12 withDrawType">
 					<div class="mui-input-row mui-select">
 						<label>提现至</label>
 						<select id="drawType" onchange="show_hide(this.id)">
 							<option>请选择提现方式</option>
-								<option>支付宝</option>
-								<option>微信</option>
+							<option>支付宝</option>
+							<option>微信</option>
 						</select>
 					</div>
 					<div id="drawDetails" style="display: none;">
-						<hr style="border: 1px solid #EFEFF4; margin-bottom: 0px;"/>
+						<hr style="border: 1px solid #EFEFF4; margin-bottom: 0px;" />
 						<div class="mui-input-row">
 							<label>手机号</label>
 							<input type="number" id="drawAccount" class="mui-input-clear" placeholder="请填写绑定支付宝手机号" />
 						</div>
-						<hr style="border: 1px solid #EFEFF4; margin-bottom: 0px;"/>
+						<hr style="border: 1px solid #EFEFF4; margin-bottom: 0px;" />
 						<div class="mui-input-row">
 							<label>姓名</label>
 							<input type="text" id="drawName" class="mui-input-clear" placeholder="请填写实名姓名" />
 						</div>
-						<hr style="border: 1px solid #EFEFF4; margin-bottom: 0px;"/>
-					
+						<hr style="border: 1px solid #EFEFF4; margin-bottom: 0px;" />
+
 					</div>
 				</div>
 				<div class="mui-col-sm-12 mui-col-xs-12 withDrawBtn">
@@ -72,49 +74,46 @@
 		</div>
 		<script type="text/javascript" charset="UTF-8">
 			mui.init({
-				beforeback: function() {
-			　　　　 //获得父页面的webview
-			        var center = plus.webview.currentWebview().opener();
-			　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
-			        mui.fire(center, 'refresh');
-			        //返回true,继续页面关闭逻辑
-			        return true;
-			    }
+				beforeback: function() {　　　　 //获得父页面的webview
+					var center = plus.webview.currentWebview().opener();　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+					mui.fire(center, 'refresh');
+					//返回true,继续页面关闭逻辑
+					return true;
+				}
 			});
 			var user = localStorage.getItem("user");
-			mui.plusReady(function(){
+			mui.plusReady(function() {
 				document.getElementById("drawer").value = user;
-				document.getElementById("accountDetail").addEventListener("tap",function(){
+				document.getElementById("accountDetail").addEventListener("tap", function() {
 					mui.openWindow({
-						url:'accountDetails.html',
-						id:'accountDetails'
+						url: 'accountDetails.html',
+						id: 'accountDetails'
 					});
 				});
-				document.getElementById("allDraw").addEventListener("tap",function(){
+				document.getElementById("allDraw").addEventListener("tap", function() {
 					document.getElementById("drawMoney").value = document.getElementById("availableBalance").textContent;
 				});
 				//plus.nativeUI.showWaiting("",{loading:{icon:"/tipImages/12.png",interval:'100000ms',height:'50px'},size:"200px",textalign:"left",background:"rgba(0,0,0,0)"});
 				plus.nativeUI.showWaiting('数据加载中...');
 				query();
-				document.getElementById("allDraw").addEventListener("tap",function(){
+				document.getElementById("allDraw").addEventListener("tap", function() {
 					var draw = document.getElementById("availableBalance").textContent;
-					if(draw < 1){
+					if(draw < 1) {
 						mui.toast('余额不足');
 						document.getElementById("drawMoney").value = '';
 					}
 				});
-				document.getElementById("drawMoney").addEventListener("blur",function(){
+				document.getElementById("drawMoney").addEventListener("blur", function() {
 					var ba = document.getElementById("availableBalance").textContent;
-					if(this.value > ba){
+					if(this.value > ba) {
 						mui.toast('提现余额不足');
 						this.value = '';
 						this.focus();
 					}
 				});
-					
-				
+
 				//提现(提现方式)
-				document.getElementById("btnDrawMoney").addEventListener("tap",function(){
+				document.getElementById("btnDrawMoney").addEventListener("tap", function() {
 					//alert(this);
 					var obj = document.getElementById("drawType"); //定位id
 					var index = obj.selectedIndex; // 选中索引
@@ -123,149 +122,162 @@
 					var drawAccount = document.getElementById("drawAccount").value;
 					var drawName = document.getElementById("drawName").value;
 
-					if(money == '' || money == 0){
+					if(money == '' || money == 0) {
 						mui.toast('你还没有输入提现金额');
 						return false;
-					}else if(index == 0){
+					} else if(index == 0) {
 						mui.toast('未选择提现方式');
 						return false;
-					}else if(drawAccount.length < 1 && drawAccount == ''){
+					} else if(drawAccount.length < 1 && drawAccount == '') {
 						mui.toast('收款账号不能为空');
 						return false;
-					}else if(drawName.length < 1 && drawName == ''){
+					} else if(drawName.length < 1 && drawName == '') {
 						mui.toast('收款人不能为空');
 						return false;
-					}else{
-						
+					} else {
+
 						//调用支付宝接口，进行提现
 						mui.ajax({
-							url:'http://47.96.156.75/transfer.php',
-							type:'post',
-							data:{
+							url: 'http://47.96.156.75/transfer.php',
+							type: 'post',
+							data: {
 								//收款人号码，提现金额
-								user:drawAccount,
-								drawmoney:money
+								user: drawAccount,
+								drawmoney: money
 							},
-							dataType:'json',
-							success:function(data){
-								if(data.alipay_fund_trans_toaccount_transfer_response.code == 10000 && data.alipay_fund_trans_toaccount_transfer_response.msg == 'Success'){
-//									
+							dataType: 'json',
+							success: function(data) {
+
+								if(data.alipay_fund_trans_toaccount_transfer_response.code == 10000 && data.alipay_fund_trans_toaccount_transfer_response.msg == 'Success') {
 									mui.toast('转账成功');
+									//alert(data.alipay_fund_trans_toaccount_transfer_response.order_id);订单号
+									var ordernumber = data.alipay_fund_trans_toaccount_transfer_response.order_id;
 									//获取时间
-										var date = new Date();
-										var seperator1 = "-";
-										var seperator2 = ":";
-										var month = date.getMonth() + 1;
-										var strDate = date.getDate();
-										if (month >= 1 && month <= 9) {
-											month = "0" + month;
-										}
-										if (strDate >= 0 && strDate <= 9) {
-											strDate = "0" + strDate;
-										}
-										var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-											 + " " + date.getHours() + seperator2 + date.getMinutes()
-											+ seperator2 + date.getSeconds();
+									var date = new Date();
+									var seperator1 = "-";
+									var seperator2 = ":";
+									var month = date.getMonth() + 1;
+									var strDate = date.getDate();
+									if(month >= 1 && month <= 9) {
+										month = "0" + month;
+									}
+									if(strDate >= 0 && strDate <= 9) {
+										strDate = "0" + strDate;
+									}
+									var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate +
+										" " + date.getHours() + seperator2 + date.getMinutes() +
+										seperator2 + date.getSeconds();
 									//提现记录
 									mui.ajax({
-										url:'http://47.96.156.75/public/index/incomeoutlog/addpayout',
-										type:'post',
-										data:
-										{
-											users:user,
-											money:Number(money),
-											des:texts+'提现',
-											type:4,
-											time:currentdate,
+										url: 'http://47.96.156.75/public/index/incomeoutlog/addpayout',
+										type: 'post',
+										data: {
+											users: user,
+											money: Number(money),
+											des: texts + '提现',
+											type: 4,
+											time: currentdate,
+											from:'支付宝提现',//提现方式
+											ordernumber: ordernumber //订单号
 										},
-										dataType:'json',
-										async:false,
-										header:{'Conetnt-Type':'application/json'},
-										success:function(data){
+										dataType: 'json',
+										async: true,
+										header: {
+											'Conetnt-Type': 'application/json'
+										},
+										success: function(data) {
 											json = JSON.parse(data);
 										},
-										error:function(xhr,type,errorThrown){
-											mui.toast('异常:'+xhr);
+										error: function(xhr, type, errorThrown) {
+											mui.toast('异常:' + xhr);
 										}
 									});
 									updateAccountBalance();
-									
+
 								}
 							},
-							error:function(xhr,type,errorThrown){
-								mui.toast('异常:'+type);
-							} 
-					});
-					
-					document.getElementById("drawName").blur();
-					document.getElementById("btnDrawMoney").disabled=true; 
-					
+							error: function(xhr, type, errorThrown) {
+								mui.toast('异常:' + type);
+							}
+						});
+
+						document.getElementById("drawName").blur();
+						document.getElementById("btnDrawMoney").disabled = true;
+
 					}
 				});
 			});
-			function query(){
+
+			function query() {
 				//根据手机号查询账号相关信息
 				mui.ajax({
-					url:'http://47.96.156.75/public/index/account/queryaccounts',
-					type:'post',
-					data:{phone:user},
-					dataType:'json',
-					async:false,
-					header:{'Conetnt-Type':'application/json'},
-					success:function(data){ 
+					url: 'http://47.96.156.75/public/index/account/queryaccounts',
+					type: 'post',
+					data: {
+						phone: user
+					},
+					dataType: 'json',
+					async: false,
+					header: {
+						'Conetnt-Type': 'application/json'
+					},
+					success: function(data) {
 						account = JSON.parse(data);
-						if(account[0].allpay < 1){
+						if(account[0].allpay < 1) {
 							document.getElementById("nowBanlance").textContent = 0;
 							document.getElementById("availableBalance").textContent = 0;
 							plus.nativeUI.closeWaiting();
-						} else{
+						} else {
 							document.getElementById("nowBanlance").textContent = account[0].allpay;
 							document.getElementById("availableBalance").textContent = account[0].allpay;
 							plus.nativeUI.closeWaiting();
 						}
 					},
-					error:function(xhr,type,errorThrown){
-						mui.toast('异常:'+errorThrown);
-					} 
+					error: function(xhr, type, errorThrown) {
+						mui.toast('异常:' + errorThrown);
+					}
 				});
 
 			}
 			//更新账户余额
-			function updateAccountBalance(){
+			function updateAccountBalance() {
 				var m = document.getElementById("nowBanlance").textContent;
 				var draw = document.getElementById("drawMoney").value;
-				var y = m-draw;
+				var y = m - draw;
 				mui.ajax({
-					url:'http://47.96.156.75/public/index/account/updateaccount',
-					type:'post',
-					data:
-					{
-						user:user,
-						money:y
+					url: 'http://47.96.156.75/public/index/account/updateaccount',
+					type: 'post',
+					data: {
+						user: user,
+						money: y
 					},
-					dataType:'json',
-					async:false,
-					header:{'Conetnt-Type':'application/json'},
-					success:function(data){
+					dataType: 'json',
+					async: false,
+					header: {
+						'Conetnt-Type': 'application/json'
+					},
+					success: function(data) {
 						json = JSON.parse(data);
-						if(json == 1){
-							mui.back();							
+						if(json == 1) {
+							mui.back();
 						}
 					},
-					error:function(xhr,type,errorThrown){
-						mui.toast('异常:'+type);
+					error: function(xhr, type, errorThrown) {
+						mui.toast('异常:' + type);
 					}
 				});
 			}
-			function show_hide(id){
+
+			function show_hide(id) {
 				var id = document.getElementById(id);
 				var val = id.selectedIndex;
-				if(val == 0){
+				if(val == 0) {
 					document.getElementById("drawDetails").style.display = "none";
-				}else{
+				} else {
 					document.getElementById("drawDetails").style.display = "block";
 				}
 			}
 		</script>
 	</body>
+
 </html>

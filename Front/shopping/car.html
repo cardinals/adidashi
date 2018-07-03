@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/car.css" />
+	</head>
+
+	<body>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init({
+				beforeback: function() {
+						　　　　 //获得父页面的webview
+						var list = plus.webview.currentWebview().opener();　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+						mui.fire(list, 'refresh');
+						//返回true,继续页面关闭逻辑
+						return true;
+					}
+		  });
+
+		  mui.plusReady(function(){
+		  	  //点击icon图标添加商品
+		  
+		  	
+		  })
+		</script>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-home " style="color: red;"></a>
+			<h1 class="mui-title" style="color: red;font-weight: bold;font-size: 1.2rem;"></h1>
+		</header>	
+		<!--已经选入购物车的商品列表-->
+		<div class="mui-content" style="background-color: white;border: 2px solid gray;">
+			<div class="mui-row ty3">
+				<div class="mui-col-sm-1 mui-col-xm-1">
+					<div style="margin-top: 100%;"> 
+						<i class="mui-icon mui-icon-checkmarkempty" style="color: white;background-color: #FA0231;margin:35%;font-weight: bold;border-radius: 50%;border: 1px solid #FA0231;"> </i>
+					</div>
+				</div>
+				<div class="mui-col-sm-4 mui-col-xm-4">
+					        <div>
+								<img src="../userImages/photo.png" style="width: 100%;height: 100%;"/>
+							</div>
+				</div>
+				<div class="mui-col-sm-5 mui-col-xm-5" style="margin-top: 10%;">
+						<h4 style="color: black;font-weight: normal;font-size: 0.67rem;">
+							商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称
+						</h4>
+						<div class="cunt">
+							<div class="p">+</div>
+							<div> 3</div>
+							<div class="d">—</div>
+						</div>
+				</div>
+				<div class="mui-col-sm-2 mui-col-xm-2">
+					<div style="color: gray;margin: 30%;font-size: 0.67rem;">
+						<!--数量 金额 删除图标-->
+						<span>数量1</span><br />
+						<span>￥34</span><br />
+						<i class="mui-icon mui-icon-trash" style="color: red;"></i>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		<div class="mui-content" style="background-color: white;border: 2px solid gray;">
+			<div class="mui-row ty3">
+				<div class="mui-col-sm-1 mui-col-xm-1">
+					<div style="margin-top: 100%;"> 
+						<i class="mui-icon mui-icon-checkmarkempty" style="border:1px solid #FA0231; color: white;background-color: #FA0231;margin:35%;font-weight: bold;border-radius: 50%;"> </i>
+					</div>
+				</div>
+				<div class="mui-col-sm-4 mui-col-xm-4">
+					        <div>
+								<img src="../userImages/book.png" style="width: 100%;height: 100%;"/>
+							</div>
+				</div>
+				<div class="mui-col-sm-5 mui-col-xm-5" style="margin-top: 10%;">
+						<h4 style="color: black;font-weight: normal;font-size: 0.67rem;">
+							商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称
+						</h4>
+						<div class="cunt">
+							<div class="p">+</div>
+							<div> 3</div>
+							<div class="d">—</div>
+						</div>
+				</div>
+				<div class="mui-col-sm-2 mui-col-xm-2">
+					<div style="color: gray;margin: 30%;font-size: 0.67rem;">
+						<!--数量 金额 删除图标-->
+						<span>数量1</span><br />
+						<span>￥34</span><br />
+						<i class="mui-icon mui-icon-trash" style="color: red;"></i>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		
+		
+		<div class="mui-row" style="background-color: gainsboro;border: 1px solid gray;">
+			<div class="mui-col-sm-1 mui-col-xm-1">
+				<div>
+						<i class="mui-icon mui-icon-checkmarkempty" style="border:1px solid #FA0231; color: white;background-color: #FA0231;margin:35%;font-weight: bold;border-radius: 50%;"> </i>
+					
+				</div>
+			</div>
+			<div class="mui-col-sm-9 mui-col-xm-9">
+				<span>总重：34kg</span><br />
+				<span>总价：￥34</span>
+			</div>
+			
+			<div class="mui-col-sm-2 mui-col-xm-2" ></div>
+				<div>
+					<button class="mui-btn" style="margin-top:3%;background-color: #FA0231;color: white;">结算(34)</button>
+				</div>
+			
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</body>
+
+</html>

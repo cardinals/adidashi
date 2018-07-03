@@ -24,7 +24,7 @@
 		</header>
 		<div class="mui-content">
 			<div class="mui-col-sm-12 mui-col-xs-12 userImage" align="center">
-				<img id="userImage" src="userImages/th.png" />
+				<img id="userImage" src="userImages/wth.png" />
 			</div>
 			<div class="mui-col-sm-12 mui-col-xs-12 nick" align="center">
 				<label id="userName"></label>
@@ -89,8 +89,10 @@
 			<hr style="border: 1px solid #EFEFF4;" />
 			<div class=" mui-col-xs-12 money">
 				<!--bindAccount账号绑定-->
-				<h3 id="btnBindAccount"><i class="mui-icon iconfont icon-shezhi"></i>账号绑定<span class="mui-icon mui-icon-forward" style="float: right;"></span></h3>
+				<h3 id="btnMyorder"><i class="mui-icon iconfont icon-dingdanyichenggong"></i>我的订单<span class="mui-icon mui-icon-forward" style="float: right;"></span></h3>
 			</div>
+			<div class=" mui-col-xs-12 money">
+			
 			<hr style="border: 1px solid #EFEFF4;" />
 			<div class=" mui-col-xs-12 money">
 				<!--integrityOf诚信勋章-->
@@ -167,7 +169,13 @@
 				});
 				noticeCount();
 				//加载用户数据
-				
+				//我的订单
+				document.getElementById("btnMyorder").addEventListener("tap",function(){
+					mui.openWindow({
+						url:"shopping/myorder.html",
+						id:"myorder"
+					})
+				});
 				//消息中心
 				document.getElementById("btnMessage").addEventListener("tap",function(){
 					mui.openWindow({
@@ -202,7 +210,14 @@
 						success:function(data){
 							d = JSON.parse(data);
 							if(d[0].nickname == '' || d[0].nickname == null){
-								mui.confirm("你还没有编辑用户名和头像信息，请编辑完后，才可进入个人主页")
+									mui.confirm('您还未编辑个人信息，是否立即编辑?', '小提示', ['是', '否'], function(e) {
+										if(e.index == 0) {
+											mui.openWindow({
+												url: 'editInformation.html',
+												id: 'editinformation'
+											});
+										}
+									}, 'div');
 							}
 							else{
 									mui.openWindow({
@@ -338,16 +353,7 @@
 						main.startActivity(intent);
 					}
 				});
-				//点击头像进入个人主页
-				document.getElementById("userImage").addEventListener("tap",function(){
-					mui.openWindow({
-						url:"personnalPage.html",
-						id:"",
-						extras:{
-							
-						}
-					})
-				})
+		
 	//根据电话号码获取用户数据
 			function getUserData(){
 				plus.nativeUI.showWaiting('加载用户数据中...');

@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
@@ -15,228 +16,210 @@
 		<div class="mui-row">
 			<div class="mui-col-sm-12 mui-col-xs-12">
 				<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon iconfont icon-left" style="color:red;"></a>
-					
-					<h1 class="mui-title" style="color:red;">上传个人头像</h1>
+					<a class="mui-action-back mui-icon iconfont icon-left" style="color:red;"></a>
+
+					<h1 class="mui-title" style="color:red;">点击上传头像</h1>
 				</header>
 			</div>
 		</div>
 		<div class="mui-content" style="margin-top: 0px;">
 			<div class="mui-row">
 				<div class="mui-col-sm-12 mui-col-xs-12">
-						<div class="mui-row" style="margin: 35%;margin-bottom: 0;margin-top: 20%;" >
-							<img id="uresimgs" src="userImages/wth.png" class="mui-pull-right uresimgs" style="width: 100%;
+					<div class="mui-row" style="margin: 35%;margin-bottom: 0;margin-top: 20%;">
+						<img id="uresimgs" src="userImages/th.png" class="mui-pull-right uresimgs" style="width: 100%;
 	height: 100%;
 	border-radius: 50%;
-	margin: 1%;"  />
-						</div>
+	margin: 1%;" />
+					</div>
 					<form class="mui-input-group" style="text-align:center;">
-					
-					    <div class="mui-input-row" style="width: 100%; height: auto;margin-left: 1%;">
+
+						<div class="mui-input-row" style="width: 100%; height: auto;margin-left: 1%;">
 							<label>用户名</label><br />
 						</div>
 						<div class="mui-input-row">
 							<input type="text" id="nickname" class="mui-input-clear" style="width: 90%; border: 1px solid #DDDDDD; margin-left: 5%; height: 2.2rem;color:black;" />
 						</div>
-					   
-					 
-							<div class="mui-input-row" style="width: 100%; height: auto;margin-left: -1%;">
-								<label>性别</label><br />
-							</div>
-							<div class="mui-input-row " style="margin-left: 10%;
+
+						<div class="mui-input-row" style="width: 100%; height: auto;margin-left: -1%;">
+							<label>性别</label><br />
+						</div>
+						<div class="mui-input-row " style="margin-left: 10%;
 	width: 85%;height: 2.2rem;
 	border: 1px solid #DDDDDD;">
-								<select id="sex">
-									<option>男</option>
-									<option>女</option>
-								</select>
+							<select id="sex">
+								<option>男</option>
+								<option>女</option>
+							</select>
+						</div>
+						<div class="mui-col-sm-12 mui-col-xs-12">
+							<div class="mui-content-padded" align="center">
+								<button id="Toserver" type="button" class="mui-btn mui-btn-danger" style="border: none;">确认</button>
 							</div>
-				<div class="mui-col-sm-12 mui-col-xs-12">
-					<div class="mui-content-padded" align="center" >
-						<button id="Toserver" type="button" class="mui-btn mui-btn-danger" style="border: none;">确认</button>
-					</div>
-				
-				</div>    
-					    
-			</form>
-				
-		
+
+						</div>
+
+					</form>
+
+				</div>
 			</div>
-		</div>
 
-		
-		<script src="js/mui.min.js"></script>
-		<script type="text/javascript">
-			mui.init({
-					
+			<script src="js/mui.min.js"></script>
+			<script type="text/javascript">
+				mui.init({
+
 					beforeback: function() {
-					
-			　　　　 //获得父页面的webview
-			        var mycenter = plus.webview.currentWebview().opener();
-			　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
-			        mui.fire(mycenter, 'refresh');
-			        //返回true,继续页面关闭逻辑
-			        return true;
-			    }
-	
-			})
-			
-			
-			mui.plusReady(function(){
 
-						//获取用户头像
-				mui("body").on('tap', '.uresimgs', function() {
-					img.idImageUp();
+						　　　　 //获得父页面的webview
+						var mycenter = plus.webview.currentWebview().opener();　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+						mui.fire(mycenter, 'refresh');
+						//返回true,继续页面关闭逻辑
+						return true;
+					}
+
+				})
+
+				mui.plusReady(function() {
+
+					//获取用户头像
+					mui("body").on('tap', '.uresimgs', function() {
+						img.idImageUp();
 						event.preventDefault();
-					event.stopPropagation();
+						event.stopPropagation();
 
-				});
+					});
 
-					
-			
-				document.getElementById("Toserver").addEventListener("tap",function(){
+					document.getElementById("Toserver").addEventListener("tap", function() {
 						//判断用户数据是否齐全
-				
-					var nickname = document.getElementById("nickname").value
-					var sex = document.getElementById("sex").value   //1 男 ；2女
-				    var uresimgs = document.getElementById("uresimgs").src
-					var mobile =localStorage.getItem("user");
-					//alert(mobile);
-					//alert(nickname + sex +mobile +uresimgs);
-					if(nickname == "")
-					{
-						mui.toast('用户名不能为空!');
-					}else if(uresimgs == ""){
-						mui.toast('头像不能为空！');
-					}
-					else{
-						 	
-				     plus.nativeUI.showWaiting('提交中...');
-					//服务端接口路径
-					var server = "http://47.96.156.75/public/index/user/addNickname";
-					//获取图片元素
-					var image = new Image();
-					image.src = document.getElementById("uresimgs").src;
-					var files = image;
-					var task = plus.uploader.createUpload(server, {
-							method: "POST"
-						},
-						function(t, state) { 
-							//上传完成
-							if(state == 200 && t.state == 4) {
-								plus.nativeUI.closeWaiting();
-								mui.toast('已上传，请耐心等待...');
-								//返回个人主页面
-							mui.openWindow({
-								url:'myCenter.html',
-								id:'mycenter'
+
+						var nickname = document.getElementById("nickname").value
+						var sex = document.getElementById("sex").value //1 男 ；2女
+						var uresimgs = document.getElementById("uresimgs").src
+						var mobile = localStorage.getItem("user");
+						//alert(mobile);
+						//alert(nickname + sex +mobile +uresimgs);
+						if(nickname == "") {
+							mui.toast('用户名不能为空!');
+						} else {
+							plus.nativeUI.showWaiting('提交中...');
+							//服务端接口路径
+							var server = "http://47.96.156.75/public/index/user/addNickname";
+							//获取图片元素
+							var image = new Image();
+							image.src = document.getElementById("uresimgs").src;
+							var files = image;
+							var task = plus.uploader.createUpload(server, {
+									method: "POST",
+									blocksize: 204800
+								},
+								function(t, state) {
+									//上传完成
+									if(state == 200 && t.state == 4) {
+										
+										plus.nativeUI.closeWaiting();
+										mui.toast('已上传，请耐心等待...');
+										//刷新当前页面
+										var self = plus.webview.currentWebview(); //获取当前窗体对象
+
+										//返回个人主页面
+										mui.openWindow({
+											url: 'myCenter.html',
+											id: 'mycenter'
+										});
+									} else {
+										plus.nativeUI.closeWaiting();
+										mui.toast('上传数据失败，请稍后重试');
+									}
+								}
+							);
+							//添加其他参数
+							task.addData("mobile", mobile);
+							task.addData("nickname", nickname);
+							task.addData("sex", sex);
+							task.addFile(files.src, {
+								key: "uresimgs"
 							});
-							}else{	
-								plus.nativeUI.closeWaiting();
-								mui.toast('上传数据失败，请稍后重试');	
-							}
+
+							task.start();
+
+							/*		mui.ajax({
+									url: 'http://47.96.156.75/public/index/user/addNickname',
+									type: 'post',
+									dataType: 'json',
+									data:{
+										mobile:mobile,
+										sex :sex,
+										nickname:nickname,
+										uresimgs:uresimgs
+									},
+									async: false,
+									header: {
+										'Conetnt-Type': 'application/json'
+									},
+									timeout: 5000,
+									success: function(data) {
+										//alert(data);
+									},
+									error: function(xhr, type, errorThrown) {
+										mui.toast('上传异常:' + errorThrown);
+										
+									}
+								});*/
+
 						}
-					);
-					//添加其他参数
-					task.addData("mobile", mobile);
-					task.addData("nickname", nickname);
-					task.addData("sex", sex);
-					task.addFile(files.src, {
-						key: "uresimgs"
-					});
-					
-					task.start();	
-							
-				/*		mui.ajax({
-						url: 'http://47.96.156.75/public/index/user/addNickname',
-						type: 'post',
-						dataType: 'json',
-						data:{
-							mobile:mobile,
-							sex :sex,
-							nickname:nickname,
-							uresimgs:uresimgs
-						},
-						async: false,
-						header: {
-							'Conetnt-Type': 'application/json'
-						},
-						timeout: 5000,
-						success: function(data) {
-							//alert(data);
-						},
-						error: function(xhr, type, errorThrown) {
-							mui.toast('上传异常:' + errorThrown);
-							
-						}
-					});*/
-					
-					
-					}
-				
-				}) //确认提交按钮事件
-	
-				
-			})
+
+					}) //确认提交按钮事件
+
+				})
 				//头像
-			var  img= null;
-			img = {
-				idImageUp: function() {
-					event.preventDefault();
-					event.stopPropagation();
-				var m = this;
-					plus.nativeUI.actionSheet({
-						cancel: "取消",
-						buttons: [{
-								title: "拍照"
-							},
-							{
-								title: "从相册中选择"
+				var img = null;
+				img = {
+					idImageUp: function() {
+						event.preventDefault();
+						event.stopPropagation();
+						var m = this;
+						plus.nativeUI.actionSheet({
+							cancel: "取消",
+							buttons: [{
+									title: "拍照"
+								},
+								{
+									title: "从相册中选择"
+								}
+							],
+
+						}, function(e) {
+							switch(e.index) {
+								case 1:
+									appendByCamera(); //相机
+									break;
+								case 2:
+									appendByGallery(); //相册
+									break;
 							}
-						],
-						
-					}, function(e) {
-						switch(e.index) {
-							case 1:
-								appendByCamera(); //相机
-								break;
-							case 2:
-								appendByGallery(); //相册
-								break;
-						}
-					});
-					
-					
+						});
+
+					}
 				}
-			}
 
 				//拍照添加文件
-			function appendByCamera() {
-				plus.camera.getCamera().captureImage(function(e) {
-					console.log(e);
-					plus.io.resolveLocalFileSystemURL(e, function(entry) {
-						var path = entry.toLocalURL();
-						document.getElementById("uresimgs").src = path;
-					}, function(e) {
-						mui.toast("读取拍照文件错误", +e.message);
+				function appendByCamera() {
+					plus.camera.getCamera().captureImage(function(e) {
+						                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    console.log(e);
+						plus.io.resolveLocalFileSystemURL(e, function(entry) {
+							var path = entry.toLocalURL();
+							document.getElementById("uresimgs").src = path;
+						}, function(e) {
+							mui.toast("读取拍照文件错误", +e.message);
+						});
 					});
-				});
-			}
-			//从相册选择
-			function appendByGallery() {
-				plus.gallery.pick(function(path) {
-					document.getElementById("uresimgs").src = path;
-				});
-			}
-			
-			
-			
-			
-			
-			
-			
-			
-		</script>
+				}
+				//从相册选择
+				function appendByGallery() {
+					plus.gallery.pick(function(path) {
+						document.getElementById("uresimgs").src = path;
+					});
+				}
+			</script>
 	</body>
 
 </html>

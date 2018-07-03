@@ -15,7 +15,8 @@
 			"getTasked.html",
 			"waiting.html",
 			"list.html",
-			"editInformation.html"
+			"editInformation.html",
+			"shopping/list.html"
 		],
 		"resources": [
 			"icon/l.png",
@@ -49,7 +50,8 @@
 	},
 	"getTask.html": {
 		"refer": [
-			"getTasked.html"
+			"getTasked.html",
+			"personnalPage.html"
 		],
 		"resources": [
 			"css/mui.min.css",
@@ -85,7 +87,8 @@
 			"waiting.html",
 			"authenticated.html",
 			"personnalPage.html",
-			"editInformation.html"
+			"editInformation.html",
+			"shopping/myorder.html"
 		],
 		"resources": [
 			"css/mui.min.css",
@@ -437,6 +440,18 @@
 	"editInformation.html": {
 		"refer": [
 			"personnalPage.html"
+		]
+	},
+	"shopping/list.html": {
+		"refer": [
+			"shopping/listDetail.html",
+			"shopping/car.html"
+		]
+	},
+	"shopping/listDetail.html": {
+		"refer": [
+			"shopping/store.html",
+			"shopping/car.html"
 		]
 	}
 }

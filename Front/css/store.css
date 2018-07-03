@@ -1,0 +1,22 @@
+.ty>h4{
+	font-size: 0.6rem;
+	color: black;
+	font-weight: 30;
+}
+.ty>h4>span{
+	color: red;
+	
+}
+.ty>h4>span>i{
+	font-size: 0.7rem;
+	font-weight: 800;
+	color: #F8215D;
+	display: inline-block;
+	height: 100%;
+	width: 10%;
+	padding-top: 0.1rem;
+	
+}
+.ty{
+	margin-left: 3%;
+}

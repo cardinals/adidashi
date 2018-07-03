@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<title>任务详情</title>    
+		<title>任务详情</title>
 		<link rel="stylesheet" href="css/mui.min.css">
 		<link rel="stylesheet" href="css/getTask.css" />
 		<link rel="stylesheet" href="css/iconfont.css" />
 		<script src="js/mui.min.js"></script>
-		<script type="text/javascript" src="js/tools/speech.js" ></script>
+		<script type="text/javascript" src="js/tools/speech.js"></script>
 		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=nSxiPohfziUaCuONe4ViUP2N"></script>
 	</head>
+
 	<body onload="leftTimer()">
-<div class="mui-content" style="width: 100%; height: auto;" align="center">
+		<div class="mui-content" style="width: 100%; height: auto;" align="center">
 			<div class="mui-row">
 				<div class="mui-col-sm-12 mui-col-xs-12">
 					<div class="mui-content-padded" align="left">
-						<h1 class="mui-title" >红包详情</h1>
-						<a  style="position:absolute;display: inline;" class="mui-action-back mui-icon iconfont icon-left"></a>
+						<h1 class="mui-title">红包详情</h1>
+						<a style="position:absolute;display: inline;" class="mui-action-back mui-icon iconfont icon-left"></a>
 					</div>
-					<img class="userPhoto" src="userImages/logo.png"/>
+					<img class="userPhoto" id="img_" src="userImages/logo.png" />
 				</div>
-				<div class="mui-col-sm-12 mui-col-xs-12" >
+				<div class="mui-col-sm-12 mui-col-xs-12">
 					<div style="width: 100%; height: auto;">
 						<div class="tasker" align="center">
 							<h5 style="color: #595F6E; font-size: 1.2rem;" id="tasker"></h5>
@@ -32,256 +34,307 @@
 						</div>
 					</div>
 				</div>
-			<div class="mui-col-sm-12 mui-col-xs-12">
-				<div style="width: 100%; background-color: #FFFFFF;">
-					<div class="taskDetails" align="left">
-						<span>任务详情&nbsp;:&nbsp;</span><span id="taskDetails">
+				<div class="mui-col-sm-12 mui-col-xs-12">
+					<div style="width: 100%; background-color: #FFFFFF;">
+						<div class="taskDetails" align="left">
+							<span>任务详情&nbsp;:&nbsp;</span><span id="taskDetails">
 						</span><br />
-						<span>开始时间&nbsp;:&nbsp;</span><span id="taskStratTime"></span><br />
-						<span>截止时间&nbsp;:&nbsp;</span><span id="taskEndTime"></span><br />
-						<span>联系方式&nbsp;:&nbsp;</span><span id="contactType"></span><br />
-						<span>领取地点&nbsp;:&nbsp;</span><span id="getPlace"></span><br />
-						<span>交接地点&nbsp;:&nbsp;</span><span id="joinPlace"></span><br />
+							<span>开始时间&nbsp;:&nbsp;</span><span id="taskStratTime"></span><br />
+							<span>截止时间&nbsp;:&nbsp;</span><span id="taskEndTime"></span><br />
+							<span>联系方式&nbsp;:&nbsp;</span><span id="contactType"></span><br />
+							<span>领取地点&nbsp;:&nbsp;</span><span id="getPlace"></span><br />
+							<span>交接地点&nbsp;:&nbsp;</span><span id="joinPlace"></span><br />
+						</div>
 					</div>
 				</div>
-			</div>
-				<div class="mui-col-sm-12 mui-col-xs-12"  style="background: #FFFFFF;">
+				<div class="mui-col-sm-12 mui-col-xs-12" style="background: #FFFFFF;">
 					<div style=" width:100%; margin-top: 15%; margin-bottom: 10%; background-color: #FFFFFF; float: left;">
-						<button type="button" style="display: none;" class="mui-btn mui-btn-danger" id="getTask">领取任务</button>
+						<button type="button" style="display: none;" class="mui-btn mui-btn-danger" id="getTask" style="border: none;">领取任务</button>
 						<button type="button" style="display: none;" class="mui-btn mui-btn-danger" id="lookGeted">查看已领取</button>
 						<button type="button" style="display: none;" class="mui-btn mui-btn-danger" id="success">已发布</button>
 					</div>
 				</div>
 				<span style="display: none;" id="isCheck"></span>
+			</div>
 		</div>
-		</div>
-		<script type="text/javascript" charset="UTF-8">
+	</body>
+	<script type="text/javascript" charset="UTF-8">
 		//倒计时
-		function leftTimer(year,month,day,hour,minute,second){ 
-			  var leftTime = (new Date(year,month-1,day,hour,minute,second)) - (new Date()); //计算剩余的毫秒数 
-			  var days = parseInt(leftTime / 1000 / 60 / 60 / 24 , 10); //计算剩余的天数 
-			  var hours = parseInt(leftTime / 1000 / 60 / 60 % 24 , 10); //计算剩余的小时 
-			  var minutes = parseInt(leftTime / 1000 / 60 % 60, 10);//计算剩余的分钟 
-			  var seconds = parseInt(leftTime / 1000 % 60, 10);//计算剩余的秒数 
-			  days = checkTime(days); 
-			  hours = checkTime(hours); 
-			  minutes = checkTime(minutes); 
-			  seconds = checkTime(seconds); 
-			  setInterval("leftTimer(2019,1,0,0,0,0)",1000); 
-			  document.getElementById("timer").innerHTML = days+"天" + hours+"小时" + minutes+"分"+seconds+"秒";  
-			} 
-			function checkTime(i){ //将0-9的数字前面加上0，例1变为01 
-			  if(i<10) 
-			  { 
-			    i = "0" + i; 
-			  } 
-			  return i; 
-			} 
-	
-		
-			//初始化mui主函数
-			mui.init({
-				beforeback: function() {
-			　　　　 //获得父页面的webview
-			        var task = plus.webview.currentWebview().opener();
-			　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
-			        mui.fire(task, 'refresh');
-			        //返回true,继续页面关闭逻辑
-			        return true;
-			    }
-			});
-		
-			//加载执行函数
-			mui.plusReady(function(){
-				plus.nativeUI.showWaiting('玩命加载中...');
-				window.addEventListener('refresh', function(e){//执行刷新
-				    location.reload();
-				});
-				
-				
-				
-				var u = localStorage.getItem("user");
-				//获取上一页传过来的值
-				window.self = plus.webview.currentWebview();
-				window.taskTitle = self.task_title;
-				window.taskMoney = self.task_money;
-				window.taskStart = self.task_startTime;
-				window.taskEnd = self.task_endTime;
-				window.taskPer = self.task_per;
-				window.taskGetPlace = self.task_getPlace;
-				window.taskConnetPlace = self.task_connetPlace;
-				window.taskDetails = self.task_details;
-				window.taskGetLng = self.task_getLng;
-				window.taskGetLat = self.task_getLat;
-				window.taskConnetLng = self.task_connetLng;
-				window.taskConnetLat = self.task_connetLat;
-				window.tasker = self.task_user;
-				window.taskId = self.task_id;
-				/*******/
-				document.getElementById("tasker").textContent = tasker;
-				document.getElementById("contactType").textContent = getBeforeThree(tasker);
-				//设置元
-				var str = "<span style='font-size:1.123rem;'>元</span>";
-				document.getElementById("taskMoney").innerHTML =taskMoney+str;
-				document.getElementById("taskDetails").textContent = taskDetails;
-				document.getElementById("taskStratTime").textContent = taskStart; 
-				document.getElementById("taskEndTime").textContent = taskEnd;
-				document.getElementById("getPlace").textContent = taskGetPlace;
-				document.getElementById("joinPlace").textContent = taskConnetPlace;
-				
-			
-				
-				//获取任务详情，判断该任务是否被领取
-				var state = "";
-				var isMe = "";
-				mui.ajax({
-					url:'http://47.96.156.75/public/index/task/taskdetails',
-	      			type:'post',
-	      			dataType:'json',
-	      			async:false,
-	      			data:{did:taskId},
-	      			header:{'Content-Type':'application/json'},
-	      			success:function(data){
-	      				plus.nativeUI.closeWaiting();
-	      				var json = JSON.parse(data);
-	      				state = json.task_state;
-	      				isMe = json.task_user;
-	      				document.getElementById("isCheck").textContent = state;
-	      			}
-	      			,error:function(xhr,type,errorThrown){
-	      				mui.toast('异常',type);
-	      			}
-				});
-				if(isMe == u){
-					document.getElementById("success").style.display = "block";
-				}else{
-					if(state == '是'){
-					document.getElementById("lookGeted").style.display = "block";
-					document.getElementById("lookGeted").addEventListener("tap",
-						function() {
-							mui.openWindow({
-								url: 'getTasked.html',
-								id: 'getTasked',
-								extras: {
-									task_title: taskTitle,
-									task_money: taskMoney,
-									task_startTime: taskStart,
-									task_endTime: taskEnd,
-									task_per: taskPer,
-									task_getPlace: taskGetPlace,
-									task_connetPlace: taskConnetPlace,
-									task_details: taskDetails,
-									task_getLng: taskGetLng,
-									task_getLat: taskGetLat,
-									task_connetLng: taskConnetLng,
-									task_connetLat: taskConnetLat,
-									task_user: tasker
-								}
-							});
-						});
-				} else if(state == '否'){
-					//获取领取任务按钮id
-				document.getElementById("getTask").style.display = "block";
-				document.getElementById("getTask").addEventListener('tap',function(){
-					var geolocation = new BMap.Geolocation();
-					plus.nativeUI.showWaiting('领取中...');
-					 	geolocation.getCurrentPosition(function(result){  
-					    if(this.getStatus() == BMAP_STATUS_SUCCESS){  
-					           var latitude  = result.point.lat;//获取到的纬度  
-					           var longitude = result.point.lng;//获取到的经度  
-					           var pt = new BMap.Point(longitude, latitude);//实例化这两个点	
-					           var geoc = new BMap.Geocoder();
-					           geoc.getLocation(pt,function(r){
-									 //定位  
-									var addComp = r.addressComponents;
-									var address = '';
-									    address += addComp.province;
-									    address += addComp.city;
-									    address += addComp.district;
-									    address += addComp.street;
-									    address += addComp.streetNumber;
-									    if(taskGetPlace == getCaption(address)){
-									    	//speak("领取失败，你不在任务领取点范围内，无法领取任务");
-									    	plus.nativeUI.closeWaiting();
-									    	mui.toast('领取失败，你不在任务领取点范围内，无法领取任务');
-									    } else{
-									    	plus.nativeUI.closeWaiting();
-									    	mui.toast('领取成功');
-									    	getTaskById(taskId,u);
-									    }
-									    //speak("已定位到您当前位置:"+address);
-								});
-					       } else{
-					       		mui.toast("定位失败，请检查网络是否连接或GPS是否打开");
-					       }
-					   });
-					     
+		function leftTimer(year, month, day, hour, minute, second) {
+			var leftTime = (new Date(year, month - 1, day, hour, minute, second)) - (new Date()); //计算剩余的毫秒数 
+			var days = parseInt(leftTime / 1000 / 60 / 60 / 24, 10); //计算剩余的天数 
+			var hours = parseInt(leftTime / 1000 / 60 / 60 % 24, 10); //计算剩余的小时 
+			var minutes = parseInt(leftTime / 1000 / 60 % 60, 10); //计算剩余的分钟 
+			var seconds = parseInt(leftTime / 1000 % 60, 10); //计算剩余的秒数 
+			days = checkTime(days);
+			hours = checkTime(hours);
+			minutes = checkTime(minutes);
+			seconds = checkTime(seconds);
+			setInterval("leftTimer(2019,1,0,0,0,0)", 1000);
+			document.getElementById("timer").innerHTML = days + "天" + hours + "小时" + minutes + "分" + seconds + "秒";
+		}
+
+		function checkTime(i) { //将0-9的数字前面加上0，例1变为01 
+			if(i < 10) {
+				i = "0" + i;
+			}
+			return i;
+		}
+
+		//初始化mui主函数
+		mui.init({
+			beforeback: function() {　　　　 //获得父页面的webview
+				var task = plus.webview.currentWebview().opener();　　　　 //触发父页面的自定义事件(refresh),从而进行刷新
+				mui.fire(task, 'refresh');
+				//返回true,继续页面关闭逻辑
+				return true;
+			}
+		});
+
+		//加载执行函数
+		mui.plusReady(function() {
+					plus.nativeUI.showWaiting('玩命加载中...');
+					window.addEventListener('refresh', function(e) { //执行刷新
+						location.reload();
 					});
-				}
-				}
-				
-			});
-			function backTo(){
-				//点击返回，回到父页面	
-				var  backTo = document.getElementById("back");
-				console.log(backTo);
-				backTo.addEventListener('tap',function(){
-					　　 //获得父页面的webview
-					alert(11);
-				  
-				});
-			}
-			
-			//截取指定指定字符串
-			//截取省以后的字符串
-			function getCaption(obj){
-				var index = obj.lastIndexOf("省");
-				obj = obj.substring(index+1,obj.length);
-				return obj;
-			}
-			//截取前三位数据
-			function getBeforeThree(num){
-				num = num.substr(0,3)+'xxxxxxxx';
-				return num;
-			}
-			//获取任务
-			function getTaskById(tid,tname){
-				mui.ajax({
-					url:'http://47.96.156.75/public/index/task/gettask',
-	      			type:'post',
-	      			dataType:'json',
-	      			async:true,
-	      			data:{uid:tid,tname:tname},
-	      			header:{'Content-Type':'application/json'},
-	      			success:function(data){
-	      				var json = JSON.parse(data);
-	      				if(json == 1){
-	      					speak("领取成功");
-								mui.openWindow({
-									url: 'getTasked.html',
-									id: 'getTasked',
-									extras: {
-										task_title: taskTitle,
-										task_money: taskMoney,
-										task_startTime: taskStart,
-										task_endTime: taskEnd,
-										task_per: taskPer,
-										task_getPlace: taskGetPlace,
-										task_connetPlace: taskConnetPlace,
-										task_details: taskDetails,
-										task_getLng: taskGetLng,
-										task_getLat: taskGetLat,
-										task_connetLng: taskConnetLng,
-										task_connetLat: taskConnetLat,
-										task_user: tasker
+
+					var u = localStorage.getItem("user");
+					//获取上一页传过来的值
+					window.self = plus.webview.currentWebview();
+					window.taskTitle = self.task_title;
+					window.taskMoney = self.task_money;
+					window.taskStart = self.task_startTime;
+					window.taskEnd = self.task_endTime;
+					window.taskPer = self.task_per;
+					window.taskGetPlace = self.task_getPlace;
+					window.taskConnetPlace = self.task_connetPlace;
+					window.taskDetails = self.task_details;
+					window.taskGetLng = self.task_getLng;
+					window.taskGetLat = self.task_getLat;
+					window.taskConnetLng = self.task_connetLng;
+					window.taskConnetLat = self.task_connetLat;
+					window.tasker = self.task_user; //电话号码
+					window.taskId = self.task_id;
+					/*******/
+					document.getElementById("tasker").textContent = tasker;
+					document.getElementById("contactType").textContent = getBeforeThree(tasker);
+					//设置元
+					var str = "<span style='font-size:1.123rem;'>元</span>";
+					document.getElementById("taskMoney").innerHTML = taskMoney + str;
+					document.getElementById("taskDetails").textContent = taskDetails;
+					document.getElementById("taskStratTime").textContent = taskStart;
+					document.getElementById("taskEndTime").textContent = taskEnd;
+					document.getElementById("getPlace").textContent = taskGetPlace;
+					document.getElementById("joinPlace").textContent = taskConnetPlace;
+					//tasker 发布者的电话号码 
+					//根据电话号码获取用户名和头像
+					mui.ajax({
+						url: "http://47.96.156.75/public/index/user/getuserdata",
+						type: "post",
+						data: {
+							phone: tasker
+						},
+						dataType: 'json',
+						header: {
+							'Content-Type': 'application/json'
+						},
+						async: false,
+						success: function(data) {
+							d = JSON.parse(data);
+							
+							if(d[0].idhead== '' || d[0].idhead ==null){
+								document.getElementById("img_").src = 'userImages/th.png';
+							}
+							else{
+							document.getElementById("img_").src = 'http://47.96.156.75/' + d[0].idhead;
+								
+							}
+
+							if(d[0].nickname=="" || d[0].nickname ==null){
+								document.getElementById("tasker").innerHTML = '发布者：' + tasker;
+								
+							}
+							else{
+							document.getElementById("tasker").innerHTML = '发布者：' + d[0].nickname;
+								
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							mui.toast('异常:' + errorThrown);
+						}
+					})
+
+					//获取任务详情，判断该任务是否被领取
+					var state = "";
+					var isMe = "";
+					mui.ajax({
+						url: 'http://47.96.156.75/public/index/task/taskdetails',
+						type: 'post',
+						dataType: 'json',
+						async: false,
+						data: {
+							did: taskId
+						},
+						header: {
+							'Content-Type': 'application/json'
+						},
+						success: function(data) {
+							plus.nativeUI.closeWaiting();
+							var json = JSON.parse(data);
+							state = json.task_state;
+							isMe = json.task_user;
+							document.getElementById("isCheck").textContent = state;
+						},
+						error: function(xhr, type, errorThrown) {
+							mui.toast('异常', type);
+						}
+					});
+					if(isMe == u) {
+						document.getElementById("success").style.display = "block";
+					} else {
+						if(state == '是') {
+							document.getElementById("lookGeted").style.display = "block";
+							document.getElementById("lookGeted").addEventListener("tap",
+								function() {
+									mui.openWindow({
+										url: 'getTasked.html',
+										id: 'getTasked',
+										extras: {
+											task_title: taskTitle,
+											task_money: taskMoney,
+											task_startTime: taskStart,
+											task_endTime: taskEnd,
+											task_per: taskPer,
+											task_getPlace: taskGetPlace,
+											task_connetPlace: taskConnetPlace,
+											task_details: taskDetails,
+											task_getLng: taskGetLng,
+											task_getLat: taskGetLat,
+											task_connetLng: taskConnetLng,
+											task_connetLat: taskConnetLat,
+											task_user: tasker
+										}
+									});
+								});
+						} else if(state == '否') {
+							//获取领取任务按钮id
+							document.getElementById("getTask").style.display = "block";
+							document.getElementById("getTask").addEventListener('tap', function() {
+								var geolocation = new BMap.Geolocation();
+								plus.nativeUI.showWaiting('领取中...');
+								geolocation.getCurrentPosition(function(result) {
+									if(this.getStatus() == BMAP_STATUS_SUCCESS) {
+										var latitude = result.point.lat; //获取到的纬度  
+										var longitude = result.point.lng; //获取到的经度  
+										var pt = new BMap.Point(longitude, latitude); //实例化这两个点	
+										var geoc = new BMap.Geocoder();
+										geoc.getLocation(pt, function(r) {
+											//定位  
+											var addComp = r.addressComponents;
+											var address = '';
+											address += addComp.province;
+											address += addComp.city;
+											address += addComp.district;
+											address += addComp.street;
+											address += addComp.streetNumber;
+											if(taskGetPlace == getCaption(address)) {
+												//speak("领取失败，你不在任务领取点范围内，无法领取任务");
+												plus.nativeUI.closeWaiting();
+												mui.toast('领取失败，你不在任务领取点范围内，无法领取任务');
+											} else {
+												plus.nativeUI.closeWaiting();
+												mui.toast('领取成功');
+												getTaskById(taskId, u);
+											}
+											//speak("已定位到您当前位置:"+address);
+										});
+									} else {
+										mui.toast("定位失败，请检查网络是否连接或GPS是否打开");
 									}
 								});
+
+							});
+						}
+					}
+					//点击头像进入发布者的个人主页
+					document.getElementById("img_").addEventListener("tap", function() {
+						mui.openWindow({
+							url: 'personnalPage.html',
+							id: 'personnalpage',
+							extras: {
+								task_user: tasker
 							}
-				}, error: function(xhr, type, errorThrown) {
-					mui.toast('异常',type);
-			      			}
+						});
+					});
+
+					function backTo() {
+						//点击返回，回到父页面	
+						var backTo = document.getElementById("back");
+						console.log(backTo);
+						backTo.addEventListener('tap', function() {　　 //获得父页面的webview
+							//alert(11);
+
 						});
 					}
-		</script>
-	</body>
+
+					//截取指定指定字符串
+					//截取省以后的字符串
+					function getCaption(obj) {
+						var index = obj.lastIndexOf("省");
+						obj = obj.substring(index + 1, obj.length);
+						return obj;
+					}
+					//截取前三位数据
+					function getBeforeThree(num) {
+						num = num.substr(0, 3) + 'xxxxxxxx';
+						return num;
+					}
+					//获取任务
+					function getTaskById(tid, tname) {
+						mui.ajax({
+							url: 'http://47.96.156.75/public/index/task/gettask',
+							type: 'post',
+							dataType: 'json',
+							async: true,
+							data: {
+								uid: tid,
+								tname: tname
+							},
+							header: {
+								'Content-Type': 'application/json'
+							},
+							success: function(data) {
+								var json = JSON.parse(data);
+								if(json == 1) {
+									speak("领取成功");
+									mui.openWindow({
+										url: 'getTasked.html',
+										id: 'getTasked',
+										extras: {
+											task_title: taskTitle,
+											task_money: taskMoney,
+											task_startTime: taskStart,
+											task_endTime: taskEnd,
+											task_per: taskPer,
+											task_getPlace: taskGetPlace,
+											task_connetPlace: taskConnetPlace,
+											task_details: taskDetails,
+											task_getLng: taskGetLng,
+											task_getLat: taskGetLat,
+											task_connetLng: taskConnetLng,
+											task_connetLat: taskConnetLat,
+											task_user: tasker
+										}
+									});
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								mui.toast('异常', type);
+							}
+						});
+					}
+		})			
+	</script>
+
 </html>
